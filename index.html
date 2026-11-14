@@ -180,7 +180,6 @@
       position: fixed;
       inset: 0;
       z-index: 100;
-      /* ท้องฟ้าสดใสยามเช้าหน้าเสาธงโรงเรียนไทย */
       background: linear-gradient(180deg, #1e90ff 0%, #56b4ff 52%, #b5e4ff 100%);
       display: flex;
       flex-direction: column;
@@ -189,7 +188,6 @@
     }
     .lobby-fullscreen.hidden { display: none; }
 
-    /* ฉากโรงเรียนไทย + ธงชาติ + ครูและนักเรียนขยับได้ */
     .thai-school-scenery {
       position: fixed;
       inset: 0;
@@ -198,7 +196,6 @@
       overflow: hidden;
     }
 
-    /* ดวงอาทิตย์มาริโอ้ยามเช้า */
     .morning-sun {
       position: absolute;
       top: 84px;
@@ -222,7 +219,6 @@
     .l-cloud-1 { top: 14%; width: 118px; animation-duration: 34s; }
     .l-cloud-2 { top: 24%; width: 92px; animation-duration: 46s; animation-delay: -18s; }
 
-    /* พุ่มไม้มาริโอ้หน้าตึกเรียน */
     .lobby-bush {
       position: absolute;
       bottom: 64px;
@@ -232,7 +228,6 @@
     .l-bush-1 { left: 2%; width: 95px; }
     .l-bush-2 { right: 2%; width: 105px; animation-delay: 0.8s; }
 
-    /* ตึกเรียนโรงเรียนไทยพิกเซล 3 ชั้น หลังคาจั่ว */
     .thai-school-building {
       position: absolute;
       bottom: 64px;
@@ -242,7 +237,6 @@
       filter: drop-shadow(4px 4px 0 rgba(15, 23, 42, 0.35));
     }
 
-    /* เสาธงหน้าเสาธง + ธงชาติไทยโบกสะบัด */
     .thai-flagpole-wrap {
       position: absolute;
       bottom: 64px;
@@ -260,7 +254,6 @@
       to { transform: skewY(4deg) scaleX(1.04); }
     }
 
-    /* กลุ่มคุณครูและนักเรียนหน้าเสาธงขยับได้ */
     .school-characters-group {
       position: absolute;
       bottom: 64px;
@@ -287,11 +280,10 @@
       border: 1.5px solid #fff;
       white-space: nowrap;
     }
-    .char-label.teacher { background: #b45309; color: #fef08a; }
+    .char-label.teacher { background: #db2777; color: #fff; }
     .char-label.st-th { background: #1d4ed8; color: #fff; }
     .char-label.st-jp { background: #991b1b; color: #fef08a; }
 
-    /* คุณครูขยับท่าทางต้อนรับ */
     .teacher-sprite {
       width: 60px;
       height: 82px;
@@ -311,7 +303,6 @@
       to { transform: rotate(18deg); }
     }
 
-    /* นักเรียนกระโดดดึ๋งดั๋งหน้าเสาธง */
     .lobby-student-sprite {
       width: 52px;
       height: 72px;
@@ -325,7 +316,6 @@
       92% { transform: translateY(0); }
     }
 
-    /* พื้นลานหน้าเสาธง + หญ้าสีเขียวมาริโอ้ */
     .schoolyard-ground {
       position: absolute;
       bottom: 0; left: 0; right: 0;
@@ -520,7 +510,6 @@
       color: #3b1d00;
     }
 
-    /* แผงควบคุมเฉพาะ マイ先生 ด้านล่างของหน้า Lobby */
     .host-control-dock {
       position: fixed;
       bottom: 0; left: 0; right: 0;
@@ -909,14 +898,11 @@
 
       <!-- เสาธงโรงเรียนไทย + ธงไตรรงค์โบกสะบัด -->
       <svg class="thai-flagpole-wrap" viewBox="0 0 32 56" shape-rendering="crispEdges">
-        <!-- ฐานเสาธงปูน 3 ชั้น -->
         <rect x="4" y="52" width="24" height="4" fill="#cbd5e1" stroke="#334155" stroke-width="0.8"/>
         <rect x="7" y="48" width="18" height="4" fill="#e2e8f0" stroke="#334155" stroke-width="0.8"/>
         <rect x="10" y="44" width="12" height="4" fill="#f8fafc" stroke="#334155" stroke-width="0.8"/>
-        <!-- เสาธงสีขาว + ยอดเสาสีทอง -->
         <rect x="15" y="6" width="2" height="38" fill="#ffffff" stroke="#475569" stroke-width="0.5"/>
         <rect x="14.5" y="4" width="3" height="2.5" fill="#facc15"/>
-        <!-- ธงชาติไทย 5 แถบ (แดง-ขาว-น้ำเงิน-ขาว-แดง) โบกสะบัด -->
         <g class="thai-flag-wave">
           <rect x="17" y="7"  width="14" height="1.5" fill="#dc2626"/>
           <rect x="17" y="8.5" width="14" height="1.5" fill="#ffffff"/>
@@ -926,36 +912,46 @@
         </g>
       </svg>
 
-      <!-- คุณครูและนักเรียนหน้าเสาธงขยับได้ -->
+      <!-- คุณครูใส่ชุดเดรสสีชมพู + นักเรียนหน้าเสาธงขยับได้ -->
       <div class="school-characters-group">
-        <!-- คุณครูไทย (SENSEI) โบกมือทักทาย -->
+        <!-- คุณครู (SENSEI) ชุดเดรสสีชมพูพาสเทล โบกมือต้อนรับ -->
         <div class="char-box">
           <span class="char-label teacher">ครู / SENSEI</span>
           <svg class="teacher-sprite" viewBox="0 0 18 24" shape-rendering="crispEdges">
-            <!-- ผมมวย/ผมสั้นคุณครู -->
+            <!-- ผมคุณครู -->
             <rect x="6" y="0" width="6" height="2" fill="#1e1b18"/>
             <rect x="4" y="2" width="10" height="3" fill="#1e1b18"/>
             <!-- ใบหน้า -->
             <rect x="5" y="5" width="8" height="4" fill="#ffdbac"/>
             <rect x="6" y="6" width="1" height="2" fill="#111827"/>
             <rect x="11" y="6" width="1" height="2" fill="#111827"/>
-            <rect x="5" y="8" width="1" height="1" fill="#fda4af"/>
-            <rect x="12" y="8" width="1" height="1" fill="#fda4af"/>
-            <!-- ชุดคุณครูสีกากี/สูทครู -->
-            <rect x="4" y="9" width="10" height="7" fill="#d97706"/>
-            <rect x="8" y="9" width="2" height="5" fill="#fef3c7"/>
+            <rect x="5" y="8" width="1" height="1" fill="#fb7185"/>
+            <rect x="12" y="8" width="1" height="1" fill="#fb7185"/>
+
+            <!-- ชุดเดรสสีชมพู (ท่อนบน + ปกเสื้อสีขาว + เข็มขัดชมพูเข้ม) -->
+            <rect x="4" y="9" width="10" height="6" fill="#f472b6"/>
+            <rect x="7" y="9" width="4" height="2" fill="#ffffff"/>
+            <rect x="4" y="14" width="10" height="1" fill="#db2777"/>
+
             <!-- แขนซ้ายถือหนังสือเรียน -->
-            <rect x="2" y="10" width="2" height="5" fill="#d97706"/>
+            <rect x="2" y="10" width="2" height="4" fill="#f472b6"/>
             <rect x="1" y="13" width="4" height="3" fill="#2563eb"/>
+
             <!-- แขนขวาโบกมือต้อนรับ -->
             <g class="teacher-arm">
-              <rect x="14" y="9" width="2" height="3" fill="#d97706"/>
+              <rect x="14" y="9" width="2" height="3" fill="#f472b6"/>
               <rect x="14" y="6" width="2" height="3" fill="#ffdbac"/>
             </g>
-            <!-- กระโปรง/กางเกงครู -->
-            <rect x="4" y="16" width="10" height="5" fill="#78350f"/>
-            <rect x="5" y="21" width="3" height="3" fill="#111827"/>
-            <rect x="10" y="21" width="3" height="3" fill="#111827"/>
+
+            <!-- กระโปรงเดรสสีชมพูบานน่ารัก -->
+            <rect x="3" y="15" width="12" height="5" fill="#f472b6"/>
+            <rect x="3" y="19" width="12" height="1" fill="#fbcfe8"/>
+
+            <!-- ขาและรองเท้าคัทชู -->
+            <rect x="5" y="20" width="3" height="2" fill="#ffdbac"/>
+            <rect x="10" y="20" width="3" height="2" fill="#ffdbac"/>
+            <rect x="5" y="22" width="3" height="2" fill="#9d174d"/>
+            <rect x="10" y="22" width="3" height="2" fill="#9d174d"/>
           </svg>
         </div>
 
@@ -1000,42 +996,33 @@
 
       <!-- อาคารเรียนโรงเรียนไทยพิกเซล 3 ชั้น หลังคาจั่วกระเบื้องส้ม-แดง -->
       <svg class="thai-school-building" viewBox="0 0 64 50" shape-rendering="crispEdges">
-        <!-- หลังคาจั่วกลาง + หลังคาปีกซ้ายขวา -->
         <polygon points="32,2 18,12 46,12" fill="#ea580c" stroke="#7c2d12" stroke-width="1"/>
         <rect x="6" y="10" width="52" height="4" fill="#dc2626" stroke="#7f1d1d" stroke-width="0.8"/>
-        <!-- หน้าจั่วสีครีม + นาฬิกาตึกเรียน -->
         <polygon points="32,4 21,12 43,12" fill="#fef3c7"/>
         <circle cx="32" cy="9" r="2.2" fill="#ffffff" stroke="#1e293b" stroke-width="0.7"/>
         <line x1="32" y1="9" x2="32" y2="7.6" stroke="#0f172a" stroke-width="0.6"/>
         <line x1="32" y1="9" x2="33.2" y2="9" stroke="#0f172a" stroke-width="0.6"/>
 
-        <!-- ตัวอาคารเรียนสีครีม-เหลืองนวล -->
         <rect x="8" y="14" width="48" height="36" fill="#fef9c3" stroke="#92400e" stroke-width="1"/>
-        <!-- ระเบียงทางเดินแต่ละชั้น -->
         <rect x="8" y="25" width="48" height="2" fill="#d97706"/>
         <rect x="8" y="37" width="48" height="2" fill="#d97706"/>
 
-        <!-- หน้าต่างห้องเรียนชั้น 3 -->
         <rect x="12" y="17" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="21" y="17" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="37" y="17" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="46" y="17" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
 
-        <!-- หน้าต่างห้องเรียนชั้น 2 -->
         <rect x="12" y="29" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="21" y="29" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="37" y="29" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="46" y="29" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
 
-        <!-- ประตูทางเข้าตึกเรียนตรงกลาง -->
         <rect x="28" y="39" width="8" height="11" fill="#78350f"/>
         <rect x="31.5" y="39" width="1" height="11" fill="#fef08a"/>
-        <!-- หน้าต่างชั้น 1 -->
         <rect x="12" y="41" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
         <rect x="46" y="41" width="6" height="6" fill="#38bdf8" stroke="#78350f" stroke-width="0.7"/>
       </svg>
 
-      <!-- พื้นลานหน้าเสาธง -->
       <div class="schoolyard-ground"></div>
     </div>
 
@@ -1050,7 +1037,6 @@
       </div>
     </div>
 
-    <!-- ช่องกรอกชื่อเข้าห้อง (ไม่มีอีโมจิ) -->
     <div class="lobby-join-bar" id="join-bar">
       <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / ENTER NICKNAME..." maxlength="16" />
       <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 24px;" onclick="joinWaitingRoom()">
@@ -1058,7 +1044,6 @@
       </button>
     </div>
 
-    <!-- พื้นที่โชว์การ์ดผู้เล่นที่นั่งรอในห้อง -->
     <div class="lobby-arena">
       <div class="lobby-status-banner" id="lobby-status-text">
         WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
@@ -1066,7 +1051,6 @@
       <div class="blooket-players-grid" id="blooket-players-grid"></div>
     </div>
 
-    <!-- แผงกด START ด้านล่าง (จะโชว์เฉพาะคนที่ตั้งชื่อว่า マイ先生 เท่านั้น!) -->
     <div class="host-control-dock" id="host-control-dock">
       <div class="mode-pill-group">
         <button type="button" class="mode-pill selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
@@ -1154,7 +1138,6 @@
     <button class="mario-btn secondary" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">RETURN ALL TO LOBBY</button>
   </div>
 
-  <!-- หน้าต่างสรุปผลผู้ชนะ -->
   <div class="modal-backdrop" id="clear-modal">
     <div class="modal-box">
       <div class="modal-title" id="modal-title">COURSE CLEAR!</div>
