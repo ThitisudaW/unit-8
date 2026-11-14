@@ -50,7 +50,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= ฉากหลังมาริโอ้ขยับได้ (แสดงทั้งหน้า Lobby และหน้าเกม) ================= */
+    /* ================= ฉากหลังหน้าเกมหลัก (Sky & Hills) ================= */
     .mario-scenery {
       position: fixed;
       inset: 0;
@@ -68,9 +68,7 @@
         radial-gradient(2px 2px at 38% 19%, #ffffff, transparent),
         radial-gradient(3px 3px at 56% 11%, #a5f3fc, transparent),
         radial-gradient(2px 2px at 74% 16%, #ffffff, transparent),
-        radial-gradient(3px 3px at 89% 10%, #ffe066, transparent),
-        radial-gradient(2px 2px at 48% 28%, #fbcfe8, transparent),
-        radial-gradient(2px 2px at 82% 29%, #ffffff, transparent);
+        radial-gradient(3px 3px at 89% 10%, #ffe066, transparent);
       animation: twinkle 2.4s infinite alternate ease-in-out;
     }
     @keyframes twinkle { 0% { opacity: 0.5; } 100% { opacity: 1; } }
@@ -83,7 +81,6 @@
     }
     .cloud-a { top: 12%; width: 125px; animation-duration: 36s; }
     .cloud-b { top: 22%; width: 95px; animation-duration: 48s; animation-delay: -18s; }
-    .cloud-c { top: 15%; width: 110px; animation-duration: 42s; animation-delay: -29s; }
     @keyframes floatCloud {
       from { transform: translateX(-160px); }
       to { transform: translateX(calc(100vw + 180px)); }
@@ -96,67 +93,22 @@
       border: 4px solid #041f10;
       border-bottom: none;
       border-radius: 50% 50% 0 0 / 85% 85% 0 0;
-      box-shadow: inset 8px 8px 0 rgba(255,255,255,0.16);
     }
-    .hill::before, .hill::after {
-      content: "";
-      position: absolute;
-      width: 14px;
-      height: 24px;
-      background: #062b16;
-      border-radius: 8px;
-      opacity: 0.65;
-    }
-    .hill::before { top: 28%; left: 34%; }
-    .hill::after { top: 42%; right: 32%; }
-
     .hill-1 { left: -30px; width: 250px; height: 190px; }
     .hill-2 { left: 24%; width: 160px; height: 115px; opacity: 0.9; }
     .hill-3 { right: 14%; width: 290px; height: 215px; }
 
-    /* พุ่มไม้มาริโอ้ขยับดุ๊กดิ๊ก + ดวงตาน่ารัก */
     .mario-bush {
       position: absolute;
       bottom: 64px;
       transform-origin: bottom center;
       animation: bushWobble 2.2s infinite ease-in-out;
-      filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.4));
     }
-    .bush-left { left: 17%; width: 115px; animation-delay: 0s; }
-    .bush-mid { left: 48%; width: 145px; animation-delay: 0.7s; }
-    .bush-right { right: 16%; width: 105px; animation-delay: 1.4s; }
-
+    .bush-left { left: 17%; width: 115px; }
+    .bush-right { right: 16%; width: 105px; animation-delay: 1s; }
     @keyframes bushWobble {
-      0%, 100% { transform: scaleY(1) scaleX(1) rotate(0deg); }
-      25% { transform: scaleY(1.06) scaleX(0.97) rotate(-1.5deg); }
-      50% { transform: scaleY(0.96) scaleX(1.03) rotate(0deg); }
-      75% { transform: scaleY(1.05) scaleX(0.98) rotate(1.5deg); }
-    }
-
-    /* เหรียญทองหมุนลอยเหนือพุ่มไม้ */
-    .floating-coin {
-      position: absolute;
-      bottom: 145px;
-      width: 22px;
-      height: 28px;
-      background: linear-gradient(135deg, #fff08a, #ffca28, #d98200);
-      border: 3px solid #452300;
-      border-radius: 50%;
-      animation: coinBounce 1.4s infinite ease-in-out;
-    }
-    .floating-coin::after {
-      content: "";
-      position: absolute;
-      top: 4px; left: 6px; width: 4px; height: 14px;
-      background: #783f00; border-radius: 2px;
-    }
-    .coin-1 { left: 52%; animation-delay: 0s; }
-    .coin-2 { left: 56%; animation-delay: 0.25s; }
-    .coin-3 { left: 60%; animation-delay: 0.5s; }
-
-    @keyframes coinBounce {
-      0%, 100% { transform: translateY(0) scaleX(1); }
-      50% { transform: translateY(-14px) scaleX(0.35); }
+      0%, 100% { transform: scaleY(1) scaleX(1); }
+      50% { transform: scaleY(1.06) scaleX(0.97); }
     }
 
     .warp-pipe {
@@ -223,12 +175,18 @@
       border-top: 4px solid #052e16;
     }
 
-    /* ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY (โปร่งใสโชว์ฉากมาริโอ้ด้านหลัง) ================= */
+    /* ================= หน้าจอ FULL-SCREEN LOBBY (พื้นหลังโทนปราสาท/ใต้ดิน 8-Bit แยกจากหน้าเกม) ================= */
     .lobby-fullscreen {
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: rgba(5, 10, 26, 0.32);
+      /* พื้นหลังลายกำแพงปราสาท/ใต้ดินโทนม่วงกรมท่าเข้ม ไม่เห็นกระดานเกมด้านหลัง */
+      background-color: #131129;
+      background-image:
+        radial-gradient(circle at 50% 20%, rgba(79, 70, 229, 0.28) 0%, transparent 65%),
+        linear-gradient(90deg, rgba(0, 0, 0, 0.42) 3px, transparent 3px),
+        linear-gradient(0deg, rgba(0, 0, 0, 0.42) 3px, transparent 3px);
+      background-size: 100% 100%, 64px 32px, 64px 32px;
       display: flex;
       flex-direction: column;
       overflow-y: auto;
@@ -236,9 +194,58 @@
     }
     .lobby-fullscreen.hidden { display: none; }
 
+    /* พื้นอิฐสีฟ้าสไตล์ด่านใต้ดินด้านล่างของ Lobby */
+    .lobby-underground-floor {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      height: 54px;
+      background-color: #1e3a8a;
+      background-image:
+        linear-gradient(180deg, #93c5fd 0px, #93c5fd 5px, #2563eb 5px, #2563eb 12px, #0f172a 12px, #0f172a 16px, transparent 16px),
+        linear-gradient(90deg, rgba(15, 23, 42, 0.7) 3px, transparent 3px),
+        linear-gradient(0deg, rgba(15, 23, 42, 0.7) 3px, transparent 3px);
+      background-size: 100% 100%, 32px 19px, 32px 19px;
+      border-top: 4px solid #090d16;
+      pointer-events: none;
+      z-index: 101;
+    }
+
+    /* ของตกแต่งขยับได้ในหน้า Lobby (บล็อก ? เด้งได้ + คบเพลิงวิบวับ) */
+    .lobby-decor-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 28px;
+      margin-top: 16px;
+    }
+
+    .lobby-q-block {
+      width: 44px;
+      height: 44px;
+      background: linear-gradient(135deg, #fff08a, #ffca28, #d98200);
+      border: 4px solid #452300;
+      border-radius: 6px;
+      box-shadow: inset 3px 3px 0 rgba(255,255,255,0.7), 0 4px 0 #2b1600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 18px;
+      color: #fffbe6;
+      text-shadow: 2px 2px 0 #783f00;
+      animation: blockHop 1.8s infinite ease-in-out;
+    }
+    .lobby-q-block:nth-child(2) { animation-delay: 0.3s; }
+    .lobby-q-block:nth-child(3) { animation-delay: 0.6s; }
+
+    @keyframes blockHop {
+      0%, 70%, 100% { transform: translateY(0); }
+      82% { transform: translateY(-10px); }
+      92% { transform: translateY(2px); }
+    }
+
     .lobby-topbar {
-      background: rgba(8, 14, 36, 0.9);
-      backdrop-filter: blur(6px);
+      background: #0b0a1c;
       border-bottom: 4px solid var(--q-gold);
       padding: 14px 24px;
       display: flex;
@@ -246,10 +253,12 @@
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.7);
+      position: relative;
+      z-index: 102;
     }
 
-    .lobby-brand { display: flex; flex-direction: column; gap: 4px; }
+    .lobby-brand { display: flex; flex-direction: column; gap: 5px; }
     .lobby-brand-title {
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(14px, 2.2vw, 20px);
@@ -260,16 +269,16 @@
       font-family: 'M PLUS Rounded 1c', sans-serif;
       font-size: 12px;
       font-weight: 800;
-      color: #93c5fd;
+      color: #a5b4fc;
     }
 
     .lobby-counter-pill {
-      background: #1e3a8a;
-      border: 3px solid #60a5fa;
+      background: #1e1b4b;
+      border: 3px solid #818cf8;
       padding: 10px 18px;
-      border-radius: 12px;
+      border-radius: 10px;
       font-family: 'Press Start 2P', monospace;
-      font-size: 13px;
+      font-size: 12px;
       color: #fff;
       display: flex;
       align-items: center;
@@ -277,20 +286,21 @@
     }
 
     .lobby-join-bar {
-      max-width: 720px;
+      max-width: 700px;
       width: 92%;
-      margin: 20px auto 10px;
-      background: rgba(11, 21, 48, 0.88);
-      backdrop-filter: blur(6px);
+      margin: 18px auto 10px;
+      background: #1c193d;
       border: 4px solid var(--q-gold);
-      border-radius: 16px;
+      border-radius: 14px;
       padding: 16px 20px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.65);
+      position: relative;
+      z-index: 102;
     }
 
     .name-input {
@@ -301,9 +311,9 @@
       font-size: 18px;
       font-weight: 800;
       text-align: center;
-      border-radius: 12px;
-      border: 4px solid #60a5fa;
-      background: #070d1f;
+      border-radius: 10px;
+      border: 4px solid #818cf8;
+      background: #0d0c21;
       color: #fff;
       outline: none;
       user-select: text;
@@ -318,48 +328,50 @@
       max-width: 1120px;
       width: 94%;
       margin: 12px auto;
-      background: rgba(8, 15, 38, 0.72);
-      backdrop-filter: blur(4px);
-      border: 4px solid rgba(96, 165, 250, 0.45);
-      border-radius: 20px;
-      padding: 20px 24px;
+      background: rgba(15, 13, 36, 0.85);
+      border: 4px solid #3730a3;
+      border-radius: 18px;
+      padding: 22px 24px;
       display: flex;
       flex-direction: column;
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.6);
+      position: relative;
+      z-index: 102;
     }
 
     .lobby-status-banner {
       text-align: center;
       font-family: 'Press Start 2P', 'M PLUS Rounded 1c', sans-serif;
-      font-size: clamp(11px, 1.7vw, 14px);
+      font-size: clamp(11px, 1.6vw, 13px);
       color: #4ade80;
-      margin-bottom: 18px;
-      text-shadow: 2px 2px 0 #000;
+      margin-bottom: 20px;
+      letter-spacing: 0.5px;
       animation: pulseText 1.6s infinite alternate ease-in-out;
     }
-    @keyframes pulseText { from { opacity: 0.75; } to { opacity: 1; } }
+    @keyframes pulseText { from { opacity: 0.7; } to { opacity: 1; } }
 
     .blooket-players-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(170px, 1fr));
       gap: 14px;
       align-content: start;
     }
 
+    /* การ์ดผู้เล่นใน Lobby (ไม่มีอีโมจิ ใช้ป้ายรหัสผู้เล่นสไตล์ 8-bit) */
     .blook-card {
-      background: linear-gradient(180deg, rgba(30, 58, 138, 0.95) 0%, rgba(23, 37, 84, 0.95) 100%);
-      border: 4px solid #60a5fa;
-      border-radius: 16px;
-      padding: 14px 10px;
+      background: linear-gradient(180deg, #252159 0%, #191640 100%);
+      border: 4px solid #6366f1;
+      border-radius: 14px;
+      padding: 16px 12px;
       text-align: center;
-      box-shadow: 0 6px 0 #0b132b;
+      box-shadow: 0 6px 0 #0c0a24;
       animation: popBlook 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
     }
 
     .blook-card.is-host {
-      background: linear-gradient(180deg, rgba(153, 27, 27, 0.95) 0%, rgba(69, 10, 10, 0.95) 100%);
+      background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%);
       border-color: var(--q-gold);
-      box-shadow: 0 6px 0 #290505, 0 0 20px rgba(255, 202, 40, 0.45);
+      box-shadow: 0 6px 0 #260505, 0 0 20px rgba(255, 202, 40, 0.4);
     }
 
     .blook-card.is-me {
@@ -368,25 +380,54 @@
     }
 
     @keyframes popBlook {
-      from { transform: scale(0.6) translateY(15px); opacity: 0; }
+      from { transform: scale(0.65) translateY(12px); opacity: 0; }
       to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
-    .blook-avatar { font-size: 36px; margin-bottom: 6px; display: block; }
-    .blook-name { font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 900; font-size: 16px; color: #fff; word-break: break-word; }
-    .blook-role-tag {
-      display: inline-block; margin-top: 6px;
-      font-family: 'Press Start 2P', monospace; font-size: 8px;
-      padding: 3px 7px; border-radius: 6px;
-      background: rgba(0, 0, 0, 0.45); color: #93c5fd;
+    .blook-badge-num {
+      display: inline-block;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 12px;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: #0d0c21;
+      border: 2px solid #818cf8;
+      color: #a5b4fc;
+      margin-bottom: 10px;
     }
-    .blook-card.is-host .blook-role-tag { background: var(--q-gold); color: #3b1d00; }
+    .blook-card.is-host .blook-badge-num {
+      border-color: var(--q-gold);
+      color: var(--q-gold);
+    }
+
+    .blook-name {
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-weight: 900;
+      font-size: 17px;
+      color: #fff;
+      word-break: break-word;
+    }
+
+    .blook-role-tag {
+      display: inline-block;
+      margin-top: 8px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 4px 8px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      color: #c7d2fe;
+    }
+    .blook-card.is-host .blook-role-tag {
+      background: var(--q-gold);
+      color: #3b1d00;
+    }
 
     /* แผงควบคุมเฉพาะ マイ先生 ด้านล่างของหน้า Lobby */
     .host-control-dock {
       position: fixed;
       bottom: 0; left: 0; right: 0;
-      background: rgba(10, 17, 40, 0.96);
+      background: #0b0a1c;
       border-top: 4px solid var(--q-gold);
       padding: 14px 20px;
       display: none;
@@ -395,17 +436,17 @@
       justify-content: center;
       gap: 12px;
       z-index: 120;
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.8);
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.85);
     }
     .host-control-dock.visible { display: flex; }
 
     .mode-pill-group { display: flex; gap: 8px; }
     .mode-pill {
       padding: 10px 14px; border-radius: 10px;
-      border: 3px solid #3b76bd; background: #0f1f40; color: #cbd5e1;
+      border: 3px solid #4f46e5; background: #1e1b4b; color: #cbd5e1;
       font-family: 'DotGothic16', sans-serif; font-size: 13px; cursor: pointer;
     }
-    .mode-pill.selected { background: #1d4ed8; border-color: var(--q-gold); color: #fff; }
+    .mode-pill.selected { background: #3730a3; border-color: var(--q-gold); color: #fff; }
 
     /* ================= หน้าด่านเล่นเกม ================= */
     .hud, .header, .stage-bar, .game-layout, .controls {
@@ -661,11 +702,10 @@
 </head>
 <body>
 
-  <!-- ================= ฉากหลังมาริโอ้ขยับได้ (พุ่มไม้ขยับ + เหรียญหมุน + นักเรียน 2 โรงเรียน) ================= -->
+  <!-- ================= ฉากหลังหน้าเกมหลัก ================= -->
   <div class="mario-scenery" aria-hidden="true">
     <div class="stars"></div>
 
-    <!-- ก้อนเมฆยิ้ม -->
     <svg class="kawaii-cloud cloud-a" viewBox="0 0 32 16" shape-rendering="crispEdges">
       <path d="M10 2h8v2h4v2h4v2h2v4h-2v2H6v-2H4V8h2V6h4V2z" fill="#e0f2fe"/>
       <path d="M10 3h8v2h4v2h4v4H6V7h4V5h0V3z" fill="#ffffff"/>
@@ -678,50 +718,26 @@
       <rect x="12" y="7" width="1.5" height="3" fill="#1e3a8a"/><rect x="18" y="7" width="1.5" height="3" fill="#1e3a8a"/>
       <rect x="10" y="9" width="2" height="1" fill="#fda4af"/><rect x="19" y="9" width="2" height="1" fill="#fda4af"/>
     </svg>
-    <svg class="kawaii-cloud cloud-c" viewBox="0 0 32 16" shape-rendering="crispEdges">
-      <path d="M10 2h8v2h4v2h4v2h2v4h-2v2H6v-2H4V8h2V6h4V2z" fill="#e0f2fe"/>
-      <path d="M10 3h8v2h4v2h4v4H6V7h4V5h0V3z" fill="#ffffff"/>
-      <rect x="12" y="7" width="1.5" height="3" fill="#1e3a8a"/><rect x="18" y="7" width="1.5" height="3" fill="#1e3a8a"/>
-      <rect x="10" y="9" width="2" height="1" fill="#fda4af"/><rect x="19" y="9" width="2" height="1" fill="#fda4af"/>
-    </svg>
 
     <div class="hill hill-1"></div>
     <div class="hill hill-2"></div>
     <div class="hill hill-3"></div>
 
-    <!-- พุ่มไม้มาริโอ้ขยับได้ 3 พุ่ม -->
     <svg class="mario-bush bush-left" viewBox="0 0 32 16" shape-rendering="crispEdges">
       <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
       <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#22c55e"/>
       <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#86efac"/>
-      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
-      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/><rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
     </svg>
-
-    <svg class="mario-bush bush-mid" viewBox="0 0 32 16" shape-rendering="crispEdges">
-      <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
-      <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#16a34a"/>
-      <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#4ade80"/>
-      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
-      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
-    </svg>
-
     <svg class="mario-bush bush-right" viewBox="0 0 32 16" shape-rendering="crispEdges">
       <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
       <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#22c55e"/>
       <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#86efac"/>
-      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
-      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/><rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
     </svg>
-
-    <!-- เหรียญทองหมุนลอย -->
-    <div class="floating-coin coin-1"></div>
-    <div class="floating-coin coin-2"></div>
-    <div class="floating-coin coin-3"></div>
 
     <div class="warp-pipe"></div>
 
-    <!-- คู่ตัวการ์ตูนนักเรียน สาธิตปทุมวัน & Meikei -->
     <div class="student-duo" id="student-duo">
       <div class="student-unit patumwan">
         <span class="school-tag patumwan">ป.ว. PATUMWAN</span>
@@ -762,48 +778,59 @@
     <div class="mario-ground"></div>
   </div>
 
-  <!-- ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= -->
+  <!-- ================= หน้าจอ FULL-SCREEN LOBBY (พื้นหลังปราสาท/ใต้ดิน 8-Bit แยกต่างหาก) ================= -->
   <div class="lobby-fullscreen" id="lobby-screen">
     <div class="lobby-topbar">
       <div class="lobby-brand">
         <div class="lobby-brand-title">SUPER NIHONGO LOBBY</div>
-        <div class="lobby-brand-sub">🇹🇭 SATIT PATUMWAN × MEIKEI HIGH SCHOOL 🇯🇵</div>
+        <div class="lobby-brand-sub">SATIT PATUMWAN × MEIKEI HIGH SCHOOL</div>
       </div>
       <div class="lobby-counter-pill">
-        <span>👥 PLAYERS:</span>
+        <span>PLAYERS:</span>
         <span id="lobby-count" style="color:var(--q-gold);">0</span>
       </div>
     </div>
 
+    <!-- บล็อก ? เด้งดึ๋งน่ารักสไตล์ 8-bit -->
+    <div class="lobby-decor-row" aria-hidden="true">
+      <div class="lobby-q-block">?</div>
+      <div class="lobby-q-block">?</div>
+      <div class="lobby-q-block">?</div>
+    </div>
+
+    <!-- ช่องกรอกชื่อเข้าห้อง (ไม่มีอีโมจิ) -->
     <div class="lobby-join-bar" id="join-bar">
       <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / ENTER NICKNAME..." maxlength="16" />
-      <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 22px;" onclick="joinWaitingRoom()">
-        🙋‍♂️ JOIN LOBBY
+      <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 24px;" onclick="joinWaitingRoom()">
+        JOIN LOBBY
       </button>
     </div>
 
+    <!-- พื้นที่โชว์การ์ดผู้เล่นที่นั่งรอในห้อง -->
     <div class="lobby-arena">
       <div class="lobby-status-banner" id="lobby-status-text">
-        ⏳ WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
+        WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
       </div>
       <div class="blooket-players-grid" id="blooket-players-grid"></div>
     </div>
+
+    <div class="lobby-underground-floor" aria-hidden="true"></div>
 
     <!-- แผงกด START ด้านล่าง (จะโชว์เฉพาะคนที่ตั้งชื่อว่า マイ先生 เท่านั้น!) -->
     <div class="host-control-dock" id="host-control-dock">
       <div class="mode-pill-group">
         <button type="button" class="mode-pill selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
-          🏁 STAGE MODE (8語)
+          STAGE MODE (8語)
         </button>
         <button type="button" class="mode-pill" id="mode-all-btn" onclick="selectGameMode('all')">
-          🔥 ALL 41 WORDS
+          ALL 41 WORDS
         </button>
       </div>
       <button class="mario-btn" style="font-size:14px; padding:15px 26px;" onclick="hostStartAllPlayers()">
-        ▶ START GAME FOR EVERYONE!
+        START GAME FOR EVERYONE
       </button>
       <button class="mario-btn danger" style="font-size:11px; padding:15px 14px;" onclick="resetRoomLobby()">
-        🗑 CLEAR ROOM
+        CLEAR ROOM
       </button>
     </div>
   </div>
@@ -835,8 +862,8 @@
   <div class="header">
     <h1 class="title">SUPER NIHONGO FLIP</h1>
     <div class="legend">
-      <span class="badge jp">🟣 ことば (KANJI / KATAKANA)</span>
-      <span class="badge thai">🟢 いみ (MEANING)</span>
+      <span class="badge jp">ことば (KANJI / KATAKANA)</span>
+      <span class="badge thai">いみ (MEANING)</span>
     </div>
   </div>
 
@@ -848,10 +875,10 @@
     <aside class="side-panel">
       <div class="side-tabs">
         <button class="side-tab-btn active" id="tab-live-btn" onclick="switchSideTab('live')">
-          ⏱ LIVE TIMES<br><span style="font-size:8px;">เวลาผู้เล่นทุกคน</span>
+          LIVE TIMES<br><span style="font-size:8px;">เวลาผู้เล่นทุกคน</span>
         </button>
         <button class="side-tab-btn" id="tab-deck-btn" onclick="switchSideTab('deck')">
-          ★ MY DECK (<span id="deck-count">0/8</span>)<br><span style="font-size:8px;">การ์ดที่เก็บได้</span>
+          MY DECK (<span id="deck-count">0/8</span>)<br><span style="font-size:8px;">การ์ดที่เก็บได้</span>
         </button>
       </div>
 
@@ -865,7 +892,7 @@
         <div class="collected-list" id="collected-list">
           <div class="empty-deck-hint" id="empty-hint">
             まだカードがありません<br>
-            <span style="font-size:12px;">MATCH CARDS TO MOVE THEM HERE!</span>
+            <span style="font-size:12px;">MATCH 2 CARDS TO MOVE THEM HERE!</span>
           </div>
         </div>
       </div>
@@ -873,8 +900,8 @@
   </div>
 
   <div class="controls">
-    <button class="mario-btn secondary" onclick="openLeaderboardOnly()">🏆 FINAL RANKING</button>
-    <button class="mario-btn secondary" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">🚪 RETURN ALL TO LOBBY</button>
+    <button class="mario-btn secondary" onclick="openLeaderboardOnly()">FINAL RANKING</button>
+    <button class="mario-btn secondary" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">RETURN ALL TO LOBBY</button>
   </div>
 
   <!-- หน้าต่างสรุปผลผู้ชนะ -->
@@ -888,8 +915,8 @@
       </div>
 
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-        <button class="mario-btn" onclick="document.getElementById('clear-modal').classList.remove('show')">👀 ดูเวลาเพื่อนต่อ</button>
-        <button class="mario-btn secondary" id="modal-host-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">🚪 พาทุกคนกลับห้อง Lobby</button>
+        <button class="mario-btn" onclick="document.getElementById('clear-modal').classList.remove('show')">ดูเวลาเพื่อนต่อ</button>
+        <button class="mario-btn secondary" id="modal-host-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">พาทุกคนกลับห้อง Lobby</button>
       </div>
     </div>
   </div>
@@ -902,7 +929,6 @@
     const FIREBASE_DB_URL = "DATABASE_URL_HERE";
 
     const HOST_SECRET_NAME = "マイ先生";
-    const BLOOK_AVATARS = ["🍄", "⭐", "🔥", "🐢", "🌸", "🦊", "🐱", "🐼", "🍙", "🍡", "🎌", "👑"];
 
     let db = null;
     let isFirebaseReady = false;
@@ -913,7 +939,6 @@
       isFirebaseReady = true;
     }
 
-    // คำศัพท์ทั้งหมด 41 คำ (ใช้ คันจิ หรือ คาตาคานะ คู่กับ ความหมายภาษาไทย)
     const ALL_VOCAB = [
       { id: 1,  jp: "ハンサム",        thai: "หล่อ" },
       { id: 2,  jp: "綺麗",            thai: "สวย / สะอาด" },
@@ -961,7 +986,6 @@
       { id: 41, jp: "薄い",            thai: "จืด / จาง / บาง" }
     ];
 
-    // ด่านละ 8 คำ (= 16 ใบต่อกระดาน)
     const STAGE_SIZE = 8;
     const STAGES = [];
     for (let i = 0; i < ALL_VOCAB.length; i += STAGE_SIZE) {
@@ -969,7 +993,6 @@
     }
 
     const myPlayerId = "p_" + Math.random().toString(36).substring(2, 9);
-    const myAvatar = BLOOK_AVATARS[Math.floor(Math.random() * BLOOK_AVATARS.length)];
     let playerName = "";
     let isHostSensei = false;
     let hasJoined = false;
@@ -1039,7 +1062,7 @@
     function joinWaitingRoom() {
       const input = document.getElementById('player-name-input').value.trim();
       if (!input) {
-        alert("なまえをいれてください / กรุณากรอกชื่อก่อนเข้าห้องครับ!");
+        alert("なまえをいれてください / กรุณากรอกชื่อก่อนเข้าห้องครับ");
         return;
       }
       playerName = input;
@@ -1047,19 +1070,18 @@
       checkHostPrivilege(playerName);
 
       document.getElementById('hud-player').textContent = playerName;
-      document.getElementById('join-btn').textContent = "✅ IN LOBBY!";
+      document.getElementById('join-btn').textContent = "IN LOBBY";
       document.getElementById('join-btn').style.background = "#059669";
 
       if (isHostSensei) {
         document.getElementById('lobby-status-text').textContent =
-          "👑 ようこそ マイ先生！みんながそろったら START を押してください！";
+          "ようこそ マイ先生！みんながそろったら START を押してください！";
       }
 
       if (isFirebaseReady) {
         const playerRef = db.ref(`room/players/${myPlayerId}`);
         playerRef.set({
           name: playerName,
-          avatar: isHostSensei ? "👑" : myAvatar,
           isHost: isHostSensei,
           matched: 0,
           score: 0,
@@ -1070,7 +1092,6 @@
       } else {
         livePlayersData[myPlayerId] = {
           name: playerName,
-          avatar: isHostSensei ? "👑" : myAvatar,
           isHost: isHostSensei,
           matched: 0,
           score: 0,
@@ -1119,7 +1140,7 @@
         });
       }
       hasJoined = false;
-      document.getElementById('join-btn').textContent = "🙋‍♂️ JOIN LOBBY";
+      document.getElementById('join-btn').textContent = "JOIN LOBBY";
       document.getElementById('join-btn').style.background = "";
     }
 
@@ -1200,16 +1221,16 @@
         return;
       }
 
-      grid.innerHTML = entries.map(([pid, p]) => {
+      grid.innerHTML = entries.map(([pid, p], idx) => {
         const isMe = pid === myPlayerId ? ' is-me' : '';
         const isHost = p.isHost || p.name === HOST_SECRET_NAME;
         const hostClass = isHost ? ' is-host' : '';
-        const roleText = isHost ? 'HOST / SENSEI' : 'CHALLENGER';
-        const avatarIcon = p.avatar || (isHost ? '👑' : '🍄');
+        const badgeText = isHost ? 'HOST' : `${idx + 1}P`;
+        const roleText = isHost ? 'SENSEI' : 'PLAYER';
 
         return `
           <div class="blook-card${hostClass}${isMe}">
-            <span class="blook-avatar">${avatarIcon}</span>
+            <span class="blook-badge-num">${badgeText}</span>
             <div class="blook-name">${escapeHtml(p.name)}</div>
             <span class="blook-role-tag">${roleText}</span>
           </div>
@@ -1235,12 +1256,12 @@
         const isMe = pid === myPlayerId;
         const pTime = p.finished ? p.finishTimeMs : (now - roomStartTime);
         const pct = Math.min(100, Math.round(((p.matched || 0) / totalTarget) * 100));
-        const statusIcon = p.finished ? `👑 #${idx + 1} FINISHED` : `⏳ PLAYING (${p.matched || 0}/${totalTarget})`;
+        const statusIcon = p.finished ? `#${idx + 1} FINISHED` : `PLAYING (${p.matched || 0}/${totalTarget})`;
 
         return `
           <div class="live-row ${p.finished ? 'finished' : ''} ${isMe ? 'is-me' : ''}">
             <div class="live-top">
-              <span class="live-name">${isMe ? '★ ' : ''}${escapeHtml(p.name)}</span>
+              <span class="live-name">${isMe ? '[YOU] ' : ''}${escapeHtml(p.name)}</span>
               <span class="live-clock">${formatTime(pTime)}</span>
             </div>
             <div class="progress-bar-bg">
@@ -1293,7 +1314,7 @@
         btn.className = 'stage-btn' +
           (idx === currentStageIndex ? ' active' : '') +
           (clearedStages.has(idx) ? ' cleared' : '');
-        btn.textContent = `1-${idx + 1}` + (clearedStages.has(idx) ? ' ★' : '');
+        btn.textContent = `1-${idx + 1}` + (clearedStages.has(idx) ? ' *' : '');
         btn.onclick = () => {
           if (gameMode === 'stage') loadStage(idx);
         };
@@ -1321,7 +1342,6 @@
       const vocabList = STAGES[index];
       let cardsData = [];
 
-      // สร้างการ์ด 2 ใบต่อคำ: 1. คันจิ/คาตาคานะ 2. ความหมายภาษาไทย
       vocabList.forEach(item => {
         cardsData.push({ vocabId: item.id, type: 'jp', label: 'ことば', text: item.jp });
         cardsData.push({ vocabId: item.id, type: 'thai', label: 'いみ', text: item.thai });
@@ -1384,7 +1404,6 @@
       if (flippedCards.length === 2) {
         const [c1, c2] = flippedCards;
         if (c1.dataset.vocabId === c2.dataset.vocabId) {
-          // จับคู่ 2 ใบถูกต้อง!
           lockBoard = true;
           sfxCoin();
           triggerStudentsJump();
@@ -1405,7 +1424,7 @@
             [c1, c2].forEach(c => {
               const emptySlot = document.createElement('div');
               emptySlot.className = 'card-slot-empty';
-              emptySlot.textContent = '★';
+              emptySlot.textContent = '*';
               c.replaceWith(emptySlot);
             });
 
@@ -1420,7 +1439,6 @@
             }
           }, 640);
         } else {
-          // จับคู่ผิด
           lockBoard = true;
           sfxWrong();
           setTimeout(() => {
@@ -1475,11 +1493,11 @@
 
       const lbList = document.getElementById('lb-list');
       lbList.innerHTML = entries.map(([, p], idx) => {
-        const medal = idx === 0 ? '👑' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+        const rankLabel = idx === 0 ? '1ST' : idx === 1 ? '2ND' : idx === 2 ? '3RD' : `#${idx + 1}`;
         const timeText = p.finished ? formatTime(p.finishTimeMs) : 'PLAYING...';
         return `
           <div class="lb-row">
-            <span class="lb-rank">${medal}</span>
+            <span class="lb-rank">${rankLabel}</span>
             <span class="lb-name">${escapeHtml(p.name)}</span>
             <span class="lb-time">${timeText}</span>
             <span class="lb-pts">${p.score || 0}p</span>
@@ -1487,7 +1505,7 @@
         `;
       }).join('');
 
-      document.getElementById('modal-title').textContent = myFinishTimeMs !== null ? "COURSE CLEAR! 🏆" : "LIVE RANKING 🏆";
+      document.getElementById('modal-title').textContent = myFinishTimeMs !== null ? "COURSE CLEAR!" : "LIVE RANKING";
       document.getElementById('clear-modal').classList.add('show');
     }
 
