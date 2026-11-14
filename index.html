@@ -500,7 +500,7 @@
     }
 
     .lobby-join-bar {
-      max-width: 700px;
+      max-width: 760px;
       width: 92%;
       margin: 18px auto 10px;
       background: rgba(15, 23, 42, 0.9);
@@ -663,7 +663,7 @@
     }
     .mode-pill.selected { background: #1d4ed8; border-color: var(--q-gold); color: #fff; }
 
-    /* ================= หน้าด่านเล่นเกม (Responsive เต็มรูปแบบสำหรับมือถือและคอม) ================= */
+    /* ================= หน้าด่านเล่นเกม ================= */
     .hud, .header, .stage-bar, .game-layout, .controls {
       position: relative;
       z-index: 5;
@@ -880,7 +880,6 @@
       font-size: clamp(11px, 3.1vw, 18px);
     }
 
-    /* ปรับแต่งเฉพาะหน้าจอมือถือแนวตั้งให้พอดีเป๊ะ ไม่เบียด ไม่ล้น */
     @media (max-width: 540px) {
       .board {
         gap: 6px;
@@ -1157,7 +1156,6 @@
       </svg>
 
       <div class="school-characters-group">
-        <!-- คุณครูชุดเดรสสีชมพู -->
         <div class="char-box">
           <span class="char-label teacher">ครู / SENSEI</span>
           <svg class="teacher-sprite" viewBox="0 0 18 24" shape-rendering="crispEdges">
@@ -1273,6 +1271,9 @@
       <button class="mario-btn" id="join-btn" style="font-size:12px; padding:14px 20px;" onclick="joinWaitingRoom()">
         JOIN LOBBY
       </button>
+      <button class="mario-btn danger" id="leave-lobby-btn" style="display:none; font-size:11px; padding:14px 14px;" onclick="leaveGameCompletely()">
+        LEAVE
+      </button>
     </div>
 
     <div class="lobby-arena">
@@ -1366,6 +1367,7 @@
 
   <div class="controls">
     <button class="mario-btn secondary" onclick="openLeaderboardOnly()">FINAL RANKING</button>
+    <button class="mario-btn danger" onclick="leaveGameCompletely()">LEAVE GAME (ออกจากเกม)</button>
     <button class="mario-btn danger" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">
       STOP & RETURN ALL TO LOBBY
     </button>
@@ -1382,6 +1384,7 @@
 
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
         <button class="mario-btn" onclick="document.getElementById('clear-modal').classList.remove('show')">ดูเวลาเพื่อนต่อ</button>
+        <button class="mario-btn danger" onclick="leaveGameCompletely()">LEAVE GAME</button>
         <button class="mario-btn danger" id="modal-host-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">
           STOP & RETURN ALL TO LOBBY
         </button>
@@ -1464,7 +1467,7 @@
       savedSession = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
     } catch (e) { savedSession = null; }
 
-    const myPlayerId = (savedSession && savedSession.playerId)
+    let myPlayerId = (savedSession && savedSession.playerId)
       ? savedSession.playerId
       : "p_" + Math.random().toString(36).substring(2, 9);
 
@@ -1515,14 +1518,12 @@
       saveMySession();
     }
 
-    // ตรวจสอบการเชื่อมต่อ Firebase และกู้คืนสถานะผู้เล่นอัตโนมัติทันทีที่เน็ตกลับมา
     const statusBadge = document.getElementById('firebase-status-badge');
     db.ref('.info/connected').on('value', (snap) => {
       if (snap.val() === true) {
         statusBadge.textContent = "SERVER ONLINE";
         statusBadge.className = "conn-badge online";
 
-        // หากผู้เล่นเคยกด Join แล้วแต่เน็ตหลุดหรือเพิ่งรีเฟรชหน้าจอ ให้ส่งชื่อกลับเข้า Firebase อัตโนมัติ
         if (hasJoined && playerName) {
           reRegisterPlayerToFirebase();
         }
@@ -1539,6 +1540,7 @@
       document.getElementById('hud-player').textContent = playerName;
       document.getElementById('join-btn').textContent = "IN LOBBY";
       document.getElementById('join-btn').style.background = "#059669";
+      document.getElementById('leave-lobby-btn').style.display = "inline-block";
 
       const currentMatched = gameMode === 'all' ? totalMatchedAllStages : matchedCount;
       const isDone = myFinishTimeMs !== null;
@@ -1652,6 +1654,7 @@
       }).then(() => {
         document.getElementById('join-btn').textContent = "IN LOBBY";
         document.getElementById('join-btn').style.background = "#059669";
+        document.getElementById('leave-lobby-btn').style.display = "inline-block";
       }).catch((err) => {
         statusBadge.textContent = "RULES BLOCKED";
         statusBadge.className = "conn-badge error";
@@ -1660,6 +1663,48 @@
       });
 
       playerRef.onDisconnect().remove();
+    }
+
+    // ฟังก์ชันออกจากเกม / ออกจากห้องอย่างสมบูรณ์
+    function leaveGameCompletely() {
+      const isCurrentlyPlaying = document.getElementById('lobby-screen').classList.contains('hidden');
+      const msg = isCurrentlyPlaying
+        ? "ต้องการออกจากเกมและกลับไปหน้าแรกใช่หรือไม่?\n(คะแนนและเวลาในรอบนี้จะถูกลบออก)"
+        : "ต้องการออกจากห้องรอ (Lobby) ใช่หรือไม่?";
+
+      if (!confirm(msg)) return;
+
+      // 1. ลบผู้เล่นออกจาก Firebase และยกเลิก onDisconnect เดิม
+      const playerRef = db.ref(`room/players/${myPlayerId}`);
+      playerRef.onDisconnect().cancel();
+      playerRef.remove();
+
+      // 2. ล้างค่าเซสชันทั้งหมดในเบราว์เซอร์เพื่อไม่ให้ Auto-Reconnect ดึงกลับ
+      if (uiTimerInterval) clearInterval(uiTimerInterval);
+      try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+      savedSession = null;
+
+      // 3. รีเซ็ตตัวแปรผู้เล่นใหม่ทั้งหมด
+      myPlayerId = "p_" + Math.random().toString(36).substring(2, 9);
+      hasJoined = false;
+      playerName = "";
+      isHostSensei = false;
+      roomStartTime = 0;
+      clearSavedProgressOnly();
+
+      // 4. รีเซ็ต UI กลับสู่หน้า Lobby เริ่มต้น
+      document.getElementById('player-name-input').value = "";
+      document.getElementById('hud-player').textContent = "GUEST";
+      document.getElementById('join-btn').textContent = "JOIN LOBBY";
+      document.getElementById('join-btn').style.background = "";
+      document.getElementById('leave-lobby-btn').style.display = "none";
+      document.getElementById('lobby-status-text').textContent =
+        "WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)";
+
+      checkHostPrivilege("");
+      document.getElementById('clear-modal').classList.remove('show');
+      document.getElementById('stage-cheer-overlay').classList.remove('show');
+      document.getElementById('lobby-screen').classList.remove('hidden');
     }
 
     function hostStartAllPlayers() {
@@ -1695,6 +1740,7 @@
       sessionStorage.removeItem(SESSION_KEY);
       document.getElementById('join-btn').textContent = "JOIN LOBBY";
       document.getElementById('join-btn').style.background = "";
+      document.getElementById('leave-lobby-btn').style.display = "none";
     }
 
     function showLobbyScreen() {
@@ -1709,7 +1755,6 @@
     function beginMatchForMe(startedAt, modeFromRoom) {
       gameMode = modeFromRoom || gameMode;
 
-      // ตรวจสอบว่าเป็นการกลับเข้ามาในรอบเกมเดิมที่กำลังเล่นค้างอยู่หรือไม่
       const isResumingSameMatch = (
         savedSession &&
         savedSession.roomStartTime === startedAt &&
@@ -1726,7 +1771,6 @@
         totalMatchedAllStages = savedSession.totalMatchedAllStages || 0;
         baseScore = savedSession.baseScore || 0;
         myFinishTimeMs = savedSession.myFinishTimeMs !== undefined ? savedSession.myFinishTimeMs : null;
-        // ล้างค่า savedSession ชั่วคราวหลังกู้คืนเสร็จ
         savedSession = null;
       } else {
         clearSavedProgressOnly();
@@ -1777,7 +1821,8 @@
     db.ref('room/state').on('value', (snap) => {
       const state = snap.val();
       if (!state) return;
-      if (state.status === 'playing' && state.startedAt !== roomStartTime) {
+      // เข้าสู่หน้าด่านเกมเฉพาะผู้เล่นที่กด JOIN LOBBY แล้วเท่านั้น (หรือถ้ายังไม่ Join จะรออยู่หน้า Lobby)
+      if (state.status === 'playing' && state.startedAt !== roomStartTime && hasJoined) {
         beginMatchForMe(state.startedAt, state.mode);
       } else if (state.status === 'waiting') {
         showLobbyScreen();
@@ -1919,7 +1964,6 @@
         </div>
       `;
 
-      // หากเป็นการกู้คืนด่านเดิม ให้เติมการ์ดที่เก็บได้แล้วกลับเข้า My Deck
       if (preserveProgress && matchedVocabIdsInStage.size > 0) {
         let pairIdx = 0;
         matchedVocabIdsInStage.forEach(vid => {
@@ -2118,7 +2162,6 @@
       if (e.key === 'Enter') joinWaitingRoom();
     });
 
-    // หากเพิ่งรีเฟรชหน้าจอ ให้เติมชื่อเดิมและปุ่มควบคุมโฮสต์ทันที
     if (playerName) {
       document.getElementById('player-name-input').value = playerName;
       document.getElementById('hud-player').textContent = playerName;
