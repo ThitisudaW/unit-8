@@ -98,7 +98,6 @@
     .hill-2 { left: 24%; width: 160px; height: 115px; opacity: 0.9; }
     .hill-3 { right: 14%; width: 290px; height: 215px; }
 
-    /* พุ่มหญ้าหยักสมจริง */
     .mario-bush {
       position: absolute;
       bottom: 64px;
@@ -838,7 +837,7 @@
       perspective: 1000px;
       -webkit-perspective: 1000px;
       cursor: pointer;
-      transition: transform 0.25s ease, opacity 0.3s ease;
+      transition: transform 0.35s ease, opacity 0.4s ease;
     }
     .card:hover { transform: translateY(-2px); }
     .card.collecting { transform: translateX(30px) scale(0.35) rotate(12deg); opacity: 0; pointer-events: none; }
@@ -846,7 +845,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.25s cubic-bezier(0.2, 0.85, 0.4, 1.2);
+      transition: transform 0.45s cubic-bezier(0.25, 0.8, 0.25, 1);
       transform-style: preserve-3d;
       -webkit-transform-style: preserve-3d;
     }
@@ -875,7 +874,7 @@
       background: linear-gradient(145deg, #fde047 0%, #f59e0b 52%, #d97706 100%);
       border: 2.5px solid #1e1b4b;
       box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 3px 0 #1e1b4b;
-      transition: opacity 0.12s ease, visibility 0.12s ease;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
     }
     .card.flipped .card-front {
       opacity: 0;
@@ -900,7 +899,7 @@
       box-shadow: 0 3px 0 rgba(15, 23, 42, 0.75);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.12s ease, visibility 0.12s ease;
+      transition: opacity 0.22s ease, visibility 0.22s ease;
     }
     .card.flipped .card-back {
       opacity: 1;
@@ -960,7 +959,6 @@
       margin-top: 11px;
     }
 
-    /* คำอ่านคาราโอเกะภาษาอังกฤษใต้คำไทย */
     .card-karaoke {
       position: relative;
       z-index: 1;
@@ -1015,8 +1013,8 @@
       }
     }
 
-    .card.wrong { animation: shakeWrong 0.25s ease; }
-    @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
+    .card.wrong { animation: shakeWrong 0.35s ease; }
+    @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-4px); } 75% { transform: translateX(4px); } }
 
     .side-panel {
       background: rgba(9, 16, 40, 0.9);
@@ -1088,10 +1086,10 @@
       flex: 1;
     }
     .mini-avatar-box {
-      width: 26px;
-      height: 26px;
-      min-width: 26px;
-      border-radius: 6px;
+      width: 28px;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 8px;
       background: rgba(15, 23, 42, 0.85);
       border: 1.5px solid #93c5fd;
       display: flex;
@@ -1100,8 +1098,8 @@
       overflow: hidden;
     }
     .mini-avatar-box svg {
-      width: 22px;
-      height: 22px;
+      width: 24px;
+      height: 24px;
     }
     .live-name { font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 800; font-size: 13px; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .live-clock { font-family: 'Press Start 2P', monospace; font-size: 10px; color: #4ade80; white-space: nowrap; }
@@ -1132,23 +1130,304 @@
     .mario-btn.danger { background: #dc2626; border-color: #7f1d1d; box-shadow: inset 2px 2px 0 #fca5a5, 0 4px 0 #450a0a; text-shadow: 2px 2px 0 #450a0a; }
     .mario-btn:active { transform: translateY(3px); }
 
+    /* ================= หน้าสรุปเวลาและอันดับสุดน่ารัก (おめでとうございます！) ================= */
     .modal-backdrop {
-      position: fixed; inset: 0; background: rgba(0, 0, 0, 0.86);
-      display: none; align-items: center; justify-content: center; z-index: 60; padding: 16px;
+      position: fixed;
+      inset: 0;
+      background: rgba(15, 23, 42, 0.82);
+      backdrop-filter: blur(5px);
+      display: none;
+      align-items: center;
+      justify-content: center;
+      z-index: 60;
+      padding: 16px;
+      overflow: hidden;
     }
     .modal-backdrop.show { display: flex; }
-    .modal-box {
-      background: #0d152a; border: 5px solid var(--q-gold);
-      padding: 20px 16px; max-width: 520px; width: 100%;
-      text-align: center; border-radius: 16px; max-height: 90vh; overflow-y: auto;
+
+    .confetti-layer {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      overflow: hidden;
     }
-    .modal-title { font-family: 'Press Start 2P', monospace; font-size: 16px; color: var(--q-gold); margin-bottom: 10px; line-height: 1.5; }
-    .leaderboard { text-align: left; background: #070d1f; border: 2px solid var(--q-gold); border-radius: 10px; padding: 10px; margin-bottom: 16px; }
-    .lb-row { display: flex; justify-content: space-between; align-items: center; gap: 6px; padding: 7px 8px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 13px; }
-    .lb-rank { font-family: 'Press Start 2P', monospace; font-size: 10px; width: 34px; }
-    .lb-name { flex: 1; font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 800; color: #fff; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; padding-right: 4px; }
-    .lb-time { font-family: 'Press Start 2P', monospace; font-size: 10px; color: #4ade80; margin-right: 6px; }
-    .lb-pts { font-family: 'Press Start 2P', monospace; font-size: 9px; color: #fbbf24; }
+    .confetti-piece {
+      position: absolute;
+      top: -20px;
+      width: 10px;
+      height: 10px;
+      border-radius: 2px;
+      animation: confettiFall linear forwards;
+    }
+    @keyframes confettiFall {
+      0% { transform: translateY(0) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(105vh) rotate(540deg); opacity: 0.85; }
+    }
+
+    .kawaii-modal-box {
+      position: relative;
+      background: linear-gradient(180deg, #fff1f2 0%, #fef9c3 48%, #e0f2fe 100%);
+      border: 5px solid #fb7185;
+      box-shadow: 0 0 0 4px #fde047, 0 18px 45px rgba(0, 0, 0, 0.65);
+      padding: 22px 18px 20px;
+      max-width: 560px;
+      width: 100%;
+      text-align: center;
+      border-radius: 26px;
+      max-height: 90vh;
+      overflow-y: auto;
+      color: #1e293b;
+      animation: popKawaiiModal 0.42s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+    @keyframes popKawaiiModal {
+      from { transform: scale(0.75) translateY(20px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .kawaii-deco-row {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 4px;
+    }
+    .kawaii-star-spin {
+      width: 24px;
+      height: 24px;
+      animation: gentleWiggle 1.4s infinite alternate ease-in-out;
+    }
+    @keyframes gentleWiggle {
+      from { transform: rotate(-12deg) scale(0.95); }
+      to { transform: rotate(12deg) scale(1.1); }
+    }
+
+    .omedetou-banner {
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 900;
+      font-size: clamp(22px, 5.2vw, 32px);
+      color: #e11d48;
+      text-shadow: 2px 2px 0 #ffffff, 0 4px 10px rgba(244, 63, 94, 0.25);
+      margin: 2px 0 4px;
+      line-height: 1.25;
+      letter-spacing: 0.5px;
+    }
+
+    .omedetou-sub {
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-weight: 800;
+      font-size: 13px;
+      color: #0369a1;
+      background: rgba(255, 255, 255, 0.78);
+      display: inline-block;
+      padding: 4px 14px;
+      border-radius: 20px;
+      border: 2px solid #7dd3fc;
+      margin-bottom: 12px;
+    }
+
+    /* การ์ดสรุปเวลาของตัวเองแบบน่ารัก */
+    .my-clear-summary {
+      background: #ffffff;
+      border: 3px solid #f472b6;
+      border-radius: 18px;
+      padding: 10px 14px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      box-shadow: 0 5px 0 #fbcfe8;
+    }
+    .my-summary-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+    }
+    .my-summary-avatar {
+      width: 44px;
+      height: 44px;
+      min-width: 44px;
+      border-radius: 12px;
+      background: #fef3c7;
+      border: 2.5px solid #f59e0b;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .my-summary-avatar svg { width: 36px; height: 36px; }
+    .my-summary-info {
+      text-align: left;
+      min-width: 0;
+    }
+    .my-summary-tag {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: #db2777;
+      display: block;
+      margin-bottom: 3px;
+    }
+    .my-summary-name {
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .my-summary-right {
+      text-align: right;
+    }
+    .my-summary-time {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px;
+      color: #059669;
+      display: block;
+    }
+    .my-summary-score {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: #d97706;
+      margin-top: 4px;
+      display: block;
+    }
+
+    /* การ์ดรายชื่อแต่ละคนแยกกันชัดเจนในหน้าสรุปเวลา */
+    .leaderboard {
+      text-align: left;
+      background: rgba(255, 255, 255, 0.72);
+      border: 3px solid #60a5fa;
+      border-radius: 20px;
+      padding: 12px;
+      margin-bottom: 14px;
+    }
+    .lb-header-title {
+      font-family: 'Press Start 2P', 'M PLUS Rounded 1c', sans-serif;
+      font-size: 10px;
+      color: #1d4ed8;
+      text-align: center;
+      margin-bottom: 10px;
+      letter-spacing: 0.5px;
+    }
+    .lb-cards-stack {
+      display: flex;
+      flex-direction: column;
+      gap: 9px;
+    }
+    .lb-player-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      background: #ffffff;
+      border: 2.5px solid #cbd5e1;
+      box-shadow: 0 4px 0 #e2e8f0;
+    }
+    .lb-player-card.rank-1 {
+      background: linear-gradient(135deg, #fefce8 0%, #fef08a 100%);
+      border-color: #f59e0b;
+      box-shadow: 0 4px 0 #fcd34d;
+    }
+    .lb-player-card.rank-2 {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-color: #94a3b8;
+      box-shadow: 0 4px 0 #cbd5e1;
+    }
+    .lb-player-card.rank-3 {
+      background: linear-gradient(135deg, #fff7ed 0%, #fed7aa 100%);
+      border-color: #fb923c;
+      box-shadow: 0 4px 0 #fdba74;
+    }
+    .lb-player-card.is-me-row {
+      outline: 3px solid #ec4899;
+      outline-offset: 1px;
+    }
+
+    .lb-card-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      min-width: 0;
+      flex: 1;
+    }
+    .lb-rank-pill {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      min-width: 40px;
+      text-align: center;
+      padding: 5px 4px;
+      border-radius: 8px;
+      background: #1e293b;
+      color: #ffffff;
+    }
+    .lb-player-card.rank-1 .lb-rank-pill { background: #d97706; color: #fff; }
+    .lb-player-card.rank-2 .lb-rank-pill { background: #475569; color: #fff; }
+    .lb-player-card.rank-3 .lb-rank-pill { background: #c2410c; color: #fff; }
+
+    .lb-avatar-box {
+      width: 38px;
+      height: 38px;
+      min-width: 38px;
+      border-radius: 10px;
+      background: #0f172a;
+      border: 2px solid #93c5fd;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .lb-avatar-box svg {
+      width: 32px;
+      height: 32px;
+    }
+
+    .lb-name-block {
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
+      flex: 1;
+    }
+    .lb-name {
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-weight: 900;
+      font-size: 15px;
+      color: #0f172a;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+    .lb-you-badge {
+      display: inline-block;
+      width: fit-content;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 7px;
+      color: #db2777;
+      margin-top: 2px;
+    }
+
+    .lb-card-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 3px;
+      white-space: nowrap;
+    }
+    .lb-time {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: #059669;
+    }
+    .lb-time.playing {
+      font-size: 8px;
+      color: #64748b;
+    }
+    .lb-pts {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 9px;
+      color: #d97706;
+    }
   </style>
 </head>
 <body>
@@ -1183,7 +1462,6 @@
     <div class="hill hill-2"></div>
     <div class="hill hill-3"></div>
 
-    <!-- พุ่มหญ้าหยักสมจริงในฉากเล่นเกม -->
     <svg class="mario-bush bush-left" viewBox="0 0 40 20" shape-rendering="crispEdges">
       <path d="M0 20V13h2v-3h2v3h2V7h2V4h2v3h2v4h2V5h2V2h2v3h2v5h2V3h2V1h2v2h2v6h2V6h2V4h2v2h2v5h2v4h2v5H0z" fill="#052e16"/>
       <path d="M1 20v-6h2v-3h2v3h2V8h2V5h2v3h2v4h2V6h2V3h2v3h2v5h2V4h2V2h2v2h2v6h2V7h2V5h2v2h2v5h2v8H1z" fill="#16a34a"/>
@@ -1256,7 +1534,6 @@
         <rect x="12" y="7" width="1.5" height="3" fill="#1e3a8a"/><rect x="18" y="7" width="1.5" height="3" fill="#1e3a8a"/>
       </svg>
 
-      <!-- พุ่มหญ้าหยักสมจริงในหน้า Lobby -->
       <svg class="lobby-bush l-bush-1" viewBox="0 0 40 20" shape-rendering="crispEdges">
         <path d="M0 20V13h2v-3h2v3h2V7h2V4h2v3h2v4h2V5h2V2h2v3h2v5h2V3h2V1h2v2h2v6h2V6h2V4h2v2h2v5h2v4h2v5H0z" fill="#052e16"/>
         <path d="M1 20v-6h2v-3h2v3h2V8h2V5h2v3h2v4h2V6h2V3h2v3h2v5h2V4h2V2h2v2h2v6h2V7h2V5h2v2h2v5h2v8H1z" fill="#16a34a"/>
@@ -1498,23 +1775,55 @@
 
   <div class="controls">
     <button class="mario-btn secondary" onclick="openLeaderboardOnly()">FINAL RANKING</button>
-    <button class="mario-btn danger" onclick="leaveGameCompletely()">LEAVE GAME (ออกจากเกม)</button>
+    <button class="mario-btn danger" onclick="leaveGameCompletely()">LEAVE GAME</button>
     <button class="mario-btn danger" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">
       STOP & RETURN ALL TO LOBBY
     </button>
   </div>
 
+  <!-- ================= หน้าสรุปเวลาและอันดับน่ารัก ๆ (おめでとうございます！) ================= -->
   <div class="modal-backdrop" id="clear-modal">
-    <div class="modal-box">
-      <div class="modal-title" id="modal-title">COURSE CLEAR!</div>
-      <p id="modal-sub" style="color:#cbd5e1; margin-bottom:14px;">ตารางอันดับผู้เล่นแบบเรียลไทม์</p>
+    <div class="confetti-layer" id="confetti-layer"></div>
 
+    <div class="kawaii-modal-box">
+      <div class="kawaii-deco-row">
+        <svg class="kawaii-star-spin" viewBox="0 0 16 16" shape-rendering="crispEdges">
+          <path d="M7 1h2v4h4v2h-3v2h2v4H9v-2H7v2H4V9h2V7H3V5h4V1z" fill="#facc15" stroke="#ca8a04" stroke-width="0.8"/>
+        </svg>
+        <svg class="kawaii-star-spin" viewBox="0 0 16 16" shape-rendering="crispEdges">
+          <path d="M3 3h3v1h1v1h2V4h1V3h3v1h1v4h-1v2h-2v2H9v2H7v-2H5v-2H3V8H2V4h1V3z" fill="#fb7185" stroke="#be123c" stroke-width="0.8"/>
+        </svg>
+        <svg class="kawaii-star-spin" viewBox="0 0 16 16" shape-rendering="crispEdges">
+          <path d="M7 1h2v4h4v2h-3v2h2v4H9v-2H7v2H4V9h2V7H3V5h4V1z" fill="#38bdf8" stroke="#0284c7" stroke-width="0.8"/>
+        </svg>
+      </div>
+
+      <div class="omedetou-banner" id="modal-title">おめでとうございます！</div>
+      <div class="omedetou-sub" id="modal-sub">クリアおめでとう！ เก่งมากเลย ผ่านครบแล้ว!</div>
+
+      <!-- การ์ดสรุปเวลาของตัวเอง -->
+      <div class="my-clear-summary" id="my-clear-summary" style="display:none;">
+        <div class="my-summary-left">
+          <div class="my-summary-avatar" id="my-summary-avatar"></div>
+          <div class="my-summary-info">
+            <span class="my-summary-tag">YOUR CLEAR RECORD</span>
+            <div class="my-summary-name" id="my-summary-name">PLAYER</div>
+          </div>
+        </div>
+        <div class="my-summary-right">
+          <span class="my-summary-time" id="my-summary-time">00:00.0</span>
+          <span class="my-summary-score" id="my-summary-score">0 PTS</span>
+        </div>
+      </div>
+
+      <!-- รายชื่อแต่ละคนแยกการ์ดชัดเจน -->
       <div class="leaderboard">
-        <div id="lb-list"></div>
+        <div class="lb-header-title">PLAYER RESULTS (RANKING)</div>
+        <div class="lb-cards-stack" id="lb-list"></div>
       </div>
 
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
-        <button class="mario-btn" onclick="document.getElementById('clear-modal').classList.remove('show')">ดูเวลาเพื่อนต่อ</button>
+        <button class="mario-btn secondary" onclick="document.getElementById('clear-modal').classList.remove('show')">WATCH FRIENDS</button>
         <button class="mario-btn danger" onclick="leaveGameCompletely()">LEAVE GAME</button>
         <button class="mario-btn danger" id="modal-host-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">
           STOP & RETURN ALL TO LOBBY
@@ -1594,7 +1903,6 @@
 
     // ================= สัตว์พิกเซลสุ่ม 15 ตัว + หัวแมวเซนเซย์ =================
     const ANIMAL_AVATARS_15 = [
-      // 0: หมาชิบะ (Shiba Inu)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="1" width="3" height="3" fill="#d97706"/><rect x="11" y="1" width="3" height="3" fill="#d97706"/>
         <rect x="3" y="2" width="1" height="2" fill="#fef3c7"/><rect x="12" y="2" width="1" height="2" fill="#fef3c7"/>
@@ -1605,7 +1913,6 @@
         <rect x="7" y="9" width="2" height="2" fill="#111827"/>
         <rect x="3" y="9" width="1" height="1" fill="#fb7185"/><rect x="12" y="9" width="1" height="1" fill="#fb7185"/>
       </svg>`,
-      // 1: กระต่ายขาว (Bunny)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="4" y="0" width="2" height="5" fill="#f8fafc"/><rect x="10" y="0" width="2" height="5" fill="#f8fafc"/>
         <rect x="5" y="1" width="1" height="4" fill="#fda4af"/><rect x="10" y="1" width="1" height="4" fill="#fda4af"/>
@@ -1614,7 +1921,6 @@
         <rect x="7" y="10" width="2" height="1" fill="#f43f5e"/>
         <rect x="3" y="10" width="1" height="1" fill="#fda4af"/><rect x="12" y="10" width="1" height="1" fill="#fda4af"/>
       </svg>`,
-      // 2: หมีน้ำตาล (Bear)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="2" width="3" height="3" fill="#78350f"/><rect x="11" y="2" width="3" height="3" fill="#78350f"/>
         <rect x="2" y="4" width="12" height="10" fill="#92400e"/>
@@ -1622,7 +1928,6 @@
         <rect x="4" y="6" width="2" height="2" fill="#111827"/><rect x="10" y="6" width="2" height="2" fill="#111827"/>
         <rect x="7" y="9" width="2" height="2" fill="#451a03"/>
       </svg>`,
-      // 3: แพนด้า (Panda)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="2" width="3" height="3" fill="#18181b"/><rect x="11" y="2" width="3" height="3" fill="#18181b"/>
         <rect x="2" y="4" width="12" height="10" fill="#ffffff"/>
@@ -1630,7 +1935,6 @@
         <rect x="5" y="7" width="1" height="1" fill="#ffffff"/><rect x="10" y="7" width="1" height="1" fill="#ffffff"/>
         <rect x="7" y="10" width="2" height="1" fill="#18181b"/>
       </svg>`,
-      // 4: กบเขียว (Frog)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="3" y="2" width="3" height="3" fill="#22c55e"/><rect x="10" y="2" width="3" height="3" fill="#22c55e"/>
         <rect x="4" y="3" width="1" height="1" fill="#111827"/><rect x="11" y="3" width="1" height="1" fill="#111827"/>
@@ -1638,7 +1942,6 @@
         <rect x="3" y="8" width="2" height="1" fill="#fb7185"/><rect x="11" y="8" width="2" height="1" fill="#fb7185"/>
         <rect x="5" y="10" width="6" height="1" fill="#14532d"/>
       </svg>`,
-      // 5: สุนัขจิ้งจอก (Fox)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="1" width="3" height="4" fill="#ea580c"/><rect x="11" y="1" width="3" height="4" fill="#ea580c"/>
         <rect x="2" y="4" width="12" height="10" fill="#f97316"/>
@@ -1646,7 +1949,6 @@
         <rect x="4" y="7" width="2" height="2" fill="#111827"/><rect x="10" y="7" width="2" height="2" fill="#111827"/>
         <rect x="7" y="10" width="2" height="2" fill="#111827"/>
       </svg>`,
-      // 6: หมูน้อยชมพู (Piggy)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="2" width="3" height="2" fill="#f472b6"/><rect x="11" y="2" width="3" height="2" fill="#f472b6"/>
         <rect x="2" y="4" width="12" height="10" fill="#f9a8d4"/>
@@ -1654,7 +1956,6 @@
         <rect x="5" y="9" width="6" height="3" fill="#f472b6"/>
         <rect x="6" y="10" width="1" height="1" fill="#831843"/><rect x="9" y="10" width="1" height="1" fill="#831843"/>
       </svg>`,
-      // 7: ลูกเจี๊ยบ (Chick)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="7" y="1" width="2" height="2" fill="#eab308"/>
         <rect x="2" y="3" width="12" height="11" fill="#fde047"/>
@@ -1662,7 +1963,6 @@
         <rect x="6" y="9" width="4" height="2" fill="#f97316"/>
         <rect x="3" y="9" width="1" height="1" fill="#fb7185"/><rect x="12" y="9" width="1" height="1" fill="#fb7185"/>
       </svg>`,
-      // 8: เพนกวิน (Penguin)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="3" width="12" height="11" fill="#1e293b"/>
         <rect x="4" y="5" width="8" height="9" fill="#ffffff"/>
@@ -1670,7 +1970,6 @@
         <rect x="4" y="7" width="2" height="2" fill="#111827"/><rect x="10" y="7" width="2" height="2" fill="#111827"/>
         <rect x="6" y="9" width="4" height="2" fill="#f59e0b"/>
       </svg>`,
-      // 9: โคอาล่า (Koala)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="1" y="3" width="3" height="4" fill="#64748b"/><rect x="12" y="3" width="3" height="4" fill="#64748b"/>
         <rect x="2" y="4" width="1" height="2" fill="#e2e8f0"/><rect x="13" y="4" width="1" height="2" fill="#e2e8f0"/>
@@ -1678,7 +1977,6 @@
         <rect x="5" y="7" width="1" height="2" fill="#111827"/><rect x="10" y="7" width="1" height="2" fill="#111827"/>
         <rect x="7" y="8" width="2" height="3" fill="#1e293b"/>
       </svg>`,
-      // 10: เสือน้อย (Tiger)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="2" width="3" height="3" fill="#f59e0b"/><rect x="11" y="2" width="3" height="3" fill="#f59e0b"/>
         <rect x="2" y="4" width="12" height="10" fill="#fbbf24"/>
@@ -1688,7 +1986,6 @@
         <rect x="6" y="10" width="4" height="3" fill="#ffffff"/>
         <rect x="7" y="10" width="2" height="1" fill="#f43f5e"/>
       </svg>`,
-      // 11: ลิงจ๋อ (Monkey)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="1" y="5" width="2" height="4" fill="#92400e"/><rect x="13" y="5" width="2" height="4" fill="#92400e"/>
         <rect x="3" y="3" width="10" height="11" fill="#78350f"/>
@@ -1696,14 +1993,12 @@
         <rect x="5" y="7" width="1" height="2" fill="#111827"/><rect x="10" y="7" width="1" height="2" fill="#111827"/>
         <rect x="6" y="10" width="4" height="1" fill="#92400e"/>
       </svg>`,
-      // 12: สิงโตเจ้าป่า (Lion)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="1" y="2" width="14" height="13" fill="#b45309"/>
         <rect x="3" y="4" width="10" height="9" fill="#fcd34d"/>
         <rect x="5" y="7" width="1" height="2" fill="#111827"/><rect x="10" y="7" width="1" height="2" fill="#111827"/>
         <rect x="7" y="9" width="2" height="2" fill="#78350f"/>
       </svg>`,
-      // 13: ยูนิคอร์น (Unicorn)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="7" y="0" width="2" height="4" fill="#facc15"/>
         <rect x="3" y="2" width="2" height="2" fill="#f472b6"/><rect x="11" y="2" width="2" height="2" fill="#38bdf8"/>
@@ -1711,7 +2006,6 @@
         <rect x="4" y="7" width="2" height="2" fill="#111827"/><rect x="10" y="7" width="2" height="2" fill="#111827"/>
         <rect x="6" y="10" width="4" height="3" fill="#fbcfe8"/>
       </svg>`,
-      // 14: แฮมสเตอร์ (Hamster)
       `<svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
         <rect x="2" y="2" width="3" height="2" fill="#f59e0b"/><rect x="11" y="2" width="3" height="2" fill="#f59e0b"/>
         <rect x="2" y="4" width="12" height="10" fill="#fbbf24"/>
@@ -1724,7 +2018,6 @@
 
     function getCharacterHeadSvg(nameStr, isHost) {
       if (isHost || nameStr === HOST_SECRET_NAME) {
-        // หัวแมวพิกเซลสำหรับเซนเซย์
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <rect x="2" y="1" width="3" height="3" fill="#92400e"/>
@@ -1882,6 +2175,24 @@
       [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50].forEach((n, i) => playTone(n, 'square', 0.14, i * 0.11));
     }
 
+    function launchKawaiiConfetti() {
+      const layer = document.getElementById('confetti-layer');
+      layer.innerHTML = '';
+      const colors = ['#fb7185', '#facc15', '#38bdf8', '#4ade80', '#c084fc', '#fb923c'];
+      for (let i = 0; i < 42; i++) {
+        const piece = document.createElement('div');
+        piece.className = 'confetti-piece';
+        piece.style.left = Math.random() * 100 + '%';
+        piece.style.backgroundColor = colors[i % colors.length];
+        piece.style.width = (7 + Math.random() * 6) + 'px';
+        piece.style.height = (7 + Math.random() * 6) + 'px';
+        piece.style.borderRadius = i % 2 === 0 ? '50%' : '2px';
+        piece.style.animationDuration = (2.2 + Math.random() * 1.8) + 's';
+        piece.style.animationDelay = (Math.random() * 0.45) + 's';
+        layer.appendChild(piece);
+      }
+    }
+
     function showStageCheerBanner(stageIdx, onDoneCallback) {
       const cheer = STAGE_CHEERS[stageIdx] || { jp: "いいぞ！ がんばれ！", th: "เยี่ยมมาก! ลุยต่อเลย!" };
       document.getElementById('cheer-stage-tag').textContent = `WORLD 1-${stageIdx + 1} CLEAR!`;
@@ -1980,8 +2291,8 @@
     function leaveGameCompletely() {
       const isCurrentlyPlaying = document.getElementById('lobby-screen').classList.contains('hidden');
       const msg = isCurrentlyPlaying
-        ? "ต้องการออกจากเกมและกลับไปหน้าแรกใช่หรือไม่?\n(คะแนนและเวลาในรอบนี้จะถูกลบออก)"
-        : "ต้องการออกจากห้องรอ (Lobby) ใช่หรือไม่?";
+        ? "Leave the game and return to the lobby?\n(Your current progress and time will be cleared)"
+        : "Leave the waiting lobby?";
 
       if (!confirm(msg)) return;
 
@@ -2110,7 +2421,7 @@
       startLiveClockLoop();
 
       if (myFinishTimeMs !== null) {
-        openLeaderboardOnly();
+        openLeaderboardOnly(true);
       }
     }
 
@@ -2403,7 +2714,7 @@
           setTimeout(() => {
             c1.classList.add('collecting');
             c2.classList.add('collecting');
-          }, 220);
+          }, 420);
 
           setTimeout(() => {
             [c1, c2].forEach(c => {
@@ -2423,7 +2734,7 @@
               renderStageButtons();
               handleStageClear();
             }
-          }, 480);
+          }, 760);
         } else {
           sfxWrong();
           c1.classList.add('wrong');
@@ -2432,7 +2743,7 @@
           setTimeout(() => {
             c1.classList.remove('flipped', 'wrong');
             c2.classList.remove('flipped', 'wrong');
-          }, 220);
+          }, 550);
         }
       }
     }
@@ -2463,10 +2774,10 @@
       updateHUD();
 
       syncMyProgressToFirebase(true);
-      openLeaderboardOnly();
+      openLeaderboardOnly(true);
     }
 
-    function openLeaderboardOnly() {
+    function openLeaderboardOnly(isCelebration = false) {
       const entries = Object.entries(livePlayersData);
       entries.sort(([, a], [, b]) => {
         if (a.finished && b.finished) return a.finishTimeMs - b.finishTimeMs;
@@ -2475,25 +2786,56 @@
         return (b.matched || 0) - (a.matched || 0);
       });
 
+      const mySummaryCard = document.getElementById('my-clear-summary');
+      if (myFinishTimeMs !== null) {
+        mySummaryCard.style.display = 'flex';
+        document.getElementById('my-summary-avatar').innerHTML = getCharacterHeadSvg(playerName, isHostSensei);
+        document.getElementById('my-summary-name').textContent = playerName || 'PLAYER';
+        document.getElementById('my-summary-time').textContent = formatTime(myFinishTimeMs);
+        document.getElementById('my-summary-score').textContent = `${baseScore} PTS`;
+      } else {
+        mySummaryCard.style.display = 'none';
+      }
+
       const lbList = document.getElementById('lb-list');
-      lbList.innerHTML = entries.map(([, p], idx) => {
+      lbList.innerHTML = entries.map(([pid, p], idx) => {
         const rankLabel = idx === 0 ? '1ST' : idx === 1 ? '2ND' : idx === 2 ? '3RD' : `#${idx + 1}`;
+        const rankClass = idx === 0 ? ' rank-1' : idx === 1 ? ' rank-2' : idx === 2 ? ' rank-3' : '';
+        const isMe = pid === myPlayerId;
+        const isMeClass = isMe ? ' is-me-row' : '';
         const timeText = p.finished ? formatTime(p.finishTimeMs) : 'PLAYING...';
+        const timeClass = p.finished ? 'lb-time' : 'lb-time playing';
         const isHost = p.isHost || p.name === HOST_SECRET_NAME;
         const miniAvatar = getCharacterHeadSvg(p.name, isHost);
 
         return `
-          <div class="lb-row">
-            <span class="lb-rank">${rankLabel}</span>
-            <div class="mini-avatar-box">${miniAvatar}</div>
-            <span class="lb-name">${escapeHtml(p.name)}</span>
-            <span class="lb-time">${timeText}</span>
-            <span class="lb-pts">${p.score || 0}p</span>
+          <div class="lb-player-card${rankClass}${isMeClass}">
+            <div class="lb-card-left">
+              <span class="lb-rank-pill">${rankLabel}</span>
+              <div class="lb-avatar-box">${miniAvatar}</div>
+              <div class="lb-name-block">
+                <span class="lb-name">${escapeHtml(p.name)}</span>
+                ${isMe ? '<span class="lb-you-badge">YOU</span>' : ''}
+              </div>
+            </div>
+            <div class="lb-card-right">
+              <span class="${timeClass}">${timeText}</span>
+              <span class="lb-pts">${p.score || 0} PTS</span>
+            </div>
           </div>
         `;
       }).join('');
 
-      document.getElementById('modal-title').textContent = myFinishTimeMs !== null ? "COURSE CLEAR!" : "LIVE RANKING";
+      if (myFinishTimeMs !== null || isCelebration) {
+        document.getElementById('modal-title').textContent = "おめでとうございます！";
+        document.getElementById('modal-sub').textContent = "クリアおめでとう！ เก่งมากเลย ผ่านครบแล้ว!";
+        launchKawaiiConfetti();
+      } else {
+        document.getElementById('modal-title').textContent = "みんなのがんばり！";
+        document.getElementById('modal-sub').textContent = "FINAL TIME RANKING";
+        document.getElementById('confetti-layer').innerHTML = '';
+      }
+
       document.getElementById('clear-modal').classList.add('show');
     }
 
