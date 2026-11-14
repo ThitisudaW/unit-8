@@ -3,12 +3,12 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUPER NIHONGO FLIP - Multiplayer Live Arena</title>
+  <title>SUPER NIHONGO FLIP - Blooket Live Lobby</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Mali:wght@600;700&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
   
-  <!-- Firebase SDK สำหรับเชื่อมต่อผู้เล่นหลายคนแบบเรียลไทม์ -->
+  <!-- Firebase SDK -->
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
   <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
 
@@ -81,7 +81,6 @@
     }
     .cloud-a { top: 13%; width: 120px; animation-duration: 38s; }
     .cloud-b { top: 23%; width: 95px; animation-duration: 50s; animation-delay: -18s; }
-    .cloud-c { top: 16%; width: 110px; animation-duration: 44s; animation-delay: -30s; }
     @keyframes floatCloud {
       from { transform: translateX(-160px); }
       to { transform: translateX(calc(100vw + 180px)); }
@@ -163,75 +162,217 @@
       border-top: 4px solid #052e16;
     }
 
-    /* ================= หน้าจอ Waiting Lobby แบบ Blooket ================= */
-    .lobby-screen {
+    /* ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= */
+    .lobby-fullscreen {
       position: fixed;
       inset: 0;
-      background: rgba(5, 9, 24, 0.9);
-      backdrop-filter: blur(6px);
       z-index: 100;
+      background: radial-gradient(circle at top, #1b346b 0%, #091126 70%, #050914 100%);
       display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 16px;
+      flex-direction: column;
       overflow-y: auto;
     }
-    .lobby-screen.hidden { display: none; }
+    .lobby-fullscreen.hidden { display: none; }
 
-    .lobby-card {
-      background: linear-gradient(180deg, #132347 0%, #0a1329 100%);
-      border: 5px solid var(--q-gold);
-      border-radius: 18px;
-      padding: 26px 22px;
-      max-width: 540px;
-      width: 100%;
-      text-align: center;
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.85);
+    /* แถบ Header ของหน้า Lobby */
+    .lobby-topbar {
+      background: rgba(6, 11, 28, 0.92);
+      border-bottom: 4px solid var(--q-gold);
+      padding: 16px 24px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 14px;
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
     }
 
-    .lobby-title {
+    .lobby-brand {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .lobby-brand-title {
       font-family: 'Press Start 2P', monospace;
-      font-size: clamp(15px, 3vw, 21px);
+      font-size: clamp(14px, 2.2vw, 20px);
       color: var(--q-gold);
       text-shadow: 3px 3px 0 #b91c1c;
-      margin: 0 0 8px;
-      line-height: 1.5;
     }
 
-    .lobby-collab {
+    .lobby-brand-sub {
       font-family: 'M PLUS Rounded 1c', sans-serif;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 800;
       color: #93c5fd;
-      margin-bottom: 16px;
+    }
+
+    .lobby-counter-pill {
+      background: #1e3a8a;
+      border: 3px solid #60a5fa;
+      padding: 10px 18px;
+      border-radius: 12px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 13px;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    /* ส่วนกรอกชื่อเข้าห้อง */
+    .lobby-join-bar {
+      max-width: 720px;
+      width: 92%;
+      margin: 24px auto 10px;
+      background: rgba(15, 28, 62, 0.9);
+      border: 4px solid #3b76bd;
+      border-radius: 16px;
+      padding: 18px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
     }
 
     .name-input {
-      width: 100%;
-      padding: 12px 14px;
-      font-family: 'Prompt', 'DotGothic16', sans-serif;
-      font-size: 17px;
-      font-weight: 700;
+      flex: 1;
+      min-width: 220px;
+      padding: 14px 16px;
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-size: 18px;
+      font-weight: 800;
       text-align: center;
-      border-radius: 10px;
+      border-radius: 12px;
       border: 4px solid #60a5fa;
       background: #070d1f;
       color: #fff;
       outline: none;
-      margin-bottom: 12px;
       user-select: text;
     }
-    .name-input:focus { border-color: var(--q-gold); }
-
-    .mode-select {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-      margin-bottom: 14px;
+    .name-input:focus {
+      border-color: var(--q-gold);
+      box-shadow: 0 0 15px rgba(255, 202, 40, 0.45);
     }
 
-    .mode-btn {
-      padding: 10px 8px;
+    /* พื้นที่แสดงผู้เล่นทั้งหมดแบบ Blooket Grid */
+    .lobby-arena {
+      flex: 1;
+      max-width: 1160px;
+      width: 94%;
+      margin: 14px auto;
+      background: rgba(6, 12, 30, 0.65);
+      border: 4px dashed rgba(255, 202, 40, 0.35);
+      border-radius: 20px;
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .lobby-status-banner {
+      text-align: center;
+      font-family: 'Press Start 2P', 'M PLUS Rounded 1c', sans-serif;
+      font-size: clamp(12px, 1.8vw, 15px);
+      color: #4ade80;
+      margin-bottom: 20px;
+      animation: pulseText 1.6s infinite alternate ease-in-out;
+    }
+    @keyframes pulseText {
+      from { opacity: 0.7; }
+      to { opacity: 1; }
+    }
+
+    .blooket-players-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      gap: 16px;
+      align-content: start;
+    }
+
+    /* การ์ดผู้เล่นแต่ละคนในหน้า Lobby สไตล์ Blooket */
+    .blook-card {
+      background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+      border: 4px solid #60a5fa;
+      border-radius: 16px;
+      padding: 16px 12px;
+      text-align: center;
+      box-shadow: 0 6px 0 #0b132b;
+      animation: popBlook 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+      position: relative;
+    }
+
+    .blook-card.is-host {
+      background: linear-gradient(180deg, #991b1b 0%, #450a0a 100%);
+      border-color: var(--q-gold);
+      box-shadow: 0 6px 0 #290505, 0 0 20px rgba(255, 202, 40, 0.4);
+    }
+
+    .blook-card.is-me {
+      outline: 3px solid #4ade80;
+      outline-offset: 2px;
+    }
+
+    @keyframes popBlook {
+      from { transform: scale(0.6) translateY(15px); opacity: 0; }
+      to { transform: scale(1) translateY(0); opacity: 1; }
+    }
+
+    .blook-avatar {
+      font-size: 38px;
+      margin-bottom: 8px;
+      display: block;
+      filter: drop-shadow(0 4px 0 rgba(0,0,0,0.4));
+    }
+
+    .blook-name {
+      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
+      font-weight: 900;
+      font-size: 17px;
+      color: #fff;
+      word-break: break-word;
+    }
+
+    .blook-role-tag {
+      display: inline-block;
+      margin-top: 6px;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 3px 7px;
+      border-radius: 6px;
+      background: rgba(0, 0, 0, 0.45);
+      color: #93c5fd;
+    }
+    .blook-card.is-host .blook-role-tag {
+      background: var(--q-gold);
+      color: #3b1d00;
+    }
+
+    /* แผงควบคุมเฉพาะ マイ先生 ด้านล่างของหน้า Lobby */
+    .host-control-dock {
+      background: rgba(10, 17, 40, 0.96);
+      border-top: 4px solid var(--q-gold);
+      padding: 16px 24px;
+      display: none;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
+    }
+
+    .host-control-dock.visible {
+      display: flex;
+    }
+
+    .mode-pill-group {
+      display: flex;
+      gap: 8px;
+    }
+
+    .mode-pill {
+      padding: 10px 14px;
       border-radius: 10px;
       border: 3px solid #3b76bd;
       background: #0f1f40;
@@ -240,62 +381,13 @@
       font-size: 13px;
       cursor: pointer;
     }
-    .mode-btn.selected {
+    .mode-pill.selected {
       background: #1d4ed8;
       border-color: var(--q-gold);
       color: #fff;
     }
 
-    /* กล่องรายชื่อผู้เล่นที่นั่งรอในห้อง */
-    .waiting-box {
-      background: #070d1f;
-      border: 3px solid #3b76bd;
-      border-radius: 12px;
-      padding: 14px;
-      margin: 16px 0;
-      text-align: left;
-    }
-
-    .waiting-header {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 10px;
-      color: #4ade80;
-      margin-bottom: 10px;
-    }
-
-    .player-chips {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-      min-height: 44px;
-    }
-
-    .player-chip {
-      background: linear-gradient(135deg, #1e3a8a, #312e81);
-      border: 2px solid #93c5fd;
-      color: #fff;
-      font-family: 'Prompt', 'M PLUS Rounded 1c', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      padding: 6px 12px;
-      border-radius: 20px;
-      animation: popChip 0.3s ease;
-    }
-    .player-chip.me {
-      border-color: var(--q-gold);
-      background: linear-gradient(135deg, #b45309, #78350f);
-      color: #fef08a;
-    }
-
-    @keyframes popChip {
-      from { transform: scale(0.7); opacity: 0; }
-      to { transform: scale(1); opacity: 1; }
-    }
-
-    /* ================= HUD & แท็บดูเวลาเรียลไทม์ ================= */
+    /* ================= หน้าด่านเล่นเกม ================= */
     .hud, .header, .stage-bar, .game-layout, .controls {
       position: relative;
       z-index: 5;
@@ -323,7 +415,7 @@
     .hud-label { color: #93c5fd; font-size: 9px; }
     .hud-value { color: #fff; text-shadow: 2px 2px 0 #000; }
     .hud-timer { color: #4ade80; }
-    .hud-player { color: var(--q-gold); font-family: 'Prompt', 'DotGothic16', sans-serif; font-size: 13px; }
+    .hud-player { color: var(--q-gold); font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-size: 14px; font-weight: 900; }
 
     .header {
       text-align: center;
@@ -369,7 +461,6 @@
     .stage-btn.active { background: var(--mario-red); border-color: #fda4af; color: #fff; }
     .stage-btn.cleared { border-color: var(--pipe-green); color: #86efac; }
 
-    /* ================= กระดาน + แผงด้านข้าง (มีแท็บสลับดูเวลาสด) ================= */
     .game-layout {
       width: 100%;
       max-width: 1220px;
@@ -445,7 +536,6 @@
     .card.wrong { animation: shakeWrong 0.4s ease; }
     @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 
-    /* แผงด้านข้างแบบมี 2 แท็บ: LIVE STANDINGS & COLLECTED DECK */
     .side-panel {
       background: rgba(9, 16, 40, 0.9);
       border: 4px solid var(--q-gold);
@@ -481,7 +571,6 @@
     .tab-pane { display: none; }
     .tab-pane.active { display: block; }
 
-    /* ตารางเวลาเรียลไทม์ของผู้เล่นทุกคน */
     .live-list {
       display: flex;
       flex-direction: column;
@@ -503,54 +592,16 @@
       border-color: #4ade80;
       background: linear-gradient(135deg, #064e3b, #09261e);
     }
-    .live-row.is-me {
-      border-color: var(--q-gold);
-    }
+    .live-row.is-me { border-color: var(--q-gold); }
 
-    .live-top {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .live-name {
-      font-family: 'Prompt', 'M PLUS Rounded 1c', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      color: #fff;
-    }
-    .live-clock {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 11px;
-      color: #4ade80;
-    }
-    .live-bottom {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 11px;
-      color: #93c5fd;
-    }
-    .progress-bar-bg {
-      width: 100%;
-      height: 6px;
-      background: #070d1f;
-      border-radius: 4px;
-      overflow: hidden;
-    }
-    .progress-bar-fill {
-      height: 100%;
-      background: linear-gradient(90deg, #38bdf8, #4ade80);
-      transition: width 0.3s ease;
-    }
+    .live-top { display: flex; justify-content: space-between; align-items: center; }
+    .live-name { font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 800; font-size: 14px; color: #fff; }
+    .live-clock { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #4ade80; }
+    .live-bottom { display: flex; justify-content: space-between; align-items: center; font-size: 11px; color: #93c5fd; }
+    .progress-bar-bg { width: 100%; height: 6px; background: #070d1f; border-radius: 4px; overflow: hidden; }
+    .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #4ade80); transition: width 0.3s ease; }
 
-    /* กองไพ่ที่เก็บได้ */
-    .collected-list {
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-      max-height: 440px;
-      overflow-y: auto;
-    }
+    .collected-list { display: flex; flex-direction: column; gap: 10px; max-height: 440px; overflow-y: auto; }
     .empty-deck-hint { text-align: center; padding: 24px 10px; color: #94a3b8; font-size: 13px; border: 2px dashed rgba(148, 163, 184, 0.3); border-radius: 10px; }
     .matched-stack { background: linear-gradient(135deg, #102a43 0%, #09192f 100%); border: 2px solid #38bdf8; border-radius: 12px; padding: 10px; position: relative; }
     .stack-badge { position: absolute; top: -8px; right: 10px; background: var(--q-gold); color: #3b1d00; font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 3px 6px; border-radius: 4px; }
@@ -561,7 +612,6 @@
     .mini-card.kanji { background: rgba(147, 51, 234, 0.35); color: #f3e8ff; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 15px; }
     .mini-card.thai { grid-column: span 2; background: rgba(5, 150, 105, 0.35); color: #a7f3d0; font-family: 'Mali', cursive, sans-serif; font-weight: 700; font-size: 15px; }
 
-    /* ปุ่มควบคุม & Modal */
     .controls { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
     .mario-btn {
       font-family: 'Press Start 2P', 'DotGothic16', sans-serif;
@@ -589,57 +639,63 @@
     .leaderboard { text-align: left; background: #070d1f; border: 2px solid var(--q-gold); border-radius: 10px; padding: 12px; margin-bottom: 18px; }
     .lb-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 10px; border-bottom: 1px solid rgba(255,255,255,0.1); font-size: 14px; }
     .lb-rank { font-family: 'Press Start 2P', monospace; font-size: 11px; width: 36px; }
-    .lb-name { flex: 1; font-family: 'Prompt', sans-serif; font-weight: 700; color: #fff; }
+    .lb-name { flex: 1; font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 800; color: #fff; }
     .lb-time { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #4ade80; margin-right: 10px; }
     .lb-pts { font-family: 'Press Start 2P', monospace; font-size: 10px; color: #fbbf24; }
   </style>
 </head>
 <body>
 
-  <!-- ================= หน้าจอห้องนั่งรอ (Waiting Room) ================= -->
-  <div class="lobby-screen" id="lobby-screen">
-    <div class="lobby-card">
-      <h1 class="lobby-title">SUPER NIHONGO<br>LIVE ARENA</h1>
-      <div class="lobby-collab">🇹🇭 SATIT PATUMWAN × MEIKEI HIGH SCHOOL 🇯🇵</div>
-
-      <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / NICKNAME..." maxlength="16" />
-
-      <div class="mode-select">
-        <button type="button" class="mode-btn selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
-          🏁 STAGE MODE<br><small>1ステージずつ (6語)</small>
-        </button>
-        <button type="button" class="mode-btn" id="mode-all-btn" onclick="selectGameMode('all')">
-          🔥 ALL 41 WORDS<br><small>全ステージ連続タイムアタック</small>
-        </button>
+  <!-- ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= -->
+  <div class="lobby-fullscreen" id="lobby-screen">
+    <!-- แถบบนของ Lobby -->
+    <div class="lobby-topbar">
+      <div class="lobby-brand">
+        <div class="lobby-brand-title">SUPER NIHONGO LOBBY</div>
+        <div class="lobby-brand-sub">🇹🇭 SATIT PATUMWAN × MEIKEI HIGH SCHOOL 🇯🇵</div>
       </div>
+      <div class="lobby-counter-pill">
+        <span>👥 PLAYERS:</span>
+        <span id="lobby-count" style="color:var(--q-gold);">0</span>
+      </div>
+    </div>
 
-      <button class="mario-btn secondary" id="join-btn" style="width:100%; margin-bottom:10px;" onclick="joinWaitingRoom()">
-        🙋‍♂️ JOIN ROOM / เข้าร่วมห้องรอ
+    <!-- ช่องกรอกชื่อเข้าห้อง -->
+    <div class="lobby-join-bar" id="join-bar">
+      <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / ENTER NICKNAME..." maxlength="16" />
+      <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 22px;" onclick="joinWaitingRoom()">
+        🙋‍♂️ JOIN LOBBY
       </button>
+    </div>
 
-      <!-- รายชื่อเพื่อนที่เข้ามานั่งรอในห้อง -->
-      <div class="waiting-box">
-        <div class="waiting-header">
-          <span>PLAYERS IN LOBBY</span>
-          <span id="lobby-count">0 PLAYERS</span>
-        </div>
-        <div class="player-chips" id="player-chips">
-          <span style="color:#64748b; font-size:13px;">กรอกชื่อแล้วกด JOIN ROOM เพื่อเข้ามานั่งรอ...</span>
-        </div>
+    <!-- พื้นที่โชว์การ์ดผู้เล่นที่นั่งรอในห้อง -->
+    <div class="lobby-arena">
+      <div class="lobby-status-banner" id="lobby-status-text">
+        ⏳ WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
       </div>
+      <div class="blooket-players-grid" id="blooket-players-grid"></div>
+    </div>
 
-      <div style="display:flex; gap:10px; flex-wrap:wrap;">
-        <button class="mario-btn" style="flex:1; font-size:13px; padding:14px;" onclick="hostStartAllPlayers()">
-          ▶ START ALL PLAYERS!
+    <!-- แผงกด START ด้านล่าง (จะโชว์เฉพาะคนที่ตั้งชื่อว่า マイ先生 เท่านั้น!) -->
+    <div class="host-control-dock" id="host-control-dock">
+      <div class="mode-pill-group">
+        <button type="button" class="mode-pill selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
+          🏁 STAGE MODE (6語)
         </button>
-        <button class="mario-btn danger" style="font-size:11px; padding:14px 12px;" onclick="resetRoomLobby()" title="ล้างห้องเพื่อเริ่มรอบใหม่">
-          🗑 RESET ROOM
+        <button type="button" class="mode-pill" id="mode-all-btn" onclick="selectGameMode('all')">
+          🔥 ALL 41 WORDS
         </button>
       </div>
+      <button class="mario-btn" style="font-size:14px; padding:15px 26px;" onclick="hostStartAllPlayers()">
+        ▶ START GAME FOR EVERYONE!
+      </button>
+      <button class="mario-btn danger" style="font-size:11px; padding:15px 14px;" onclick="resetRoomLobby()">
+        🗑 CLEAR ROOM
+      </button>
     </div>
   </div>
 
-  <!-- ฉากหลังมาริโอ้ + นักเรียนสาธิตปทุมวัน & Meikei -->
+  <!-- ================= ฉากหลังมาริโอ้ & คู่นักเรียน ================= -->
   <div class="mario-scenery" aria-hidden="true">
     <div class="stars"></div>
     <svg class="kawaii-cloud cloud-a" viewBox="0 0 32 16" shape-rendering="crispEdges">
@@ -698,7 +754,7 @@
     <div class="mario-ground"></div>
   </div>
 
-  <!-- HUD ด้านบน -->
+  <!-- ================= หน้าด่านเล่นเกม ================= -->
   <div class="hud">
     <div class="hud-item">
       <span class="hud-label">PLAYER</span>
@@ -736,7 +792,6 @@
   <div class="game-layout">
     <div class="board" id="board"></div>
 
-    <!-- แผงด้านข้าง: สลับดู LIVE TIMES ของผู้เล่นทุกคน กับ กองไพ่ที่เก็บได้ -->
     <aside class="side-panel">
       <div class="side-tabs">
         <button class="side-tab-btn active" id="tab-live-btn" onclick="switchSideTab('live')">
@@ -747,14 +802,12 @@
         </button>
       </div>
 
-      <!-- แท็บที่ 1: เวลาเรียลไทม์ของผู้เล่นทุกคน -->
       <div class="tab-pane active" id="pane-live">
         <div class="live-list" id="live-list">
           <div style="text-align:center; color:#94a3b8; padding:20px;">กำลังรอข้อมูลผู้เล่น...</div>
         </div>
       </div>
 
-      <!-- แท็บที่ 2: กองไพ่ที่เก็บได้ -->
       <div class="tab-pane" id="pane-deck">
         <div class="collected-list" id="collected-list">
           <div class="empty-deck-hint" id="empty-hint">
@@ -768,14 +821,14 @@
 
   <div class="controls">
     <button class="mario-btn secondary" onclick="openLeaderboardOnly()">🏆 FINAL RANKING</button>
-    <button class="mario-btn secondary" onclick="backToLobby()">🚪 BACK TO LOBBY</button>
+    <button class="mario-btn secondary" id="host-back-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">🚪 RETURN ALL TO LOBBY</button>
   </div>
 
   <!-- หน้าต่างสรุปผลผู้ชนะ -->
   <div class="modal-backdrop" id="clear-modal">
     <div class="modal-box">
       <div class="modal-title" id="modal-title">COURSE CLEAR!</div>
-      <p id="modal-sub" style="color:#cbd5e1; margin-bottom:14px;">กำลังอัปเดตตารางผู้ชนะแบบเรียลไทม์...</p>
+      <p id="modal-sub" style="color:#cbd5e1; margin-bottom:14px;">ตารางอันดับผู้เล่นแบบเรียลไทม์</p>
 
       <div class="leaderboard">
         <div id="lb-list"></div>
@@ -783,7 +836,7 @@
 
       <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
         <button class="mario-btn" onclick="document.getElementById('clear-modal').classList.remove('show')">👀 ดูเวลาเพื่อนต่อ</button>
-        <button class="mario-btn secondary" onclick="backToLobby()">🚪 กลับห้อง Lobby</button>
+        <button class="mario-btn secondary" id="modal-host-lobby-btn" style="display:none;" onclick="hostReturnEveryoneToLobby()">🚪 พาทุกคนกลับห้อง Lobby</button>
       </div>
     </div>
   </div>
@@ -794,6 +847,9 @@
     // ตัวอย่าง: "https://nihongo-flip-default-rtdb.asia-southeast1.firebasedatabase.app"
     // =========================================================================
     const FIREBASE_DB_URL = "DATABASE_URL_HERE";
+
+    const HOST_SECRET_NAME = "マイ先生";
+    const BLOOK_AVATARS = ["🍄", "⭐", "🔥", "🐢", "🌸", "🦊", "🐱", "🐼", "🍙", "🍡", "🎌", "👑"];
 
     let db = null;
     let isFirebaseReady = false;
@@ -857,9 +913,10 @@
       STAGES.push(ALL_VOCAB.slice(i, i + STAGE_SIZE));
     }
 
-    // สร้าง ID เฉพาะตัวสำหรับเครื่องนี้
     const myPlayerId = "p_" + Math.random().toString(36).substring(2, 9);
+    const myAvatar = BLOOK_AVATARS[Math.floor(Math.random() * BLOOK_AVATARS.length)];
     let playerName = "";
+    let isHostSensei = false;
     let hasJoined = false;
     let gameMode = "stage";
     let currentStageIndex = 0;
@@ -904,47 +961,75 @@
     }
 
     function selectGameMode(mode) {
+      if (!isHostSensei) return;
       gameMode = mode;
       document.getElementById('mode-stage-btn').classList.toggle('selected', mode === 'stage');
       document.getElementById('mode-all-btn').classList.toggle('selected', mode === 'all');
       if (isFirebaseReady) {
-        db.ref('room/settings/mode').set(mode);
+        db.ref('room/state/mode').set(mode);
       }
     }
 
-    // กดเข้าร่วมห้องนั่งรอ (Join Room)
+    // ตรวจสอบสิทธิ์ マイ先生 แบบเรียลไทม์ขณะพิมพ์ชื่อหรือกดเข้าห้อง
+    function checkHostPrivilege(nameStr) {
+      isHostSensei = (nameStr.trim() === HOST_SECRET_NAME);
+      document.getElementById('host-control-dock').classList.toggle('visible', isHostSensei);
+      document.getElementById('host-back-lobby-btn').style.display = isHostSensei ? 'inline-block' : 'none';
+      document.getElementById('modal-host-lobby-btn').style.display = isHostSensei ? 'inline-block' : 'none';
+    }
+
+    document.getElementById('player-name-input').addEventListener('input', (e) => {
+      checkHostPrivilege(e.target.value);
+    });
+
+    // กดเข้าร่วมห้องนั่งรอ (Join Lobby)
     function joinWaitingRoom() {
       const input = document.getElementById('player-name-input').value.trim();
       if (!input) {
-        alert("กรุณากรอกชื่อก่อนเข้าห้องครับ!");
+        alert("なまえをいれてください / กรุณากรอกชื่อก่อนเข้าห้องครับ!");
         return;
       }
       playerName = input;
       hasJoined = true;
+      checkHostPrivilege(playerName);
+
       document.getElementById('hud-player').textContent = playerName;
-      document.getElementById('join-btn').textContent = "✅ JOINED! รอเพื่อนครบแล้วกด START";
+      document.getElementById('join-btn').textContent = "✅ IN LOBBY!";
       document.getElementById('join-btn').style.background = "#059669";
+
+      if (isHostSensei) {
+        document.getElementById('lobby-status-text').textContent =
+          "👑 ようこそ マイ先生！みんながそろったら START を押してください！";
+      }
 
       if (isFirebaseReady) {
         const playerRef = db.ref(`room/players/${myPlayerId}`);
         playerRef.set({
           name: playerName,
+          avatar: isHostSensei ? "👑" : myAvatar,
+          isHost: isHostSensei,
           matched: 0,
           score: 0,
           finished: false,
           finishTimeMs: null
         });
-        // ลบชื่อออกอัตโนมัติถ้าปิดแท็บ/หลุดจากห้อง
         playerRef.onDisconnect().remove();
       } else {
-        // กรณีทดสอบคนเดียวยังไม่ใส่ลิงก์ Firebase
-        livePlayersData[myPlayerId] = { name: playerName, matched: 0, score: 0, finished: false };
+        livePlayersData[myPlayerId] = {
+          name: playerName,
+          avatar: isHostSensei ? "👑" : myAvatar,
+          isHost: isHostSensei,
+          matched: 0,
+          score: 0,
+          finished: false
+        };
         renderLobbyPlayers(livePlayersData);
       }
     }
 
-    // กดเริ่มเกมพร้อมกันทุกคนในห้อง!
+    // เฉพาะ マイ先生 เท่านั้นที่กดเริ่มเกมให้ทุกคนได้
     function hostStartAllPlayers() {
+      if (!isHostSensei) return;
       if (!hasJoined) {
         joinWaitingRoom();
       }
@@ -960,8 +1045,21 @@
       }
     }
 
-    // ล้างห้องเพื่อเริ่มแข่งรอบใหม่
+    function hostReturnEveryoneToLobby() {
+      if (!isHostSensei) return;
+      if (isFirebaseReady) {
+        db.ref('room/state').set({
+          status: 'waiting',
+          startedAt: 0,
+          mode: gameMode
+        });
+      } else {
+        showLobbyScreen();
+      }
+    }
+
     function resetRoomLobby() {
+      if (!isHostSensei) return;
       if (isFirebaseReady) {
         db.ref('room').set({
           state: { status: 'waiting', startedAt: 0, mode: gameMode },
@@ -969,17 +1067,16 @@
         });
       }
       hasJoined = false;
-      document.getElementById('join-btn').textContent = "🙋‍♂️ JOIN ROOM / เข้าร่วมห้องรอ";
+      document.getElementById('join-btn').textContent = "🙋‍♂️ JOIN LOBBY";
       document.getElementById('join-btn').style.background = "";
     }
 
-    function backToLobby() {
+    function showLobbyScreen() {
       if (uiTimerInterval) clearInterval(uiTimerInterval);
       document.getElementById('clear-modal').classList.remove('show');
       document.getElementById('lobby-screen').classList.remove('hidden');
     }
 
-    // เริ่มเกมบนหน้าจอของผู้เล่นแต่ละคนเมื่อสัญญาณ START ทำงาน
     function beginMatchForMe(startedAt, modeFromRoom) {
       gameMode = modeFromRoom || gameMode;
       roomStartTime = startedAt;
@@ -1012,7 +1109,6 @@
       return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${tenths}`;
     }
 
-    // นาฬิกาวิ่งเรียลไทม์ทั้งของตัวเองและเพื่อนทุกคนในแท็บ LIVE TIMES
     function startLiveClockLoop() {
       if (uiTimerInterval) clearInterval(uiTimerInterval);
       uiTimerInterval = setInterval(() => {
@@ -1023,45 +1119,53 @@
       }, 100);
     }
 
-    // ฟังข้อมูลเรียลไทม์จาก Firebase
     if (isFirebaseReady) {
-      // 1. ฟังรายชื่อคนในห้อง Lobby & ความคืบหน้าระหว่างเล่น
       db.ref('room/players').on('value', (snap) => {
         livePlayersData = snap.val() || {};
         renderLobbyPlayers(livePlayersData);
         renderLiveStandings(Date.now());
       });
 
-      // 2. ฟังสัญญาณกด START พร้อมกันทั้งห้อง
       db.ref('room/state').on('value', (snap) => {
         const state = snap.val();
         if (!state) return;
         if (state.status === 'playing' && state.startedAt !== roomStartTime) {
           beginMatchForMe(state.startedAt, state.mode);
         } else if (state.status === 'waiting') {
-          backToLobby();
+          showLobbyScreen();
         }
       });
     }
 
+    // แสดงการ์ดผู้เล่นทุกคนในหน้า Lobby สไตล์ Blooket
     function renderLobbyPlayers(playersObj) {
-      const container = document.getElementById('player-chips');
+      const grid = document.getElementById('blooket-players-grid');
       const countLabel = document.getElementById('lobby-count');
       const entries = Object.entries(playersObj);
-      countLabel.textContent = `${entries.length} PLAYERS`;
+      countLabel.textContent = entries.length;
 
       if (entries.length === 0) {
-        container.innerHTML = `<span style="color:#64748b; font-size:13px;">กรอกชื่อแล้วกด JOIN ROOM เพื่อเข้ามานั่งรอ...</span>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#64748b; padding:40px 10px; font-size:15px;">まだだれもいません... なまえをいれて JOIN LOBBY を押してください！</div>`;
         return;
       }
 
-      container.innerHTML = entries.map(([pid, p]) => {
-        const isMe = pid === myPlayerId ? ' me' : '';
-        return `<span class="player-chip${isMe}">🍄 ${escapeHtml(p.name)}</span>`;
+      grid.innerHTML = entries.map(([pid, p]) => {
+        const isMe = pid === myPlayerId ? ' is-me' : '';
+        const isHost = p.isHost || p.name === HOST_SECRET_NAME;
+        const hostClass = isHost ? ' is-host' : '';
+        const roleText = isHost ? 'HOST / SENSEI' : 'CHALLENGER';
+        const avatarIcon = p.avatar || (isHost ? '👑' : '🍄');
+
+        return `
+          <div class="blook-card${hostClass}${isMe}">
+            <span class="blook-avatar">${avatarIcon}</span>
+            <div class="blook-name">${escapeHtml(p.name)}</div>
+            <span class="blook-role-tag">${roleText}</span>
+          </div>
+        `;
       }).join('');
     }
 
-    // อัปเดตแท็บดูเวลาเรียลไทม์ของผู้เล่นทุกคน
     function renderLiveStandings(now) {
       const listEl = document.getElementById('live-list');
       const entries = Object.entries(livePlayersData);
@@ -1069,7 +1173,6 @@
 
       const totalTarget = gameMode === 'all' ? ALL_VOCAB.length : STAGES[currentStageIndex].length;
 
-      // เรียงลำดับ: คนที่จบแล้ว (เวลาเร็วสุดขึ้นก่อน) -> คนที่กำลังเล่น (เก็บไพ่ได้เยอะสุดขึ้นก่อน)
       entries.sort(([, a], [, b]) => {
         if (a.finished && b.finished) return a.finishTimeMs - b.finishTimeMs;
         if (a.finished) return -1;
@@ -1363,6 +1466,10 @@
     function escapeHtml(str) {
       return String(str).replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
     }
+
+    document.getElementById('player-name-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') joinWaitingRoom();
+    });
   </script>
 </body>
 </html>
