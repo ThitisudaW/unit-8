@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUPER NIHONGO FLIP - Blooket Live Lobby</title>
+  <title>SUPER NIHONGO FLIP - Satit Patumwan × Meikei</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Mali:wght@600;700&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
@@ -50,7 +50,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= ฉากหลังมาริโอ้ & นักเรียน ================= */
+    /* ================= ฉากหลังมาริโอ้ขยับได้ (แสดงทั้งหน้า Lobby และหน้าเกม) ================= */
     .mario-scenery {
       position: fixed;
       inset: 0;
@@ -68,19 +68,22 @@
         radial-gradient(2px 2px at 38% 19%, #ffffff, transparent),
         radial-gradient(3px 3px at 56% 11%, #a5f3fc, transparent),
         radial-gradient(2px 2px at 74% 16%, #ffffff, transparent),
-        radial-gradient(3px 3px at 89% 10%, #ffe066, transparent);
+        radial-gradient(3px 3px at 89% 10%, #ffe066, transparent),
+        radial-gradient(2px 2px at 48% 28%, #fbcfe8, transparent),
+        radial-gradient(2px 2px at 82% 29%, #ffffff, transparent);
       animation: twinkle 2.4s infinite alternate ease-in-out;
     }
-    @keyframes twinkle { 0% { opacity: 0.55; } 100% { opacity: 1; } }
+    @keyframes twinkle { 0% { opacity: 0.5; } 100% { opacity: 1; } }
 
     .kawaii-cloud {
       position: absolute;
-      opacity: 0.92;
+      opacity: 0.95;
       filter: drop-shadow(0 4px 0 rgba(7, 15, 43, 0.55));
       animation: floatCloud linear infinite;
     }
-    .cloud-a { top: 13%; width: 120px; animation-duration: 38s; }
-    .cloud-b { top: 23%; width: 95px; animation-duration: 50s; animation-delay: -18s; }
+    .cloud-a { top: 12%; width: 125px; animation-duration: 36s; }
+    .cloud-b { top: 22%; width: 95px; animation-duration: 48s; animation-delay: -18s; }
+    .cloud-c { top: 15%; width: 110px; animation-duration: 42s; animation-delay: -29s; }
     @keyframes floatCloud {
       from { transform: translateX(-160px); }
       to { transform: translateX(calc(100vw + 180px)); }
@@ -93,10 +96,68 @@
       border: 4px solid #041f10;
       border-bottom: none;
       border-radius: 50% 50% 0 0 / 85% 85% 0 0;
+      box-shadow: inset 8px 8px 0 rgba(255,255,255,0.16);
     }
+    .hill::before, .hill::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 24px;
+      background: #062b16;
+      border-radius: 8px;
+      opacity: 0.65;
+    }
+    .hill::before { top: 28%; left: 34%; }
+    .hill::after { top: 42%; right: 32%; }
+
     .hill-1 { left: -30px; width: 250px; height: 190px; }
-    .hill-2 { left: 22%; width: 160px; height: 115px; opacity: 0.9; }
+    .hill-2 { left: 24%; width: 160px; height: 115px; opacity: 0.9; }
     .hill-3 { right: 14%; width: 290px; height: 215px; }
+
+    /* พุ่มไม้มาริโอ้ขยับดุ๊กดิ๊ก + ดวงตาน่ารัก */
+    .mario-bush {
+      position: absolute;
+      bottom: 64px;
+      transform-origin: bottom center;
+      animation: bushWobble 2.2s infinite ease-in-out;
+      filter: drop-shadow(0 4px 0 rgba(0, 0, 0, 0.4));
+    }
+    .bush-left { left: 17%; width: 115px; animation-delay: 0s; }
+    .bush-mid { left: 48%; width: 145px; animation-delay: 0.7s; }
+    .bush-right { right: 16%; width: 105px; animation-delay: 1.4s; }
+
+    @keyframes bushWobble {
+      0%, 100% { transform: scaleY(1) scaleX(1) rotate(0deg); }
+      25% { transform: scaleY(1.06) scaleX(0.97) rotate(-1.5deg); }
+      50% { transform: scaleY(0.96) scaleX(1.03) rotate(0deg); }
+      75% { transform: scaleY(1.05) scaleX(0.98) rotate(1.5deg); }
+    }
+
+    /* เหรียญทองหมุนลอยเหนือพุ่มไม้ */
+    .floating-coin {
+      position: absolute;
+      bottom: 145px;
+      width: 22px;
+      height: 28px;
+      background: linear-gradient(135deg, #fff08a, #ffca28, #d98200);
+      border: 3px solid #452300;
+      border-radius: 50%;
+      animation: coinBounce 1.4s infinite ease-in-out;
+    }
+    .floating-coin::after {
+      content: "";
+      position: absolute;
+      top: 4px; left: 6px; width: 4px; height: 14px;
+      background: #783f00; border-radius: 2px;
+    }
+    .coin-1 { left: 52%; animation-delay: 0s; }
+    .coin-2 { left: 56%; animation-delay: 0.25s; }
+    .coin-3 { left: 60%; animation-delay: 0.5s; }
+
+    @keyframes coinBounce {
+      0%, 100% { transform: translateY(0) scaleX(1); }
+      50% { transform: translateY(-14px) scaleX(0.35); }
+    }
 
     .warp-pipe {
       position: absolute;
@@ -119,7 +180,7 @@
     .student-duo {
       position: absolute;
       bottom: 64px;
-      left: 4.5%;
+      left: 4%;
       display: flex;
       align-items: flex-end;
       gap: 10px;
@@ -162,44 +223,39 @@
       border-top: 4px solid #052e16;
     }
 
-    /* ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= */
+    /* ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY (โปร่งใสโชว์ฉากมาริโอ้ด้านหลัง) ================= */
     .lobby-fullscreen {
       position: fixed;
       inset: 0;
       z-index: 100;
-      background: radial-gradient(circle at top, #1b346b 0%, #091126 70%, #050914 100%);
+      background: rgba(5, 10, 26, 0.32);
       display: flex;
       flex-direction: column;
       overflow-y: auto;
+      padding-bottom: 110px;
     }
     .lobby-fullscreen.hidden { display: none; }
 
-    /* แถบ Header ของหน้า Lobby */
     .lobby-topbar {
-      background: rgba(6, 11, 28, 0.92);
+      background: rgba(8, 14, 36, 0.9);
+      backdrop-filter: blur(6px);
       border-bottom: 4px solid var(--q-gold);
-      padding: 16px 24px;
+      padding: 14px 24px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
       justify-content: space-between;
       gap: 14px;
-      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6);
+      box-shadow: 0 6px 24px rgba(0, 0, 0, 0.55);
     }
 
-    .lobby-brand {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-    }
-
+    .lobby-brand { display: flex; flex-direction: column; gap: 4px; }
     .lobby-brand-title {
       font-family: 'Press Start 2P', monospace;
       font-size: clamp(14px, 2.2vw, 20px);
       color: var(--q-gold);
       text-shadow: 3px 3px 0 #b91c1c;
     }
-
     .lobby-brand-sub {
       font-family: 'M PLUS Rounded 1c', sans-serif;
       font-size: 12px;
@@ -220,27 +276,27 @@
       gap: 10px;
     }
 
-    /* ส่วนกรอกชื่อเข้าห้อง */
     .lobby-join-bar {
       max-width: 720px;
       width: 92%;
-      margin: 24px auto 10px;
-      background: rgba(15, 28, 62, 0.9);
-      border: 4px solid #3b76bd;
+      margin: 20px auto 10px;
+      background: rgba(11, 21, 48, 0.88);
+      backdrop-filter: blur(6px);
+      border: 4px solid var(--q-gold);
       border-radius: 16px;
-      padding: 18px 20px;
+      padding: 16px 20px;
       display: flex;
       flex-wrap: wrap;
       gap: 12px;
       align-items: center;
       justify-content: center;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
     }
 
     .name-input {
       flex: 1;
       min-width: 220px;
-      padding: 14px 16px;
+      padding: 13px 16px;
       font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
       font-size: 18px;
       font-weight: 800;
@@ -257,56 +313,53 @@
       box-shadow: 0 0 15px rgba(255, 202, 40, 0.45);
     }
 
-    /* พื้นที่แสดงผู้เล่นทั้งหมดแบบ Blooket Grid */
     .lobby-arena {
       flex: 1;
-      max-width: 1160px;
+      max-width: 1120px;
       width: 94%;
-      margin: 14px auto;
-      background: rgba(6, 12, 30, 0.65);
-      border: 4px dashed rgba(255, 202, 40, 0.35);
+      margin: 12px auto;
+      background: rgba(8, 15, 38, 0.72);
+      backdrop-filter: blur(4px);
+      border: 4px solid rgba(96, 165, 250, 0.45);
       border-radius: 20px;
-      padding: 24px;
+      padding: 20px 24px;
       display: flex;
       flex-direction: column;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
     }
 
     .lobby-status-banner {
       text-align: center;
       font-family: 'Press Start 2P', 'M PLUS Rounded 1c', sans-serif;
-      font-size: clamp(12px, 1.8vw, 15px);
+      font-size: clamp(11px, 1.7vw, 14px);
       color: #4ade80;
-      margin-bottom: 20px;
+      margin-bottom: 18px;
+      text-shadow: 2px 2px 0 #000;
       animation: pulseText 1.6s infinite alternate ease-in-out;
     }
-    @keyframes pulseText {
-      from { opacity: 0.7; }
-      to { opacity: 1; }
-    }
+    @keyframes pulseText { from { opacity: 0.75; } to { opacity: 1; } }
 
     .blooket-players-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
-      gap: 16px;
+      grid-template-columns: repeat(auto-fill, minmax(165px, 1fr));
+      gap: 14px;
       align-content: start;
     }
 
-    /* การ์ดผู้เล่นแต่ละคนในหน้า Lobby สไตล์ Blooket */
     .blook-card {
-      background: linear-gradient(180deg, #1e3a8a 0%, #172554 100%);
+      background: linear-gradient(180deg, rgba(30, 58, 138, 0.95) 0%, rgba(23, 37, 84, 0.95) 100%);
       border: 4px solid #60a5fa;
       border-radius: 16px;
-      padding: 16px 12px;
+      padding: 14px 10px;
       text-align: center;
       box-shadow: 0 6px 0 #0b132b;
       animation: popBlook 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
-      position: relative;
     }
 
     .blook-card.is-host {
-      background: linear-gradient(180deg, #991b1b 0%, #450a0a 100%);
+      background: linear-gradient(180deg, rgba(153, 27, 27, 0.95) 0%, rgba(69, 10, 10, 0.95) 100%);
       border-color: var(--q-gold);
-      box-shadow: 0 6px 0 #290505, 0 0 20px rgba(255, 202, 40, 0.4);
+      box-shadow: 0 6px 0 #290505, 0 0 20px rgba(255, 202, 40, 0.45);
     }
 
     .blook-card.is-me {
@@ -319,73 +372,40 @@
       to { transform: scale(1) translateY(0); opacity: 1; }
     }
 
-    .blook-avatar {
-      font-size: 38px;
-      margin-bottom: 8px;
-      display: block;
-      filter: drop-shadow(0 4px 0 rgba(0,0,0,0.4));
-    }
-
-    .blook-name {
-      font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif;
-      font-weight: 900;
-      font-size: 17px;
-      color: #fff;
-      word-break: break-word;
-    }
-
+    .blook-avatar { font-size: 36px; margin-bottom: 6px; display: block; }
+    .blook-name { font-family: 'M PLUS Rounded 1c', 'Prompt', sans-serif; font-weight: 900; font-size: 16px; color: #fff; word-break: break-word; }
     .blook-role-tag {
-      display: inline-block;
-      margin-top: 6px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 8px;
-      padding: 3px 7px;
-      border-radius: 6px;
-      background: rgba(0, 0, 0, 0.45);
-      color: #93c5fd;
+      display: inline-block; margin-top: 6px;
+      font-family: 'Press Start 2P', monospace; font-size: 8px;
+      padding: 3px 7px; border-radius: 6px;
+      background: rgba(0, 0, 0, 0.45); color: #93c5fd;
     }
-    .blook-card.is-host .blook-role-tag {
-      background: var(--q-gold);
-      color: #3b1d00;
-    }
+    .blook-card.is-host .blook-role-tag { background: var(--q-gold); color: #3b1d00; }
 
     /* แผงควบคุมเฉพาะ マイ先生 ด้านล่างของหน้า Lobby */
     .host-control-dock {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
       background: rgba(10, 17, 40, 0.96);
       border-top: 4px solid var(--q-gold);
-      padding: 16px 24px;
+      padding: 14px 20px;
       display: none;
       flex-wrap: wrap;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.7);
+      gap: 12px;
+      z-index: 120;
+      box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.8);
     }
+    .host-control-dock.visible { display: flex; }
 
-    .host-control-dock.visible {
-      display: flex;
-    }
-
-    .mode-pill-group {
-      display: flex;
-      gap: 8px;
-    }
-
+    .mode-pill-group { display: flex; gap: 8px; }
     .mode-pill {
-      padding: 10px 14px;
-      border-radius: 10px;
-      border: 3px solid #3b76bd;
-      background: #0f1f40;
-      color: #cbd5e1;
-      font-family: 'DotGothic16', sans-serif;
-      font-size: 13px;
-      cursor: pointer;
+      padding: 10px 14px; border-radius: 10px;
+      border: 3px solid #3b76bd; background: #0f1f40; color: #cbd5e1;
+      font-family: 'DotGothic16', sans-serif; font-size: 13px; cursor: pointer;
     }
-    .mode-pill.selected {
-      background: #1d4ed8;
-      border-color: var(--q-gold);
-      color: #fff;
-    }
+    .mode-pill.selected { background: #1d4ed8; border-color: var(--q-gold); color: #fff; }
 
     /* ================= หน้าด่านเล่นเกม ================= */
     .hud, .header, .stage-bar, .game-layout, .controls {
@@ -434,10 +454,9 @@
       margin: 0 0 6px;
     }
 
-    .legend { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; margin-top: 6px; }
-    .badge { font-size: 12px; padding: 3px 10px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.35); font-weight: 700; }
-    .badge.hira { background: #2563eb; }
-    .badge.kanji { background: #9333ea; }
+    .legend { display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; margin-top: 6px; }
+    .badge { font-size: 12px; padding: 4px 12px; border-radius: 20px; border: 2px solid rgba(255,255,255,0.35); font-weight: 700; }
+    .badge.jp { background: #7e22ce; }
     .badge.thai { background: #059669; }
 
     .stage-bar {
@@ -478,17 +497,17 @@
     .board {
       width: 100%;
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
-      gap: 12px;
+      grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
+      gap: 14px;
       background: rgba(8, 14, 36, 0.58);
-      padding: 16px;
+      padding: 18px;
       border-radius: 14px;
       border: 3px solid rgba(59, 118, 189, 0.45);
       min-height: 360px;
     }
 
     @media (min-width: 768px) {
-      .board { grid-template-columns: repeat(6, 1fr); }
+      .board { grid-template-columns: repeat(4, 1fr); }
     }
 
     .card-slot-empty {
@@ -516,23 +535,21 @@
     .card-face {
       position: absolute; inset: 0; backface-visibility: hidden;
       border-radius: 12px; display: flex; flex-direction: column;
-      align-items: center; justify-content: center; padding: 8px; text-align: center;
+      align-items: center; justify-content: center; padding: 10px; text-align: center;
     }
     .card-front {
       background: linear-gradient(135deg, var(--q-gold-light) 0%, var(--q-gold) 50%, var(--q-gold-dark) 100%);
       border: 4px solid #452300;
       box-shadow: inset 3px 3px 0 rgba(255,255,255,0.7), 0 5px 0 #2b1600;
     }
-    .q-mark { font-family: 'Press Start 2P', monospace; font-size: 26px; color: #fffbe6; text-shadow: 3px 3px 0 #783f00; }
+    .q-mark { font-family: 'Press Start 2P', monospace; font-size: 28px; color: #fffbe6; text-shadow: 3px 3px 0 #783f00; }
     .card-back { transform: rotateY(180deg); border: 4px solid #fff; }
-    .card-back.type-hira { background: radial-gradient(circle, #2563eb, #172554); border-color: #93c5fd; }
-    .card-back.type-kanji { background: radial-gradient(circle, #7e22ce, #2e1065); border-color: #d8b4fe; }
+    .card-back.type-jp { background: radial-gradient(circle, #7e22ce, #2e1065); border-color: #d8b4fe; }
     .card-back.type-thai { background: radial-gradient(circle, #059669, #064e3b); border-color: #6ee7b7; }
-    .type-tag { position: absolute; top: 6px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 10px; padding: 2px 8px; border-radius: 10px; background: rgba(0,0,0,0.45); }
+    .type-tag { position: absolute; top: 8px; font-family: 'M PLUS Rounded 1c', sans-serif; font-weight: 800; font-size: 11px; padding: 2px 10px; border-radius: 10px; background: rgba(0,0,0,0.45); }
     .card-text { font-weight: 800; line-height: 1.3; }
-    .type-hira .card-text { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: clamp(15px, 2vw, 20px); color: #e0f2fe; }
-    .type-kanji .card-text { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: clamp(19px, 2.5vw, 25px); color: #f5d0fe; }
-    .type-thai .card-text { font-family: 'Mali', cursive, sans-serif; font-weight: 700; font-size: clamp(14px, 1.7vw, 18px); color: #d1fae5; }
+    .type-jp .card-text { font-family: 'M PLUS Rounded 1c', sans-serif; font-size: clamp(20px, 2.6vw, 28px); color: #f5d0fe; }
+    .type-thai .card-text { font-family: 'Mali', cursive, sans-serif; font-weight: 700; font-size: clamp(16px, 2vw, 21px); color: #d1fae5; }
     .card.wrong { animation: shakeWrong 0.4s ease; }
     @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-6px); } 75% { transform: translateX(6px); } }
 
@@ -606,11 +623,9 @@
     .matched-stack { background: linear-gradient(135deg, #102a43 0%, #09192f 100%); border: 2px solid #38bdf8; border-radius: 12px; padding: 10px; position: relative; }
     .stack-badge { position: absolute; top: -8px; right: 10px; background: var(--q-gold); color: #3b1d00; font-family: 'Press Start 2P', monospace; font-size: 9px; padding: 3px 6px; border-radius: 4px; }
     .stack-cards { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-top: 4px; }
-    .mini-card { padding: 6px 8px; border-radius: 8px; text-align: center; font-weight: 800; }
-    .mini-card.hira { background: rgba(37, 99, 235, 0.35); color: #bfdbfe; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 14px; }
-    .mini-card.hira.full-span { grid-column: span 2; }
-    .mini-card.kanji { background: rgba(147, 51, 234, 0.35); color: #f3e8ff; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 15px; }
-    .mini-card.thai { grid-column: span 2; background: rgba(5, 150, 105, 0.35); color: #a7f3d0; font-family: 'Mali', cursive, sans-serif; font-weight: 700; font-size: 15px; }
+    .mini-card { padding: 8px; border-radius: 8px; text-align: center; font-weight: 800; }
+    .mini-card.jp { background: rgba(147, 51, 234, 0.35); color: #f3e8ff; font-family: 'M PLUS Rounded 1c', sans-serif; font-size: 16px; }
+    .mini-card.thai { background: rgba(5, 150, 105, 0.35); color: #a7f3d0; font-family: 'Mali', cursive, sans-serif; font-weight: 700; font-size: 15px; }
 
     .controls { margin-top: 18px; display: flex; gap: 12px; flex-wrap: wrap; justify-content: center; }
     .mario-btn {
@@ -646,58 +661,11 @@
 </head>
 <body>
 
-  <!-- ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= -->
-  <div class="lobby-fullscreen" id="lobby-screen">
-    <!-- แถบบนของ Lobby -->
-    <div class="lobby-topbar">
-      <div class="lobby-brand">
-        <div class="lobby-brand-title">SUPER NIHONGO LOBBY</div>
-        <div class="lobby-brand-sub">🇹🇭 SATIT PATUMWAN × MEIKEI HIGH SCHOOL 🇯🇵</div>
-      </div>
-      <div class="lobby-counter-pill">
-        <span>👥 PLAYERS:</span>
-        <span id="lobby-count" style="color:var(--q-gold);">0</span>
-      </div>
-    </div>
-
-    <!-- ช่องกรอกชื่อเข้าห้อง -->
-    <div class="lobby-join-bar" id="join-bar">
-      <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / ENTER NICKNAME..." maxlength="16" />
-      <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 22px;" onclick="joinWaitingRoom()">
-        🙋‍♂️ JOIN LOBBY
-      </button>
-    </div>
-
-    <!-- พื้นที่โชว์การ์ดผู้เล่นที่นั่งรอในห้อง -->
-    <div class="lobby-arena">
-      <div class="lobby-status-banner" id="lobby-status-text">
-        ⏳ WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
-      </div>
-      <div class="blooket-players-grid" id="blooket-players-grid"></div>
-    </div>
-
-    <!-- แผงกด START ด้านล่าง (จะโชว์เฉพาะคนที่ตั้งชื่อว่า マイ先生 เท่านั้น!) -->
-    <div class="host-control-dock" id="host-control-dock">
-      <div class="mode-pill-group">
-        <button type="button" class="mode-pill selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
-          🏁 STAGE MODE (6語)
-        </button>
-        <button type="button" class="mode-pill" id="mode-all-btn" onclick="selectGameMode('all')">
-          🔥 ALL 41 WORDS
-        </button>
-      </div>
-      <button class="mario-btn" style="font-size:14px; padding:15px 26px;" onclick="hostStartAllPlayers()">
-        ▶ START GAME FOR EVERYONE!
-      </button>
-      <button class="mario-btn danger" style="font-size:11px; padding:15px 14px;" onclick="resetRoomLobby()">
-        🗑 CLEAR ROOM
-      </button>
-    </div>
-  </div>
-
-  <!-- ================= ฉากหลังมาริโอ้ & คู่นักเรียน ================= -->
+  <!-- ================= ฉากหลังมาริโอ้ขยับได้ (พุ่มไม้ขยับ + เหรียญหมุน + นักเรียน 2 โรงเรียน) ================= -->
   <div class="mario-scenery" aria-hidden="true">
     <div class="stars"></div>
+
+    <!-- ก้อนเมฆยิ้ม -->
     <svg class="kawaii-cloud cloud-a" viewBox="0 0 32 16" shape-rendering="crispEdges">
       <path d="M10 2h8v2h4v2h4v2h2v4h-2v2H6v-2H4V8h2V6h4V2z" fill="#e0f2fe"/>
       <path d="M10 3h8v2h4v2h4v4H6V7h4V5h0V3z" fill="#ffffff"/>
@@ -710,11 +678,50 @@
       <rect x="12" y="7" width="1.5" height="3" fill="#1e3a8a"/><rect x="18" y="7" width="1.5" height="3" fill="#1e3a8a"/>
       <rect x="10" y="9" width="2" height="1" fill="#fda4af"/><rect x="19" y="9" width="2" height="1" fill="#fda4af"/>
     </svg>
+    <svg class="kawaii-cloud cloud-c" viewBox="0 0 32 16" shape-rendering="crispEdges">
+      <path d="M10 2h8v2h4v2h4v2h2v4h-2v2H6v-2H4V8h2V6h4V2z" fill="#e0f2fe"/>
+      <path d="M10 3h8v2h4v2h4v4H6V7h4V5h0V3z" fill="#ffffff"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#1e3a8a"/><rect x="18" y="7" width="1.5" height="3" fill="#1e3a8a"/>
+      <rect x="10" y="9" width="2" height="1" fill="#fda4af"/><rect x="19" y="9" width="2" height="1" fill="#fda4af"/>
+    </svg>
+
     <div class="hill hill-1"></div>
     <div class="hill hill-2"></div>
     <div class="hill hill-3"></div>
+
+    <!-- พุ่มไม้มาริโอ้ขยับได้ 3 พุ่ม -->
+    <svg class="mario-bush bush-left" viewBox="0 0 32 16" shape-rendering="crispEdges">
+      <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
+      <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#22c55e"/>
+      <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#86efac"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
+      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
+    </svg>
+
+    <svg class="mario-bush bush-mid" viewBox="0 0 32 16" shape-rendering="crispEdges">
+      <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
+      <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#16a34a"/>
+      <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#4ade80"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
+      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
+    </svg>
+
+    <svg class="mario-bush bush-right" viewBox="0 0 32 16" shape-rendering="crispEdges">
+      <path d="M10 2h12v2h4v2h4v4h2v4H0v-4h2V6h4V4h4V2z" fill="#052e16"/>
+      <path d="M11 3h10v2h4v2h4v5H3V7h4V5h4V3z" fill="#22c55e"/>
+      <path d="M11 3h10v2H11V3zm-4 2h4v2H7V5zm14 0h4v2h-4V5z" fill="#86efac"/>
+      <rect x="12" y="7" width="1.5" height="3" fill="#052e16"/>
+      <rect x="18.5" y="7" width="1.5" height="3" fill="#052e16"/>
+    </svg>
+
+    <!-- เหรียญทองหมุนลอย -->
+    <div class="floating-coin coin-1"></div>
+    <div class="floating-coin coin-2"></div>
+    <div class="floating-coin coin-3"></div>
+
     <div class="warp-pipe"></div>
 
+    <!-- คู่ตัวการ์ตูนนักเรียน สาธิตปทุมวัน & Meikei -->
     <div class="student-duo" id="student-duo">
       <div class="student-unit patumwan">
         <span class="school-tag patumwan">ป.ว. PATUMWAN</span>
@@ -751,7 +758,54 @@
         </svg>
       </div>
     </div>
+
     <div class="mario-ground"></div>
+  </div>
+
+  <!-- ================= หน้าจอ FULL-SCREEN BLOOKET LOBBY ================= -->
+  <div class="lobby-fullscreen" id="lobby-screen">
+    <div class="lobby-topbar">
+      <div class="lobby-brand">
+        <div class="lobby-brand-title">SUPER NIHONGO LOBBY</div>
+        <div class="lobby-brand-sub">🇹🇭 SATIT PATUMWAN × MEIKEI HIGH SCHOOL 🇯🇵</div>
+      </div>
+      <div class="lobby-counter-pill">
+        <span>👥 PLAYERS:</span>
+        <span id="lobby-count" style="color:var(--q-gold);">0</span>
+      </div>
+    </div>
+
+    <div class="lobby-join-bar" id="join-bar">
+      <input type="text" id="player-name-input" class="name-input" placeholder="なまえ / ENTER NICKNAME..." maxlength="16" />
+      <button class="mario-btn" id="join-btn" style="font-size:13px; padding:15px 22px;" onclick="joinWaitingRoom()">
+        🙋‍♂️ JOIN LOBBY
+      </button>
+    </div>
+
+    <div class="lobby-arena">
+      <div class="lobby-status-banner" id="lobby-status-text">
+        ⏳ WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)
+      </div>
+      <div class="blooket-players-grid" id="blooket-players-grid"></div>
+    </div>
+
+    <!-- แผงกด START ด้านล่าง (จะโชว์เฉพาะคนที่ตั้งชื่อว่า マイ先生 เท่านั้น!) -->
+    <div class="host-control-dock" id="host-control-dock">
+      <div class="mode-pill-group">
+        <button type="button" class="mode-pill selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
+          🏁 STAGE MODE (8語)
+        </button>
+        <button type="button" class="mode-pill" id="mode-all-btn" onclick="selectGameMode('all')">
+          🔥 ALL 41 WORDS
+        </button>
+      </div>
+      <button class="mario-btn" style="font-size:14px; padding:15px 26px;" onclick="hostStartAllPlayers()">
+        ▶ START GAME FOR EVERYONE!
+      </button>
+      <button class="mario-btn danger" style="font-size:11px; padding:15px 14px;" onclick="resetRoomLobby()">
+        🗑 CLEAR ROOM
+      </button>
+    </div>
   </div>
 
   <!-- ================= หน้าด่านเล่นเกม ================= -->
@@ -770,7 +824,7 @@
     </div>
     <div class="hud-item">
       <span class="hud-label">COLLECTED</span>
-      <span class="hud-value" id="hud-matched">0/6</span>
+      <span class="hud-value" id="hud-matched">0/8</span>
     </div>
     <div class="hud-item">
       <span class="hud-label">SCORE</span>
@@ -781,8 +835,7 @@
   <div class="header">
     <h1 class="title">SUPER NIHONGO FLIP</h1>
     <div class="legend">
-      <span class="badge hira">🔵 よみかた (READING)</span>
-      <span class="badge kanji">🟣 かんじ (KANJI)</span>
+      <span class="badge jp">🟣 ことば (KANJI / KATAKANA)</span>
       <span class="badge thai">🟢 いみ (MEANING)</span>
     </div>
   </div>
@@ -798,7 +851,7 @@
           ⏱ LIVE TIMES<br><span style="font-size:8px;">เวลาผู้เล่นทุกคน</span>
         </button>
         <button class="side-tab-btn" id="tab-deck-btn" onclick="switchSideTab('deck')">
-          ★ MY DECK (<span id="deck-count">0/6</span>)<br><span style="font-size:8px;">การ์ดที่เก็บได้</span>
+          ★ MY DECK (<span id="deck-count">0/8</span>)<br><span style="font-size:8px;">การ์ดที่เก็บได้</span>
         </button>
       </div>
 
@@ -860,54 +913,56 @@
       isFirebaseReady = true;
     }
 
+    // คำศัพท์ทั้งหมด 41 คำ (ใช้ คันจิ หรือ คาตาคานะ คู่กับ ความหมายภาษาไทย)
     const ALL_VOCAB = [
-      { id: 1,  hira: "ハンサム", kanji: null,           thai: "หล่อ" },
-      { id: 2,  hira: "きれい",   kanji: "綺麗",         thai: "สวย / สะอาด" },
-      { id: 3,  hira: "しずか",   kanji: "静か",         thai: "เงียบ" },
-      { id: 4,  hira: "にぎやか", kanji: "賑やか",       thai: "คึกคัก" },
-      { id: 5,  hira: "ゆうめい", kanji: "有名",         thai: "มีชื่อเสียง" },
-      { id: 6,  hira: "しんせつ", kanji: "親切",         thai: "ใจดี / มีน้ำใจ" },
-      { id: 7,  hira: "げんき",   kanji: "元気",         thai: "แข็งแรง / สบายดี" },
-      { id: 8,  hira: "ひま",     kanji: "暇",           thai: "ว่าง" },
-      { id: 9,  hira: "べんり",   kanji: "便利",         thai: "สะดวก" },
-      { id: 10, hira: "すてき",   kanji: "素敵",         thai: "วิเศษ / ดูดี" },
+      { id: 1,  jp: "ハンサム",        thai: "หล่อ" },
+      { id: 2,  jp: "綺麗",            thai: "สวย / สะอาด" },
+      { id: 3,  jp: "静か",            thai: "เงียบ" },
+      { id: 4,  jp: "賑やか",          thai: "คึกคัก" },
+      { id: 5,  jp: "有名",            thai: "มีชื่อเสียง" },
+      { id: 6,  jp: "親切",            thai: "ใจดี / มีน้ำใจ" },
+      { id: 7,  jp: "元気",            thai: "แข็งแรง / สบายดี" },
+      { id: 8,  jp: "暇",              thai: "ว่าง" },
+      { id: 9,  jp: "便利",            thai: "สะดวก" },
+      { id: 10, jp: "素敵",            thai: "วิเศษ / ดูดี" },
 
-      { id: 11, hira: "おおきい",   kanji: "大きい",         thai: "ใหญ่" },
-      { id: 12, hira: "ちいさい",   kanji: "小さい",         thai: "เล็ก" },
-      { id: 13, hira: "あたらしい", kanji: "新しい",         thai: "ใหม่" },
-      { id: 14, hira: "ふるい",     kanji: "古い",           thai: "เก่า" },
-      { id: 15, hira: "いい",       kanji: "良い",           thai: "ดี" },
-      { id: 16, hira: "わるい",     kanji: "悪い",           thai: "ไม่ดี / เลว" },
-      { id: 17, hira: "あつい",     kanji: "暑い / 熱い",     thai: "ร้อน" },
-      { id: 18, hira: "さむい",     kanji: "寒い",           thai: "หนาว (อากาศ)" },
-      { id: 19, hira: "つめたい",   kanji: "冷たい",         thai: "เย็น (สิ่งของ)" },
-      { id: 20, hira: "むずかしい", kanji: "難しい",         thai: "ยาก" },
-      { id: 21, hira: "やさしい",   kanji: "易しい / 優しい", thai: "ง่าย / ใจดี" },
-      { id: 22, hira: "たかい",     kanji: "高い",           thai: "สูง / แพง" },
+      { id: 11, jp: "大きい",          thai: "ใหญ่" },
+      { id: 12, jp: "小さい",          thai: "เล็ก" },
+      { id: 13, jp: "新しい",          thai: "ใหม่" },
+      { id: 14, jp: "古い",            thai: "เก่า" },
+      { id: 15, jp: "良い",            thai: "ดี" },
+      { id: 16, jp: "悪い",            thai: "ไม่ดี / เลว" },
+      { id: 17, jp: "暑い / 熱い",     thai: "ร้อน" },
+      { id: 18, jp: "寒い",            thai: "หนาว (อากาศ)" },
+      { id: 19, jp: "冷たい",          thai: "เย็น (สิ่งของ)" },
+      { id: 20, jp: "難しい",          thai: "ยาก" },
+      { id: 21, jp: "易しい / 優しい", thai: "ง่าย / ใจดี" },
+      { id: 22, jp: "高い",            thai: "สูง / แพง" },
 
-      { id: 23, hira: "やすい",     kanji: "安い",     thai: "ถูก (ราคา)" },
-      { id: 24, hira: "ひくい",     kanji: "低い",     thai: "ต่ำ / เตี้ย" },
-      { id: 25, hira: "おもしろい", kanji: "面白い",   thai: "น่าสนใจ / สนุก" },
-      { id: 26, hira: "おいしい",   kanji: "美味しい", thai: "อร่อย" },
-      { id: 27, hira: "いそがしい", kanji: "忙しい",   thai: "ยุ่ง" },
-      { id: 28, hira: "たのしい",   kanji: "楽しい",   thai: "สนุกสนาน" },
-      { id: 29, hira: "しろい",     kanji: "白い",     thai: "สีขาว" },
-      { id: 30, hira: "くろい",     kanji: "黒い",     thai: "สีดำ" },
-      { id: 31, hira: "あかい",     kanji: "赤い",     thai: "สีแดง" },
-      { id: 32, hira: "あおい",     kanji: "青い",     thai: "สีน้ำเงิน / ฟ้า" },
-      { id: 33, hira: "きいろい",   kanji: "黄色い",   thai: "สีเหลือง" },
-      { id: 34, hira: "ちゃいろい", kanji: "茶色い",   thai: "สีน้ำตาล" },
+      { id: 23, jp: "安い",            thai: "ถูก (ราคา)" },
+      { id: 24, jp: "低い",            thai: "ต่ำ / เตี้ย" },
+      { id: 25, jp: "面白い",          thai: "น่าสนใจ / สนุก" },
+      { id: 26, jp: "美味しい",        thai: "อร่อย" },
+      { id: 27, jp: "忙しい",          thai: "ยุ่ง" },
+      { id: 28, jp: "楽しい",          thai: "สนุกสนาน" },
+      { id: 29, jp: "白い",            thai: "สีขาว" },
+      { id: 30, jp: "黒い",            thai: "สีดำ" },
+      { id: 31, jp: "赤い",            thai: "สีแดง" },
+      { id: 32, jp: "青い",            thai: "สีน้ำเงิน / ฟ้า" },
+      { id: 33, jp: "黄色い",          thai: "สีเหลือง" },
+      { id: 34, jp: "茶色い",          thai: "สีน้ำตาล" },
 
-      { id: 35, hira: "あまい",     kanji: "甘い",     thai: "หวาน" },
-      { id: 36, hira: "からい",     kanji: "辛い",     thai: "เผ็ด" },
-      { id: 37, hira: "にがい",     kanji: "苦い",     thai: "ขม" },
-      { id: 38, hira: "しおからい", kanji: "塩辛い",   thai: "เค็ม" },
-      { id: 39, hira: "すっぱい",   kanji: "酸っぱい", thai: "เปรี้ยว" },
-      { id: 40, hira: "こい",       kanji: "濃い",     thai: "เข้มข้น" },
-      { id: 41, hira: "うすい",     kanji: "薄い",     thai: "จืด / จาง / บาง" }
+      { id: 35, jp: "甘い",            thai: "หวาน" },
+      { id: 36, jp: "辛い",            thai: "เผ็ด" },
+      { id: 37, jp: "苦い",            thai: "ขม" },
+      { id: 38, jp: "塩辛い",          thai: "เค็ม" },
+      { id: 39, jp: "酸っぱい",        thai: "เปรี้ยว" },
+      { id: 40, jp: "濃い",            thai: "เข้มข้น" },
+      { id: 41, jp: "薄い",            thai: "จืด / จาง / บาง" }
     ];
 
-    const STAGE_SIZE = 6;
+    // ด่านละ 8 คำ (= 16 ใบต่อกระดาน)
+    const STAGE_SIZE = 8;
     const STAGES = [];
     for (let i = 0; i < ALL_VOCAB.length; i += STAGE_SIZE) {
       STAGES.push(ALL_VOCAB.slice(i, i + STAGE_SIZE));
@@ -970,7 +1025,6 @@
       }
     }
 
-    // ตรวจสอบสิทธิ์ マイ先生 แบบเรียลไทม์ขณะพิมพ์ชื่อหรือกดเข้าห้อง
     function checkHostPrivilege(nameStr) {
       isHostSensei = (nameStr.trim() === HOST_SECRET_NAME);
       document.getElementById('host-control-dock').classList.toggle('visible', isHostSensei);
@@ -982,7 +1036,6 @@
       checkHostPrivilege(e.target.value);
     });
 
-    // กดเข้าร่วมห้องนั่งรอ (Join Lobby)
     function joinWaitingRoom() {
       const input = document.getElementById('player-name-input').value.trim();
       if (!input) {
@@ -1027,7 +1080,6 @@
       }
     }
 
-    // เฉพาะ マイ先生 เท่านั้นที่กดเริ่มเกมให้ทุกคนได้
     function hostStartAllPlayers() {
       if (!isHostSensei) return;
       if (!hasJoined) {
@@ -1137,7 +1189,6 @@
       });
     }
 
-    // แสดงการ์ดผู้เล่นทุกคนในหน้า Lobby สไตล์ Blooket
     function renderLobbyPlayers(playersObj) {
       const grid = document.getElementById('blooket-players-grid');
       const countLabel = document.getElementById('lobby-count');
@@ -1145,7 +1196,7 @@
       countLabel.textContent = entries.length;
 
       if (entries.length === 0) {
-        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#64748b; padding:40px 10px; font-size:15px;">まだだれもいません... なまえをいれて JOIN LOBBY を押してください！</div>`;
+        grid.innerHTML = `<div style="grid-column:1/-1; text-align:center; color:#cbd5e1; padding:36px 10px; font-size:15px;">まだだれもいません... なまえをいれて JOIN LOBBY を押してください！</div>`;
         return;
       }
 
@@ -1263,20 +1314,17 @@
       collectedList.innerHTML = `
         <div class="empty-deck-hint" id="empty-hint">
           まだカードがありません<br>
-          <span style="font-size:12px;">MATCH CARDS TO MOVE THEM HERE!</span>
+          <span style="font-size:12px;">MATCH 2 CARDS TO MOVE THEM HERE!</span>
         </div>
       `;
 
       const vocabList = STAGES[index];
       let cardsData = [];
 
+      // สร้างการ์ด 2 ใบต่อคำ: 1. คันจิ/คาตาคานะ 2. ความหมายภาษาไทย
       vocabList.forEach(item => {
-        const requiredCount = item.kanji ? 3 : 2;
-        cardsData.push({ vocabId: item.id, required: requiredCount, type: 'hira', label: 'よみかた', text: item.hira });
-        if (item.kanji) {
-          cardsData.push({ vocabId: item.id, required: requiredCount, type: 'kanji', label: 'かんじ', text: item.kanji });
-        }
-        cardsData.push({ vocabId: item.id, required: requiredCount, type: 'thai', label: 'いみ', text: item.thai });
+        cardsData.push({ vocabId: item.id, type: 'jp', label: 'ことば', text: item.jp });
+        cardsData.push({ vocabId: item.id, type: 'thai', label: 'いみ', text: item.thai });
       });
 
       cardsData = shuffle(cardsData);
@@ -1288,7 +1336,6 @@
         const card = document.createElement('div');
         card.className = 'card';
         card.dataset.vocabId = data.vocabId;
-        card.dataset.required = data.required;
         card.dataset.type = data.type;
 
         card.innerHTML = `
@@ -1316,65 +1363,14 @@
       const stack = document.createElement('div');
       stack.className = 'matched-stack';
 
-      const kanjiHtml = vocab.kanji
-        ? `<div class="mini-card hira">${vocab.hira}</div><div class="mini-card kanji">${vocab.kanji}</div>`
-        : `<div class="mini-card hira full-span">${vocab.hira}</div>`;
-
       stack.innerHTML = `
-        <span class="stack-badge">SET #${matchedCount}</span>
+        <span class="stack-badge">PAIR #${matchedCount}</span>
         <div class="stack-cards">
-          ${kanjiHtml}
+          <div class="mini-card jp">${vocab.jp}</div>
           <div class="mini-card thai">${vocab.thai}</div>
         </div>
       `;
       collectedList.prepend(stack);
-    }
-
-    function collectMatchedCards(cardsToCollect) {
-      lockBoard = true;
-      sfxCoin();
-      triggerStudentsJump();
-
-      const matchedVocabId = cardsToCollect[0].dataset.vocabId;
-      matchedCount++;
-      totalMatchedAllStages++;
-      baseScore += 500;
-      updateHUD();
-      syncMyProgressToFirebase(false);
-
-      setTimeout(() => {
-        cardsToCollect.forEach(c => c.classList.add('collecting'));
-      }, 350);
-
-      setTimeout(() => {
-        cardsToCollect.forEach(c => {
-          const emptySlot = document.createElement('div');
-          emptySlot.className = 'card-slot-empty';
-          emptySlot.textContent = '★';
-          c.replaceWith(emptySlot);
-        });
-
-        addToCollectedDeck(matchedVocabId);
-        flippedCards = [];
-        lockBoard = false;
-
-        if (matchedCount === STAGES[currentStageIndex].length) {
-          clearedStages.add(currentStageIndex);
-          renderStageButtons();
-          handleStageClear();
-        }
-      }, 680);
-    }
-
-    function resetWrongCards(cardsToReset) {
-      lockBoard = true;
-      sfxWrong();
-      setTimeout(() => cardsToReset.forEach(c => c.classList.add('wrong')), 220);
-      setTimeout(() => {
-        cardsToReset.forEach(c => c.classList.remove('flipped', 'wrong'));
-        flippedCards = [];
-        lockBoard = false;
-      }, 850);
     }
 
     function handleCardClick(card) {
@@ -1385,26 +1381,58 @@
       card.classList.add('flipped');
       flippedCards.push(card);
 
-      const targetRequired = Number(flippedCards[0].dataset.required);
-
       if (flippedCards.length === 2) {
         const [c1, c2] = flippedCards;
-        if (c1.dataset.vocabId !== c2.dataset.vocabId) {
-          resetWrongCards([c1, c2]);
-          return;
-        }
-        if (targetRequired === 2) {
-          collectMatchedCards([c1, c2]);
-        }
-        return;
-      }
+        if (c1.dataset.vocabId === c2.dataset.vocabId) {
+          // จับคู่ 2 ใบถูกต้อง!
+          lockBoard = true;
+          sfxCoin();
+          triggerStudentsJump();
 
-      if (flippedCards.length === 3) {
-        const [c1, c2, c3] = flippedCards;
-        if (c1.dataset.vocabId === c2.dataset.vocabId && c2.dataset.vocabId === c3.dataset.vocabId) {
-          collectMatchedCards([c1, c2, c3]);
+          const matchedVocabId = c1.dataset.vocabId;
+          matchedCount++;
+          totalMatchedAllStages++;
+          baseScore += 500;
+          updateHUD();
+          syncMyProgressToFirebase(false);
+
+          setTimeout(() => {
+            c1.classList.add('collecting');
+            c2.classList.add('collecting');
+          }, 320);
+
+          setTimeout(() => {
+            [c1, c2].forEach(c => {
+              const emptySlot = document.createElement('div');
+              emptySlot.className = 'card-slot-empty';
+              emptySlot.textContent = '★';
+              c.replaceWith(emptySlot);
+            });
+
+            addToCollectedDeck(matchedVocabId);
+            flippedCards = [];
+            lockBoard = false;
+
+            if (matchedCount === STAGES[currentStageIndex].length) {
+              clearedStages.add(currentStageIndex);
+              renderStageButtons();
+              handleStageClear();
+            }
+          }, 640);
         } else {
-          resetWrongCards([c1, c2, c3]);
+          // จับคู่ผิด
+          lockBoard = true;
+          sfxWrong();
+          setTimeout(() => {
+            c1.classList.add('wrong');
+            c2.classList.add('wrong');
+          }, 200);
+          setTimeout(() => {
+            c1.classList.remove('flipped', 'wrong');
+            c2.classList.remove('flipped', 'wrong');
+            flippedCards = [];
+            lockBoard = false;
+          }, 800);
         }
       }
     }
@@ -1420,7 +1448,7 @@
     function handleStageClear() {
       if (gameMode === 'all' && currentStageIndex < STAGES.length - 1) {
         sfxCoin();
-        setTimeout(() => loadStage(currentStageIndex + 1), 500);
+        setTimeout(() => loadStage(currentStageIndex + 1), 450);
         return;
       }
 
