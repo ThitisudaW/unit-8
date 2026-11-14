@@ -565,6 +565,9 @@
       line-height: 1.5;
       animation: pulseText 1.6s infinite alternate ease-in-out;
     }
+    .lobby-status-banner.live-now {
+      color: #4ade80;
+    }
     @keyframes pulseText { from { opacity: 0.78; } to { opacity: 1; } }
 
     .blooket-players-grid {
@@ -574,7 +577,6 @@
       align-content: start;
     }
 
-    /* การ์ดผู้เล่นใน Lobby พร้อมหัวตัวละครด้านข้าง */
     .blook-card {
       background: linear-gradient(180deg, rgba(30, 58, 138, 0.96) 0%, rgba(23, 37, 84, 0.96) 100%);
       border: 4px solid #60a5fa;
@@ -841,7 +843,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.35s cubic-bezier(0.2, 0.85, 0.4, 1.2);
+      transition: transform 0.25s cubic-bezier(0.2, 0.85, 0.4, 1.2);
       transform-style: preserve-3d;
       -webkit-transform-style: preserve-3d;
     }
@@ -864,13 +866,14 @@
       overflow: hidden;
     }
 
+    /* ด้านหน้าการ์ดสีทองเรียบหรู ไม่มีเครื่องหมายคำถามเกะกะ */
     .card-front {
       transform: rotateY(0deg) translateZ(1px);
       -webkit-transform: rotateY(0deg) translateZ(1px);
       background: linear-gradient(145deg, #fde047 0%, #f59e0b 52%, #d97706 100%);
       border: 2.5px solid #1e1b4b;
       box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.55), 0 3px 0 #1e1b4b;
-      transition: opacity 0.15s ease, visibility 0.15s ease;
+      transition: opacity 0.12s ease, visibility 0.12s ease;
     }
     .card.flipped .card-front {
       opacity: 0;
@@ -882,18 +885,10 @@
       position: absolute;
       inset: 2px;
       border-radius: 7px;
-      opacity: 0.24;
+      opacity: 0.26;
       background-repeat: repeat;
       background-size: 24px 24px;
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='26' viewBox='0 0 26 26'%3E%3Cpath d='M13 1 L16.5 9.5 L25 13 L16.5 16.5 L13 25 L9.5 16.5 L1 13 L9.5 9.5 Z' fill='none' stroke='%23ffffff' stroke-width='1.4'/%3E%3Ccircle cx='13' cy='13' r='2.2' fill='%23ffffff'/%3E%3Ccircle cx='0' cy='0' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='26' cy='0' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='0' cy='26' r='1.5' fill='%23ffffff'/%3E%3Ccircle cx='26' cy='26' r='1.5' fill='%23ffffff'/%3E%3C/svg%3E");
-    }
-    .q-mark {
-      position: relative;
-      z-index: 1;
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(15px, 4.2vw, 24px);
-      color: #ffffff;
-      text-shadow: 2px 2px 0 #78350f, 0 0 8px rgba(255, 255, 255, 0.45);
     }
 
     .card-back {
@@ -903,7 +898,7 @@
       box-shadow: 0 3px 0 rgba(15, 23, 42, 0.75);
       opacity: 0;
       visibility: hidden;
-      transition: opacity 0.15s ease, visibility 0.15s ease;
+      transition: opacity 0.12s ease, visibility 0.12s ease;
     }
     .card.flipped .card-back {
       opacity: 1;
@@ -993,7 +988,7 @@
       }
     }
 
-    .card.wrong { animation: shakeWrong 0.35s ease; }
+    .card.wrong { animation: shakeWrong 0.25s ease; }
     @keyframes shakeWrong { 0%, 100% { transform: translateX(0); } 25% { transform: translateX(-5px); } 75% { transform: translateX(5px); } }
 
     .side-panel {
@@ -1238,7 +1233,6 @@
       </svg>
 
       <div class="school-characters-group">
-        <!-- คุณครูเซนเซย์ใส่หูแมว -->
         <div class="char-box">
           <span class="char-label teacher">ครู / SENSEI</span>
           <svg class="teacher-sprite" viewBox="0 0 18 24" shape-rendering="crispEdges">
@@ -1544,45 +1538,36 @@
       STAGES.push(ALL_VOCAB.slice(i, i + STAGE_SIZE));
     }
 
-    // ================= ฟังก์ชันสร้างหัวตัวละครพิกเซล (เซนเซย์เป็นหัวแมว / นักเรียนสุ่มชาย-หญิงตามชื่อ) =================
     function getCharacterHeadSvg(nameStr, isHost) {
       if (isHost || nameStr === HOST_SECRET_NAME) {
-        // หัวแมวพิกเซลสำหรับเซนเซย์ (หูแมว + ตากลม + จมูกชมพู + หนวดแมว)
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
-            <!-- หูแมวซ้าย-ขวา -->
             <rect x="2" y="1" width="3" height="3" fill="#92400e"/>
             <rect x="11" y="1" width="3" height="3" fill="#92400e"/>
             <rect x="3" y="2" width="1" height="2" fill="#fda4af"/>
             <rect x="12" y="2" width="1" height="2" fill="#fda4af"/>
-            <!-- โครงหน้าแมว -->
             <rect x="2" y="4" width="12" height="7" fill="#d97706"/>
             <rect x="3" y="3" width="10" height="9" fill="#f59e0b"/>
             <rect x="5" y="3" width="6" height="2" fill="#92400e"/>
-            <!-- ตาแมว + ประกายตา -->
             <rect x="4" y="6" width="2" height="2" fill="#111827"/>
             <rect x="10" y="6" width="2" height="2" fill="#111827"/>
             <rect x="4" y="6" width="1" height="1" fill="#ffffff"/>
             <rect x="10" y="6" width="1" height="1" fill="#ffffff"/>
-            <!-- จมูกและปากแมว -->
             <rect x="7" y="8" width="2" height="1" fill="#f43f5e"/>
             <rect x="6" y="9" width="4" height="1" fill="#fef3c7"/>
             <rect x="7" y="9" width="2" height="1" fill="#78350f"/>
-            <!-- แก้มแดง + หนวดแมว -->
             <rect x="3" y="8" width="1" height="1" fill="#fb7185"/>
             <rect x="12" y="8" width="1" height="1" fill="#fb7185"/>
             <rect x="1" y="7" width="2" height="1" fill="#78350f"/>
             <rect x="1" y="9" width="2" height="1" fill="#78350f"/>
             <rect x="13" y="7" width="2" height="1" fill="#78350f"/>
             <rect x="13" y="9" width="2" height="1" fill="#78350f"/>
-            <!-- ปกเสื้อคุณครู -->
             <rect x="3" y="12" width="10" height="4" fill="#f472b6"/>
             <rect x="6" y="12" width="4" height="2" fill="#ffffff"/>
           </svg>
         `;
       }
 
-      // คำนวณค่าแฮชจากชื่อ + ตรวจจับคำลงท้าย/คำนำหน้าเพศชาย-หญิง
       let hash = 0;
       for (let i = 0; i < nameStr.length; i++) {
         hash = (hash * 31 + nameStr.charCodeAt(i)) >>> 0;
@@ -1599,7 +1584,6 @@
       const isJapaneseStyle = (Math.floor(hash / 2) % 2 === 1);
 
       if (isFemale && !isJapaneseStyle) {
-        // นักเรียนหญิงไทย (ผมยาวผูกโบว์น้ำเงิน + คอปกขาว)
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <rect x="4" y="1" width="8" height="2" fill="#1e1b18"/>
@@ -1616,7 +1600,6 @@
           </svg>
         `;
       } else if (isFemale && isJapaneseStyle) {
-        // นักเรียนหญิงญี่ปุ่น (ผมบ๊อบสั้น + ชุดกะลาสี)
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <rect x="4" y="1" width="8" height="2" fill="#3b2618"/>
@@ -1633,7 +1616,6 @@
           </svg>
         `;
       } else if (!isFemale && !isJapaneseStyle) {
-        // นักเรียนชายไทย ปทุมวัน (ผมสั้นรองทรง + เสื้อเชิ้ตขาว)
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <rect x="4" y="1" width="8" height="2" fill="#18181b"/>
@@ -1649,7 +1631,6 @@
           </svg>
         `;
       } else {
-        // นักเรียนชายญี่ปุ่น (ชุดกักคุรันสีกรมท่ากระดุมทอง)
         return `
           <svg class="blook-avatar-svg" viewBox="0 0 16 16" shape-rendering="crispEdges">
             <rect x="4" y="1" width="8" height="2" fill="#27201c"/>
@@ -1668,7 +1649,6 @@
       }
     }
 
-    // ================= ระบบจำเซสชันผู้เล่นอัตโนมัติ (Auto-Reconnect) =================
     const SESSION_KEY = "nihongo_flip_player_session_v1";
     let savedSession = null;
     try {
@@ -1695,6 +1675,7 @@
     let roomStartTime = 0;
     let myFinishTimeMs = null;
     let livePlayersData = {};
+    let currentRoomState = { status: 'waiting', startedAt: 0, mode: 'stage' };
     let uiTimerInterval = null;
 
     function saveMySession() {
@@ -1863,6 +1844,18 @@
         document.getElementById('join-btn').textContent = "IN LOBBY";
         document.getElementById('join-btn').style.background = "#059669";
         document.getElementById('leave-lobby-btn').style.display = "inline-block";
+
+        // หากเกมกำลังเริ่มเล่นอยู่แล้ว (จอยเข้ามาทีหลัง) ให้เข้าเกมทันที!
+        if (currentRoomState && currentRoomState.status === 'playing' && currentRoomState.startedAt) {
+          beginMatchForMe(currentRoomState.startedAt, currentRoomState.mode);
+        } else {
+          db.ref('room/state').once('value').then((snap) => {
+            const st = snap.val();
+            if (st && st.status === 'playing' && st.startedAt && roomStartTime !== st.startedAt) {
+              beginMatchForMe(st.startedAt, st.mode);
+            }
+          });
+        }
       }).catch((err) => {
         statusBadge.textContent = "RULES BLOCKED";
         statusBadge.className = "conn-badge error";
@@ -1901,13 +1894,25 @@
       document.getElementById('join-btn').textContent = "JOIN LOBBY";
       document.getElementById('join-btn').style.background = "";
       document.getElementById('leave-lobby-btn').style.display = "none";
-      document.getElementById('lobby-status-text').textContent =
-        "WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)";
 
+      updateLobbyStatusText();
       checkHostPrivilege("");
       document.getElementById('clear-modal').classList.remove('show');
       document.getElementById('stage-cheer-overlay').classList.remove('show');
       document.getElementById('lobby-screen').classList.remove('hidden');
+    }
+
+    function updateLobbyStatusText() {
+      const statusEl = document.getElementById('lobby-status-text');
+      if (currentRoomState && currentRoomState.status === 'playing') {
+        statusEl.textContent = "GAME IN PROGRESS! ใส่ชื่อแล้วกด JOIN LOBBY เพื่อเข้าเกมทันที!";
+        statusEl.classList.add('live-now');
+      } else {
+        statusEl.textContent = isHostSensei
+          ? "ようこそ マイ先生！みんながそろったら START を押してください！"
+          : "WAITING FOR マイ先生 TO START... (マイ先生 のスタートをまっています)";
+        statusEl.classList.remove('live-now');
+      }
     }
 
     function hostStartAllPlayers() {
@@ -1953,6 +1958,7 @@
       document.getElementById('stage-cheer-overlay').classList.remove('show');
       document.getElementById('lobby-screen').classList.remove('hidden');
       checkHostPrivilege(playerName);
+      updateLobbyStatusText();
     }
 
     function beginMatchForMe(startedAt, modeFromRoom) {
@@ -2024,6 +2030,9 @@
     db.ref('room/state').on('value', (snap) => {
       const state = snap.val();
       if (!state) return;
+      currentRoomState = state;
+      updateLobbyStatusText();
+
       if (state.status === 'playing' && state.startedAt !== roomStartTime && hasJoined) {
         beginMatchForMe(state.startedAt, state.mode);
       } else if (state.status === 'waiting') {
@@ -2211,7 +2220,7 @@
 
         card.innerHTML = `
           <div class="card-inner">
-            <div class="card-face card-front"><span class="q-mark">?</span></div>
+            <div class="card-face card-front"></div>
             <div class="card-face card-back type-${data.type}">
               <span class="type-tag">${data.label}</span>
               <div class="card-text">${data.text}</div>
@@ -2270,7 +2279,7 @@
           setTimeout(() => {
             c1.classList.add('collecting');
             c2.classList.add('collecting');
-          }, 280);
+          }, 220);
 
           setTimeout(() => {
             [c1, c2].forEach(c => {
@@ -2290,20 +2299,17 @@
               renderStageButtons();
               handleStageClear();
             }
-          }, 560);
+          }, 480);
         } else {
-          lockBoard = true;
+          // ตอบผิด: พลิกกลับทันทีโดยไม่มีดีเลย์ค้าง!
           sfxWrong();
-          setTimeout(() => {
-            c1.classList.add('wrong');
-            c2.classList.add('wrong');
-          }, 180);
+          c1.classList.add('wrong');
+          c2.classList.add('wrong');
+          flippedCards = [];
           setTimeout(() => {
             c1.classList.remove('flipped', 'wrong');
             c2.classList.remove('flipped', 'wrong');
-            flippedCards = [];
-            lockBoard = false;
-          }, 720);
+          }, 220);
         }
       }
     }
