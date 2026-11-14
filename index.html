@@ -3,10 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUPER NIHONGO FLIP - Mario Night World</title>
+  <title>SUPER NIHONGO FLIP - Time Attack Arena</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@700;900&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=M+PLUS+Rounded+1c:wght@700;800;900&family=Mali:wght@600;700&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
       --sky-top: #070b1e;
@@ -39,7 +39,7 @@
       min-height: 100vh;
       background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
       color: #fff;
-      font-family: 'DotGothic16', 'Noto Sans JP', sans-serif;
+      font-family: 'DotGothic16', 'M PLUS Rounded 1c', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -48,7 +48,7 @@
       overflow-x: hidden;
     }
 
-    /* ================= ฉากหลังมาริโอ้น่ารัก ๆ ================= */
+    /* ================= ฉากหลังมาริโอ้ ================= */
     .mario-scenery {
       position: fixed;
       inset: 0;
@@ -66,9 +66,7 @@
         radial-gradient(2px 2px at 42% 20%, #ffffff, transparent),
         radial-gradient(3px 3px at 60% 12%, #a5f3fc, transparent),
         radial-gradient(2px 2px at 78% 17%, #ffffff, transparent),
-        radial-gradient(3px 3px at 90% 10%, #ffe066, transparent),
-        radial-gradient(2px 2px at 18% 32%, #ffffff, transparent),
-        radial-gradient(2px 2px at 70% 28%, #fbcfe8, transparent);
+        radial-gradient(3px 3px at 90% 10%, #ffe066, transparent);
       animation: twinkle 2.5s infinite alternate ease-in-out;
     }
 
@@ -77,13 +75,12 @@
       100% { opacity: 1; }
     }
 
-    /* ก้อนเมฆพิกเซลยิ้มน่ารัก */
     .cloud {
       position: absolute;
       background: rgba(255, 255, 255, 0.14);
       border-radius: 30px;
       border: 2px solid rgba(255, 255, 255, 0.25);
-      animation: floatCloud 28s linear infinite;
+      animation: floatCloud 34s linear infinite;
     }
     .cloud::before, .cloud::after {
       content: "";
@@ -91,20 +88,15 @@
       background: inherit;
       border-radius: 50%;
     }
-    .cloud-1 { top: 14%; left: -120px; width: 110px; height: 34px; animation-duration: 36s; }
+    .cloud-1 { top: 14%; left: -120px; width: 110px; height: 34px; }
     .cloud-1::before { width: 46px; height: 46px; top: -22px; left: 16px; }
     .cloud-1::after { width: 36px; height: 36px; top: -14px; right: 18px; }
-
-    .cloud-2 { top: 24%; left: -150px; width: 140px; height: 40px; animation-duration: 46s; animation-delay: -15s; }
-    .cloud-2::before { width: 56px; height: 56px; top: -26px; left: 22px; }
-    .cloud-2::after { width: 44px; height: 44px; top: -18px; right: 24px; }
 
     @keyframes floatCloud {
       from { transform: translateX(-160px); }
       to { transform: translateX(calc(100vw + 200px)); }
     }
 
-    /* ภูเขามาริโอ้ */
     .hill {
       position: absolute;
       bottom: 64px;
@@ -112,40 +104,11 @@
       border: 4px solid #041f10;
       border-bottom: none;
       border-radius: 50% 50% 0 0 / 85% 85% 0 0;
-      box-shadow: inset 8px 8px 0 rgba(255,255,255,0.18);
     }
-    .hill::before, .hill::after {
-      content: "";
-      position: absolute;
-      width: 14px;
-      height: 24px;
-      background: #062b16;
-      border-radius: 8px;
-      opacity: 0.7;
-    }
-    .hill::before { top: 28%; left: 34%; }
-    .hill::after { top: 42%; right: 32%; }
-
     .hill-1 { left: -30px; width: 260px; height: 195px; }
     .hill-2 { left: 20%; width: 160px; height: 115px; opacity: 0.9; }
     .hill-3 { right: 14%; width: 300px; height: 220px; }
-    .hill-4 { right: -40px; width: 180px; height: 130px; }
 
-    /* พุ่มไม้ */
-    .bush {
-      position: absolute;
-      bottom: 64px;
-      height: 36px;
-      background: #22c55e;
-      border: 4px solid #052e16;
-      border-bottom: none;
-      border-radius: 22px 22px 0 0;
-      box-shadow: inset 0 6px 0 #86efac;
-    }
-    .bush-1 { left: 16%; width: 105px; }
-    .bush-2 { right: 33%; width: 130px; }
-
-    /* ท่อเขียว */
     .warp-pipe {
       position: absolute;
       bottom: 64px;
@@ -163,11 +126,10 @@
       left: -8px;
       right: -8px;
       height: 22px;
-      background: linear-gradient(90deg, var(--pipe-dark) 0%, var(--pipe-green) 30%, var(--pipe-light) 48%, var(--pipe-green) 70%, var(--pipe-dark) 100%);
+      background: inherit;
       border: 4px solid #002900;
     }
 
-    /* ตัวละครมาริโอ้พิกเซลสุดน่ารัก */
     .mario-character {
       position: absolute;
       bottom: 64px;
@@ -178,23 +140,19 @@
       animation: marioIdle 1.2s infinite ease-in-out;
       filter: drop-shadow(3px 3px 0 rgba(0,0,0,0.5));
     }
-
     @keyframes marioIdle {
       0%, 100% { transform: translateY(0) scaleY(1); }
       50% { transform: translateY(-2px) scaleY(1.03); }
     }
-
     .mario-character.jump {
       animation: marioJump 0.65s cubic-bezier(0.25, 1, 0.5, 1);
     }
-
     @keyframes marioJump {
       0% { transform: translateY(0) scale(1); }
       45% { transform: translateY(-65px) scale(1.08); }
       100% { transform: translateY(0) scale(1); }
     }
 
-    /* พื้นมาริโอ้ */
     .mario-ground {
       position: absolute;
       bottom: 0;
@@ -208,10 +166,98 @@
         linear-gradient(0deg, rgba(0,0,0,0.35) 2px, transparent 2px);
       background-size: 100% 100%, 32px 22px, 32px 22px;
       border-top: 4px solid #052e16;
-      box-shadow: inset 0 -8px 0 var(--ground-dark);
     }
 
-    /* ================= เลเยอร์ UI เกม ================= */
+    /* ================= หน้าจอ Lobby กรอกชื่อแบบ Blooket ================= */
+    .lobby-screen {
+      position: fixed;
+      inset: 0;
+      background: rgba(5, 9, 24, 0.88);
+      backdrop-filter: blur(6px);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .lobby-screen.hidden {
+      display: none;
+    }
+
+    .lobby-card {
+      background: linear-gradient(180deg, #132347 0%, #0a1329 100%);
+      border: 5px solid var(--q-gold);
+      border-radius: 18px;
+      padding: 32px 26px;
+      max-width: 480px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.8), 0 0 30px rgba(255, 202, 40, 0.25);
+    }
+
+    .lobby-title {
+      font-family: 'Press Start 2P', monospace;
+      font-size: clamp(16px, 3vw, 22px);
+      color: var(--q-gold);
+      text-shadow: 3px 3px 0 #b91c1c;
+      margin: 0 0 12px;
+      line-height: 1.5;
+    }
+
+    .lobby-sub {
+      font-size: 15px;
+      color: #cbd5e1;
+      margin-bottom: 22px;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 14px 16px;
+      font-family: 'Prompt', 'DotGothic16', sans-serif;
+      font-size: 18px;
+      font-weight: 700;
+      text-align: center;
+      border-radius: 10px;
+      border: 4px solid #60a5fa;
+      background: #070d1f;
+      color: #fff;
+      outline: none;
+      margin-bottom: 18px;
+      user-select: text;
+    }
+
+    .name-input:focus {
+      border-color: var(--q-gold);
+      box-shadow: 0 0 15px rgba(255, 202, 40, 0.5);
+    }
+
+    .mode-select {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 20px;
+    }
+
+    .mode-btn {
+      padding: 12px 8px;
+      border-radius: 10px;
+      border: 3px solid #3b76bd;
+      background: #0f1f40;
+      color: #cbd5e1;
+      font-family: 'DotGothic16', sans-serif;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .mode-btn.selected {
+      background: #1d4ed8;
+      border-color: var(--q-gold);
+      color: #fff;
+      box-shadow: 0 0 12px rgba(255, 202, 40, 0.4);
+    }
+
+    /* ================= HUD ด้านบน ================= */
     .hud, .header, .stage-bar, .game-layout, .controls {
       position: relative;
       z-index: 5;
@@ -223,68 +269,46 @@
       display: flex;
       justify-content: space-between;
       align-items: center;
-      padding: 14px 20px;
+      flex-wrap: wrap;
+      gap: 10px;
+      padding: 12px 20px;
       font-family: 'Press Start 2P', monospace;
       font-size: 11px;
-      letter-spacing: 1px;
       border-bottom: 4px solid var(--brick-border);
-      background: rgba(8, 13, 34, 0.92);
+      background: rgba(8, 13, 34, 0.94);
       position: sticky;
       top: 0;
       z-index: 20;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.75);
     }
 
     .hud-item {
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 5px;
       align-items: center;
     }
 
     .hud-label { color: #93c5fd; font-size: 9px; }
     .hud-value { color: #fff; text-shadow: 2px 2px 0 #000; }
+    .hud-timer { color: #4ade80; }
+    .hud-player { color: var(--q-gold); font-family: 'Prompt', 'DotGothic16', sans-serif; font-size: 13px; }
 
-    .coin-icon {
-      display: inline-block;
-      width: 10px;
-      height: 14px;
-      background: var(--q-gold);
-      border: 2px solid #fff;
-      border-radius: 50%;
-      margin-right: 4px;
-      animation: coinSpin 1.2s infinite ease-in-out;
-    }
-
-    @keyframes coinSpin {
-      0%, 100% { transform: scaleX(1); }
-      50% { transform: scaleX(0.3); }
-    }
-
+    /* ================= ส่วนหัว & เลือกด่าน ================= */
     .header {
       text-align: center;
-      margin: 18px 16px 10px;
+      margin: 16px 16px 8px;
       background: rgba(10, 17, 42, 0.78);
-      padding: 14px 24px;
+      padding: 12px 22px;
       border-radius: 14px;
       border: 3px solid rgba(255, 202, 40, 0.45);
-      backdrop-filter: blur(4px);
-      box-shadow: 0 8px 24px rgba(0,0,0,0.45);
     }
 
     .title {
       font-family: 'Press Start 2P', monospace;
-      font-size: clamp(14px, 2.6vw, 21px);
+      font-size: clamp(13px, 2.4vw, 19px);
       color: var(--q-gold);
-      text-shadow: 3px 3px 0 #b91c1c, -1px -1px 0 #000;
-      margin: 0 0 8px;
-      line-height: 1.4;
-    }
-
-    .subtitle {
-      font-size: 15px;
-      color: #f1f5f9;
-      margin: 0 0 10px;
+      text-shadow: 3px 3px 0 #b91c1c;
+      margin: 0 0 6px;
     }
 
     .legend {
@@ -292,61 +316,57 @@
       justify-content: center;
       gap: 8px;
       flex-wrap: wrap;
+      margin-top: 8px;
     }
 
     .badge {
       font-size: 12px;
-      padding: 4px 12px;
+      padding: 3px 10px;
       border-radius: 20px;
       border: 2px solid rgba(255,255,255,0.35);
       font-weight: 700;
     }
-    .badge.hira { background: #2563eb; color: #eff6ff; }
-    .badge.kanji { background: #9333ea; color: #faf5ff; }
-    .badge.thai { background: #059669; color: #ecfdf5; }
+    .badge.hira { background: #2563eb; }
+    .badge.kanji { background: #9333ea; }
+    .badge.thai { background: #059669; }
 
     .stage-bar {
       display: flex;
       gap: 8px;
       flex-wrap: wrap;
       justify-content: center;
-      margin: 12px 0 16px;
+      margin: 10px 0 14px;
       padding: 0 12px;
     }
 
     .stage-btn {
       font-family: 'Press Start 2P', monospace;
-      font-size: 11px;
-      padding: 10px 14px;
+      font-size: 10px;
+      padding: 9px 12px;
       background: var(--brick-dark);
       color: #cbd5e1;
       border: 3px solid var(--brick-border);
       border-radius: 6px;
       cursor: pointer;
-      box-shadow: 0 4px 0 #071120;
-      transition: transform 0.1s, background 0.2s;
     }
-
-    .stage-btn:hover { background: #1c3d6b; color: #fff; }
     .stage-btn.active {
       background: var(--mario-red);
       border-color: #fda4af;
       color: #fff;
-      box-shadow: 0 4px 0 #7f1d1d;
     }
     .stage-btn.cleared {
       border-color: var(--pipe-green);
       color: #86efac;
     }
 
-    /* ================= โครงสร้างกระดาน + กองไพ่ด้านข้าง ================= */
+    /* ================= กระดาน + กองไพ่ด้านข้าง ================= */
     .game-layout {
       width: 100%;
       max-width: 1180px;
       padding: 0 16px;
       display: grid;
       grid-template-columns: 1fr;
-      gap: 20px;
+      gap: 18px;
       align-items: start;
     }
 
@@ -356,13 +376,12 @@
       }
     }
 
-    /* กระดานการ์ดตรงกลาง */
     .board {
       width: 100%;
       display: grid;
       grid-template-columns: repeat(auto-fill, minmax(125px, 1fr));
       gap: 12px;
-      background: rgba(8, 14, 36, 0.55);
+      background: rgba(8, 14, 36, 0.58);
       padding: 16px;
       border-radius: 14px;
       border: 3px solid rgba(59, 118, 189, 0.45);
@@ -375,10 +394,9 @@
       }
     }
 
-    /* ช่องว่างเมื่อการ์ดถูกย้ายไปกองด้านข้างแล้ว */
     .card-slot-empty {
       aspect-ratio: 3 / 4;
-      border-radius: 8px;
+      border-radius: 12px;
       border: 2px dashed rgba(255, 255, 255, 0.14);
       background: rgba(0, 0, 0, 0.18);
       display: flex;
@@ -387,15 +405,8 @@
       color: rgba(255, 202, 40, 0.35);
       font-family: 'Press Start 2P', monospace;
       font-size: 12px;
-      animation: fadeInSlot 0.4s ease;
     }
 
-    @keyframes fadeInSlot {
-      from { opacity: 0; transform: scale(0.9); }
-      to { opacity: 1; transform: scale(1); }
-    }
-
-    /* การ์ด 3D Flip */
     .card {
       aspect-ratio: 3 / 4;
       perspective: 1000px;
@@ -403,7 +414,6 @@
       transition: transform 0.35s ease, opacity 0.35s ease;
     }
 
-    /* เอฟเฟกต์ตอนการ์ดลอยเก็บเข้ากองด้านข้าง */
     .card.collecting {
       transform: translateX(60px) scale(0.35) rotate(12deg);
       opacity: 0;
@@ -414,7 +424,7 @@
       position: relative;
       width: 100%;
       height: 100%;
-      transition: transform 0.42s cubic-bezier(0.2, 0.85, 0.4, 1.2);
+      transition: transform 0.4s cubic-bezier(0.2, 0.85, 0.4, 1.2);
       transform-style: preserve-3d;
     }
 
@@ -426,7 +436,7 @@
       position: absolute;
       inset: 0;
       backface-visibility: hidden;
-      border-radius: 8px;
+      border-radius: 12px;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -435,121 +445,76 @@
       text-align: center;
     }
 
-    /* ด้านหลังการ์ด: กล่อง ? Block น่ารัก */
     .card-front {
       background: linear-gradient(135deg, var(--q-gold-light) 0%, var(--q-gold) 50%, var(--q-gold-dark) 100%);
       border: 4px solid #452300;
-      box-shadow:
-        inset 3px 3px 0 rgba(255,255,255,0.7),
-        inset -3px -3px 0 rgba(0,0,0,0.35),
-        0 5px 0 #2b1600;
+      box-shadow: inset 3px 3px 0 rgba(255,255,255,0.7), 0 5px 0 #2b1600;
     }
-
-    .card-front:hover {
-      filter: brightness(1.08);
-      transform: translateY(-3px);
-    }
-
-    .card-front::before, .card-front::after {
-      content: "•   •";
-      position: absolute;
-      left: 7px;
-      right: 7px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 11px;
-      color: #6b3800;
-    }
-    .card-front::before { top: 5px; }
-    .card-front::after { bottom: 5px; }
 
     .q-mark {
       font-family: 'Press Start 2P', monospace;
       font-size: 26px;
       color: #fffbe6;
       text-shadow: 3px 3px 0 #783f00;
-      animation: floatQ 1.8s infinite ease-in-out;
-    }
-
-    @keyframes floatQ {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
     }
 
     .card-back {
       transform: rotateY(180deg);
       border: 4px solid #fff;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.7);
     }
-
-    .card-back.type-hira {
-      background: radial-gradient(circle, #2563eb, #172554);
-      border-color: #93c5fd;
-    }
-
-    .card-back.type-kanji {
-      background: radial-gradient(circle, #7e22ce, #2e1065);
-      border-color: #d8b4fe;
-    }
-
-    .card-back.type-thai {
-      background: radial-gradient(circle, #059669, #064e3b);
-      border-color: #6ee7b7;
-    }
+    .card-back.type-hira { background: radial-gradient(circle, #2563eb, #172554); border-color: #93c5fd; }
+    .card-back.type-kanji { background: radial-gradient(circle, #7e22ce, #2e1065); border-color: #d8b4fe; }
+    .card-back.type-thai { background: radial-gradient(circle, #059669, #064e3b); border-color: #6ee7b7; }
 
     .type-tag {
       position: absolute;
-      top: 5px;
-      font-family: 'DotGothic16', sans-serif;
+      top: 6px;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-weight: 800;
       font-size: 10px;
-      padding: 2px 6px;
-      border-radius: 4px;
-      background: rgba(0,0,0,0.5);
-      color: #f1f5f9;
+      padding: 2px 8px;
+      border-radius: 10px;
+      background: rgba(0,0,0,0.45);
     }
 
+    /* ฟอนต์บัตรคำศัพท์น่ารักกลมมนทั้งญี่ปุ่นและไทย */
     .card-text {
-      font-weight: 900;
-      line-height: 1.25;
-      word-break: keep-all;
+      font-weight: 800;
+      line-height: 1.3;
     }
-
     .type-hira .card-text {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(14px, 1.9vw, 19px);
-      color: #dbeafe;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-size: clamp(15px, 2vw, 20px);
+      color: #e0f2fe;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
     }
-
     .type-kanji .card-text {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(18px, 2.4vw, 24px);
-      color: #f3e8ff;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-size: clamp(19px, 2.5vw, 25px);
+      color: #f5d0fe;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
     }
-
     .type-thai .card-text {
-      font-family: 'Prompt', sans-serif;
-      font-size: clamp(13px, 1.6vw, 16px);
+      font-family: 'Mali', cursive, sans-serif;
+      font-weight: 700;
+      font-size: clamp(14px, 1.7vw, 18px);
       color: #d1fae5;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.35);
     }
 
-    .card.wrong {
-      animation: shakeWrong 0.4s ease;
-    }
-
+    .card.wrong { animation: shakeWrong 0.4s ease; }
     @keyframes shakeWrong {
       0%, 100% { transform: translateX(0); }
       25% { transform: translateX(-6px); }
       75% { transform: translateX(6px); }
     }
 
-    /* ================= กองไพ่ที่จับคู่แล้วด้านข้าง ================= */
+    /* ================= กองไพ่ด้านข้าง ================= */
     .collected-panel {
-      background: rgba(9, 16, 40, 0.85);
+      background: rgba(9, 16, 40, 0.88);
       border: 4px solid var(--q-gold);
       border-radius: 14px;
       padding: 14px;
-      box-shadow: 0 8px 24px rgba(0,0,0,0.6);
-      backdrop-filter: blur(4px);
     }
 
     .panel-header {
@@ -588,28 +553,19 @@
 
     .empty-deck-hint {
       text-align: center;
-      padding: 28px 10px;
+      padding: 24px 10px;
       color: #94a3b8;
-      font-size: 14px;
+      font-size: 13px;
       border: 2px dashed rgba(148, 163, 184, 0.3);
       border-radius: 10px;
-      line-height: 1.6;
     }
 
-    /* กองการ์ด 3 ใบที่ซ้อนรวมกันเป็นชุด */
     .matched-stack {
       background: linear-gradient(135deg, #102a43 0%, #09192f 100%);
       border: 2px solid #38bdf8;
-      border-radius: 10px;
+      border-radius: 12px;
       padding: 10px;
-      box-shadow: 0 4px 0 #040d1a, inset 0 0 12px rgba(56, 189, 248, 0.15);
-      animation: slideInStack 0.4s cubic-bezier(0.18, 0.89, 0.32, 1.28);
       position: relative;
-    }
-
-    @keyframes slideInStack {
-      from { opacity: 0; transform: translateY(-12px) scale(0.92); }
-      to { opacity: 1; transform: translateY(0) scale(1); }
     }
 
     .stack-badge {
@@ -622,7 +578,6 @@
       font-size: 9px;
       padding: 3px 6px;
       border-radius: 4px;
-      border: 2px solid #fff;
     }
 
     .stack-cards {
@@ -634,39 +589,39 @@
 
     .mini-card {
       padding: 6px 8px;
-      border-radius: 6px;
+      border-radius: 8px;
       text-align: center;
-      font-weight: 700;
-      border: 1.5px solid rgba(255,255,255,0.25);
+      font-weight: 800;
     }
-
     .mini-card.hira {
       background: rgba(37, 99, 235, 0.35);
       color: #bfdbfe;
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: 13px;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
+      font-size: 14px;
     }
-
+    .mini-card.hira.full-span {
+      grid-column: span 2;
+    }
     .mini-card.kanji {
       background: rgba(147, 51, 234, 0.35);
       color: #f3e8ff;
-      font-family: 'Noto Sans JP', sans-serif;
+      font-family: 'M PLUS Rounded 1c', sans-serif;
       font-size: 15px;
     }
-
     .mini-card.thai {
       grid-column: span 2;
       background: rgba(5, 150, 105, 0.35);
       color: #a7f3d0;
-      font-family: 'Prompt', sans-serif;
-      font-size: 14px;
+      font-family: 'Mali', cursive, sans-serif;
+      font-weight: 700;
+      font-size: 15px;
     }
 
-    /* ปุ่มควบคุม */
+    /* ================= ปุ่ม & ตารางคะแนน Leaderboard ================= */
     .controls {
-      margin-top: 20px;
+      margin-top: 18px;
       display: flex;
-      gap: 14px;
+      gap: 12px;
       flex-wrap: wrap;
       justify-content: center;
     }
@@ -674,7 +629,7 @@
     .mario-btn {
       font-family: 'Press Start 2P', 'DotGothic16', sans-serif;
       font-size: 12px;
-      padding: 12px 20px;
+      padding: 12px 18px;
       background: var(--pipe-green);
       color: #fff;
       border: 4px solid #003800;
@@ -683,76 +638,130 @@
       cursor: pointer;
       text-shadow: 2px 2px 0 #003800;
     }
-
-    .mario-btn:hover { filter: brightness(1.08); }
+    .mario-btn.secondary {
+      background: #2563eb;
+      border-color: #1e3a8a;
+      box-shadow: inset 3px 3px 0 #93c5fd, 0 5px 0 #172554;
+      text-shadow: 2px 2px 0 #172554;
+    }
     .mario-btn:active {
       transform: translateY(3px);
-      box-shadow: inset 3px 3px 0 #86efac, 0 2px 0 #002b00;
     }
 
-    /* Modal ผ่านด่าน */
     .modal-backdrop {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.84);
+      background: rgba(0, 0, 0, 0.86);
       display: none;
       align-items: center;
       justify-content: center;
-      z-index: 50;
+      z-index: 60;
       padding: 20px;
     }
-
     .modal-backdrop.show { display: flex; }
 
     .modal-box {
       background: #0d152a;
       border: 5px solid var(--q-gold);
       box-shadow: 0 0 40px rgba(255, 202, 40, 0.5);
-      padding: 28px 24px;
-      max-width: 460px;
+      padding: 24px 20px;
+      max-width: 520px;
       width: 100%;
       text-align: center;
-      border-radius: 14px;
+      border-radius: 16px;
+      max-height: 90vh;
+      overflow-y: auto;
     }
 
     .modal-title {
       font-family: 'Press Start 2P', monospace;
       font-size: 17px;
       color: var(--q-gold);
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       line-height: 1.5;
     }
 
-    .modal-desc {
-      font-family: 'DotGothic16', sans-serif;
-      font-size: 16px;
-      color: #dbeafe;
-      margin-bottom: 22px;
-      line-height: 1.7;
+    .result-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      background: #132244;
+      padding: 12px;
+      border-radius: 10px;
+      margin-bottom: 16px;
+      border: 2px solid #3b76bd;
     }
+    .stat-box span { display: block; font-size: 11px; color: #93c5fd; }
+    .stat-box strong { font-family: 'Press Start 2P', monospace; font-size: 13px; color: #fff; margin-top: 4px; display: block; }
+
+    .leaderboard {
+      text-align: left;
+      background: #070d1f;
+      border: 2px solid var(--q-gold);
+      border-radius: 10px;
+      padding: 12px;
+      margin-bottom: 18px;
+    }
+    .lb-header {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 11px;
+      color: var(--q-gold);
+      margin-bottom: 10px;
+      text-align: center;
+    }
+    .lb-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.1);
+      font-size: 14px;
+    }
+    .lb-row:last-child { border-bottom: none; }
+    .lb-rank { font-family: 'Press Start 2P', monospace; font-size: 11px; width: 36px; }
+    .lb-rank.r1 { color: #ffd700; }
+    .lb-rank.r2 { color: #e2e8f0; }
+    .lb-rank.r3 { color: #cd7f32; }
+    .lb-name { flex: 1; font-family: 'Prompt', 'DotGothic16', sans-serif; font-weight: 700; color: #fff; }
+    .lb-time { font-family: 'Press Start 2P', monospace; font-size: 11px; color: #4ade80; margin-right: 10px; }
+    .lb-pts { font-family: 'Press Start 2P', monospace; font-size: 10px; color: #fbbf24; }
   </style>
 </head>
 <body>
 
-  <!-- ฉากหลังภูเขา เมฆ มาริโอ้ และพื้นอิฐ -->
+  <!-- หน้าจอ Lobby กรอกชื่อแบบ Blooket -->
+  <div class="lobby-screen" id="lobby-screen">
+    <div class="lobby-card">
+      <h1 class="lobby-title">SUPER NIHONGO<br>TIME ATTACK</h1>
+      <p class="lobby-sub">なまえをいれてスタート！ / ENTER YOUR NICKNAME</p>
+      <input type="text" id="player-name-input" class="name-input" placeholder="PLAYER NAME..." maxlength="16" />
+
+      <div class="mode-select">
+        <button type="button" class="mode-btn selected" id="mode-stage-btn" onclick="selectGameMode('stage')">
+          🏁 STAGE MODE<br><small>1ステージずつ (6語)</small>
+        </button>
+        <button type="button" class="mode-btn" id="mode-all-btn" onclick="selectGameMode('all')">
+          🔥 ALL 41 WORDS<br><small>全ステージ連続タイムアタック</small>
+        </button>
+      </div>
+
+      <button class="mario-btn" style="width:100%; font-size:14px; padding:15px;" onclick="startGame()">
+        ▶ START GAME!
+      </button>
+    </div>
+  </div>
+
+  <!-- ฉากหลังมาริโอ้ -->
   <div class="mario-scenery" aria-hidden="true">
     <div class="stars"></div>
     <div class="cloud cloud-1"></div>
-    <div class="cloud cloud-2"></div>
     <div class="hill hill-1"></div>
     <div class="hill hill-2"></div>
     <div class="hill hill-3"></div>
-    <div class="hill hill-4"></div>
-    <div class="bush bush-1"></div>
-    <div class="bush bush-2"></div>
     <div class="warp-pipe"></div>
-
-    <!-- ตัวละครมาริโอ้พิกเซลสุดน่ารัก (SVG Pixel Art) -->
     <svg class="mario-character" id="mario-sprite" viewBox="0 0 16 20" shape-rendering="crispEdges">
-      <!-- หมวกแดง -->
       <rect x="4" y="0" width="7" height="1" fill="#ff2a1f"/>
       <rect x="3" y="1" width="10" height="2" fill="#ff2a1f"/>
-      <!-- ผมและหน้า -->
       <rect x="3" y="3" width="3" height="1" fill="#6b3400"/>
       <rect x="6" y="3" width="4" height="1" fill="#ffcc99"/>
       <rect x="10" y="3" width="1" height="1" fill="#000000"/>
@@ -761,56 +770,53 @@
       <rect x="4" y="4" width="8" height="3" fill="#ffcc99"/>
       <rect x="10" y="4" width="1" height="2" fill="#000000"/>
       <rect x="12" y="5" width="2" height="2" fill="#ffcc99"/>
-      <!-- หนวดน่ารัก -->
       <rect x="10" y="6" width="2" height="1" fill="#4a2200"/>
       <rect x="9" y="7" width="4" height="1" fill="#4a2200"/>
       <rect x="4" y="7" width="5" height="1" fill="#ffcc99"/>
-      <!-- เสื้อแดงและเอี๊ยมน้ำเงิน -->
       <rect x="3" y="8" width="9" height="2" fill="#ff2a1f"/>
       <rect x="5" y="8" width="1" height="3" fill="#2563eb"/>
       <rect x="9" y="8" width="1" height="3" fill="#2563eb"/>
       <rect x="2" y="10" width="11" height="2" fill="#ff2a1f"/>
       <rect x="5" y="10" width="5" height="5" fill="#2563eb"/>
-      <!-- กระดุมเหลือง -->
       <rect x="6" y="11" width="1" height="1" fill="#ffea00"/>
       <rect x="8" y="11" width="1" height="1" fill="#ffea00"/>
-      <!-- มือสีเนื้อ -->
       <rect x="1" y="11" width="2" height="2" fill="#ffcc99"/>
       <rect x="12" y="11" width="2" height="2" fill="#ffcc99"/>
-      <!-- กางเกงและรองเท้า -->
       <rect x="4" y="15" width="3" height="2" fill="#2563eb"/>
       <rect x="8" y="15" width="3" height="2" fill="#2563eb"/>
       <rect x="3" y="17" width="4" height="2" fill="#6b3400"/>
       <rect x="8" y="17" width="4" height="2" fill="#6b3400"/>
     </svg>
-
     <div class="mario-ground"></div>
   </div>
 
   <!-- HUD ด้านบน -->
   <div class="hud">
     <div class="hud-item">
+      <span class="hud-label">PLAYER</span>
+      <span class="hud-value hud-player" id="hud-player">GUEST</span>
+    </div>
+    <div class="hud-item">
       <span class="hud-label">WORLD</span>
       <span class="hud-value" id="hud-world">1-1</span>
     </div>
     <div class="hud-item">
+      <span class="hud-label">TIME</span>
+      <span class="hud-value hud-timer" id="hud-timer">00:00.0</span>
+    </div>
+    <div class="hud-item">
       <span class="hud-label">COLLECTED</span>
-      <span class="hud-value"><span class="coin-icon"></span><span id="hud-matched">0/6</span></span>
+      <span class="hud-value" id="hud-matched">0/6</span>
     </div>
     <div class="hud-item">
       <span class="hud-label">SCORE</span>
       <span class="hud-value" id="hud-score">00000</span>
-    </div>
-    <div class="hud-item">
-      <span class="hud-label">FLIPS</span>
-      <span class="hud-value" id="hud-flips">0</span>
     </div>
   </div>
 
   <!-- ส่วนหัว -->
   <div class="header">
     <h1 class="title">SUPER NIHONGO FLIP</h1>
-    <p class="subtitle">３まいのカードをそろえて あつめよう！ / MATCH 3 CARDS TO COLLECT!</p>
     <div class="legend">
       <span class="badge hira">🔵 よみかた (READING)</span>
       <span class="badge kanji">🟣 かんじ (KANJI)</span>
@@ -821,12 +827,10 @@
   <!-- ตัวเลือกด่าน -->
   <div class="stage-bar" id="stage-bar"></div>
 
-  <!-- พื้นที่หลัก: กระดานไพ่ + กองไพ่ที่เก็บได้ด้านข้าง -->
+  <!-- พื้นที่หลัก -->
   <div class="game-layout">
-    <!-- กระดานการ์ด -->
     <div class="board" id="board"></div>
 
-    <!-- กองไพ่ที่จับคู่ถูกต้องแล้ว -->
     <aside class="collected-panel">
       <div class="panel-header">
         <span class="panel-title">★ COLLECTED DECK<br><small style="color:#cbd5e1; font-size:10px;">そろったカード</small></span>
@@ -835,7 +839,7 @@
       <div class="collected-list" id="collected-list">
         <div class="empty-deck-hint">
           まだカードがありません<br>
-          <span style="font-size:12px;">MATCH 3 CARDS TO MOVE THEM HERE!</span>
+          <span style="font-size:12px;">MATCH CARDS TO MOVE THEM HERE!</span>
         </div>
       </div>
     </aside>
@@ -843,23 +847,47 @@
 
   <!-- ปุ่มควบคุม -->
   <div class="controls">
-    <button class="mario-btn" onclick="resetCurrentStage()">🔄 シャッフル / SHUFFLE</button>
+    <button class="mario-btn" onclick="resetCurrentStage()">🔄 RESTART</button>
+    <button class="mario-btn secondary" onclick="openLeaderboardOnly()">🏆 RANKING</button>
+    <button class="mario-btn secondary" onclick="changePlayer()">👤 CHANGE PLAYER</button>
   </div>
 
-  <!-- หน้าต่างผ่านด่าน -->
+  <!-- หน้าต่างสรุปผล + Leaderboard -->
   <div class="modal-backdrop" id="clear-modal">
     <div class="modal-box">
       <div class="modal-title" id="modal-title">COURSE CLEAR!</div>
-      <div class="modal-desc" id="modal-desc">すごい！すべてのカードをそろえました！</div>
-      <button class="mario-btn" id="next-stage-btn" onclick="nextStage()">NEXT STAGE ▶</button>
+
+      <div class="result-stats" id="result-stats">
+        <div class="stat-box">
+          <span>PLAYER</span>
+          <strong id="res-name">-</strong>
+        </div>
+        <div class="stat-box">
+          <span>CLEAR TIME</span>
+          <strong id="res-time" style="color:#4ade80;">00:00.0</strong>
+        </div>
+        <div class="stat-box">
+          <span>TOTAL SCORE</span>
+          <strong id="res-score" style="color:#fbbf24;">0</strong>
+        </div>
+      </div>
+
+      <div class="leaderboard">
+        <div class="lb-header" id="lb-header">🏆 TOP FASTEST PLAYERS</div>
+        <div id="lb-list"></div>
+      </div>
+
+      <div style="display:flex; gap:10px; justify-content:center; flex-wrap:wrap;">
+        <button class="mario-btn" id="next-stage-btn" onclick="nextStage()">NEXT STAGE ▶</button>
+        <button class="mario-btn secondary" onclick="changePlayer()">👤 NEXT CHALLENGER</button>
+      </div>
     </div>
   </div>
 
   <script>
-    // รายการคำศัพท์ทั้งหมด 41 คำ
+    // คำศัพท์ทั้งหมด 41 คำ (คำคาตาคานะ ハンサム ไม่มีแผ่นคันจิ -> มี 2 ใบ)
     const ALL_VOCAB = [
-      // ภาพที่ 1 (10 คำ)
-      { id: 1,  hira: "ハンサム", kanji: "ハンサム (な)", thai: "หล่อ" },
+      { id: 1,  hira: "ハンサム", kanji: null,           thai: "หล่อ" },
       { id: 2,  hira: "きれい",   kanji: "綺麗",         thai: "สวย / สะอาด" },
       { id: 3,  hira: "しずか",   kanji: "静か",         thai: "เงียบ" },
       { id: 4,  hira: "にぎやか", kanji: "賑やか",       thai: "คึกคัก" },
@@ -870,7 +898,6 @@
       { id: 9,  hira: "べんり",   kanji: "便利",         thai: "สะดวก" },
       { id: 10, hira: "すてき",   kanji: "素敵",         thai: "วิเศษ / ดูดี" },
 
-      // ภาพที่ 2 (12 คำ)
       { id: 11, hira: "おおきい",   kanji: "大きい",         thai: "ใหญ่" },
       { id: 12, hira: "ちいさい",   kanji: "小さい",         thai: "เล็ก" },
       { id: 13, hira: "あたらしい", kanji: "新しい",         thai: "ใหม่" },
@@ -884,7 +911,6 @@
       { id: 21, hira: "やさしい",   kanji: "易しい / 優しい", thai: "ง่าย / ใจดี" },
       { id: 22, hira: "たかい",     kanji: "高い",           thai: "สูง / แพง" },
 
-      // ภาพที่ 3 (12 คำ)
       { id: 23, hira: "やすい",     kanji: "安い",     thai: "ถูก (ราคา)" },
       { id: 24, hira: "ひくい",     kanji: "低い",     thai: "ต่ำ / เตี้ย" },
       { id: 25, hira: "おもしろい", kanji: "面白い",   thai: "น่าสนใจ / สนุก" },
@@ -898,7 +924,6 @@
       { id: 33, hira: "きいろい",   kanji: "黄色い",   thai: "สีเหลือง" },
       { id: 34, hira: "ちゃいろい", kanji: "茶色い",   thai: "สีน้ำตาล" },
 
-      // ภาพที่ 4 (7 คำ)
       { id: 35, hira: "あまい",     kanji: "甘い",     thai: "หวาน" },
       { id: 36, hira: "からい",     kanji: "辛い",     thai: "เผ็ด" },
       { id: 37, hira: "にがい",     kanji: "苦い",     thai: "ขม" },
@@ -914,13 +939,19 @@
       STAGES.push(ALL_VOCAB.slice(i, i + STAGE_SIZE));
     }
 
+    let playerName = "PLAYER 1";
+    let gameMode = "stage";
     let currentStageIndex = 0;
     let clearedStages = new Set();
     let flippedCards = [];
     let matchedCount = 0;
-    let totalScore = 0;
+    let baseScore = 0;
     let flips = 0;
     let lockBoard = false;
+
+    let startTime = 0;
+    let elapsedMs = 0;
+    let timerInterval = null;
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
     function playTone(freq, type, duration, delay = 0) {
@@ -935,3 +966,410 @@
       gain.connect(audioCtx.destination);
       osc.start(audioCtx.currentTime + delay);
       osc.stop(audioCtx.currentTime + delay + duration);
+    }
+
+    function sfxFlip() { playTone(520, 'square', 0.08); }
+    function sfxCoin() {
+      playTone(987.77, 'square', 0.09, 0);
+      playTone(1318.51, 'square', 0.25, 0.08);
+    }
+    function sfxWrong() {
+      playTone(190, 'sawtooth', 0.14, 0);
+      playTone(145, 'sawtooth', 0.2, 0.12);
+    }
+    function sfxClear() {
+      const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50];
+      notes.forEach((n, idx) => playTone(n, 'square', 0.14, idx * 0.11));
+    }
+
+    function selectGameMode(mode) {
+      gameMode = mode;
+      document.getElementById('mode-stage-btn').classList.toggle('selected', mode === 'stage');
+      document.getElementById('mode-all-btn').classList.toggle('selected', mode === 'all');
+    }
+
+    function startGame() {
+      const input = document.getElementById('player-name-input').value.trim();
+      playerName = input || "MARIO";
+      document.getElementById('hud-player').textContent = playerName;
+      document.getElementById('lobby-screen').classList.add('hidden');
+
+      clearedStages.clear();
+      baseScore = 0;
+      loadStage(0, true);
+    }
+
+    function changePlayer() {
+      stopTimer();
+      document.getElementById('clear-modal').classList.remove('show');
+      document.getElementById('player-name-input').value = "";
+      document.getElementById('lobby-screen').classList.remove('hidden');
+      document.getElementById('player-name-input').focus();
+    }
+
+    function formatTime(ms) {
+      const totalSec = ms / 1000;
+      const mins = Math.floor(totalSec / 60);
+      const secs = Math.floor(totalSec % 60);
+      const tenths = Math.floor((ms % 1000) / 100);
+      return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}.${tenths}`;
+    }
+
+    function startTimer(resetElapsed = true) {
+      stopTimer();
+      if (resetElapsed) elapsedMs = 0;
+      startTime = performance.now() - elapsedMs;
+      timerInterval = setInterval(() => {
+        elapsedMs = performance.now() - startTime;
+        document.getElementById('hud-timer').textContent = formatTime(elapsedMs);
+      }, 100);
+    }
+
+    function stopTimer() {
+      if (timerInterval) {
+        clearInterval(timerInterval);
+        timerInterval = null;
+      }
+    }
+
+    function triggerMarioJump() {
+      const mario = document.getElementById('mario-sprite');
+      mario.classList.remove('jump');
+      void mario.offsetWidth;
+      mario.classList.add('jump');
+    }
+
+    function shuffle(array) {
+      const arr = [...array];
+      for (let i = arr.length - 1; i > 0; i--) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [arr[i], arr[j]] = [arr[j], arr[i]];
+      }
+      return arr;
+    }
+
+    function renderStageButtons() {
+      const bar = document.getElementById('stage-bar');
+      bar.innerHTML = '';
+      STAGES.forEach((_, idx) => {
+        const btn = document.createElement('button');
+        btn.className = 'stage-btn' +
+          (idx === currentStageIndex ? ' active' : '') +
+          (clearedStages.has(idx) ? ' cleared' : '');
+        btn.textContent = `1-${idx + 1}` + (clearedStages.has(idx) ? ' ★' : '');
+        btn.onclick = () => loadStage(idx, true);
+        bar.appendChild(btn);
+      });
+    }
+
+    function loadStage(index, resetTimerFlag = true) {
+      currentStageIndex = index;
+      flippedCards = [];
+      matchedCount = 0;
+      flips = 0;
+      lockBoard = false;
+
+      if (gameMode === 'stage') {
+        baseScore = 0;
+      }
+
+      document.getElementById('clear-modal').classList.remove('show');
+      renderStageButtons();
+      updateHUD();
+      startTimer(resetTimerFlag);
+
+      const collectedList = document.getElementById('collected-list');
+      collectedList.innerHTML = `
+        <div class="empty-deck-hint" id="empty-hint">
+          まだカードがありません<br>
+          <span style="font-size:12px;">MATCH CARDS TO MOVE THEM HERE!</span>
+        </div>
+      `;
+
+      const vocabList = STAGES[index];
+      let cardsData = [];
+
+      vocabList.forEach(item => {
+        // ถ้าไม่มีคันจิ (เช่นคำคาตาคานะ ハンサム) จะสร้างแค่ 2 ใบ
+        const requiredCount = item.kanji ? 3 : 2;
+        cardsData.push({ vocabId: item.id, required: requiredCount, type: 'hira', label: 'よみかた', text: item.hira });
+        if (item.kanji) {
+          cardsData.push({ vocabId: item.id, required: requiredCount, type: 'kanji', label: 'かんじ', text: item.kanji });
+        }
+        cardsData.push({ vocabId: item.id, required: requiredCount, type: 'thai', label: 'いみ', text: item.thai });
+      });
+
+      cardsData = shuffle(cardsData);
+
+      const board = document.getElementById('board');
+      board.innerHTML = '';
+
+      cardsData.forEach(data => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.dataset.vocabId = data.vocabId;
+        card.dataset.required = data.required;
+        card.dataset.type = data.type;
+
+        card.innerHTML = `
+          <div class="card-inner">
+            <div class="card-face card-front">
+              <span class="q-mark">?</span>
+            </div>
+            <div class="card-face card-back type-${data.type}">
+              <span class="type-tag">${data.label}</span>
+              <div class="card-text">${data.text}</div>
+            </div>
+          </div>
+        `;
+
+        card.addEventListener('click', () => handleCardClick(card));
+        board.appendChild(card);
+      });
+    }
+
+    function addToCollectedDeck(vocabId) {
+      const vocab = ALL_VOCAB.find(v => v.id === Number(vocabId));
+      if (!vocab) return;
+
+      const emptyHint = document.getElementById('empty-hint');
+      if (emptyHint) emptyHint.remove();
+
+      const collectedList = document.getElementById('collected-list');
+      const stack = document.createElement('div');
+      stack.className = 'matched-stack';
+
+      const kanjiHtml = vocab.kanji
+        ? `<div class="mini-card hira">${vocab.hira}</div><div class="mini-card kanji">${vocab.kanji}</div>`
+        : `<div class="mini-card hira full-span">${vocab.hira}</div>`;
+
+      stack.innerHTML = `
+        <span class="stack-badge">SET #${matchedCount}</span>
+        <div class="stack-cards">
+          ${kanjiHtml}
+          <div class="mini-card thai">${vocab.thai}</div>
+        </div>
+      `;
+      collectedList.prepend(stack);
+    }
+
+    function collectMatchedCards(cardsToCollect) {
+      lockBoard = true;
+      sfxCoin();
+      triggerMarioJump();
+
+      const matchedVocabId = cardsToCollect[0].dataset.vocabId;
+      matchedCount++;
+      baseScore += 500;
+      updateHUD();
+
+      setTimeout(() => {
+        cardsToCollect.forEach(c => c.classList.add('collecting'));
+      }, 380);
+
+      setTimeout(() => {
+        cardsToCollect.forEach(c => {
+          const emptySlot = document.createElement('div');
+          emptySlot.className = 'card-slot-empty';
+          emptySlot.textContent = '★';
+          c.replaceWith(emptySlot);
+        });
+
+        addToCollectedDeck(matchedVocabId);
+        flippedCards = [];
+        lockBoard = false;
+
+        if (matchedCount === STAGES[currentStageIndex].length) {
+          clearedStages.add(currentStageIndex);
+          renderStageButtons();
+          handleStageClear();
+        }
+      }, 720);
+    }
+
+    function resetWrongCards(cardsToReset) {
+      lockBoard = true;
+      sfxWrong();
+      setTimeout(() => {
+        cardsToReset.forEach(c => c.classList.add('wrong'));
+      }, 220);
+      setTimeout(() => {
+        cardsToReset.forEach(c => c.classList.remove('flipped', 'wrong'));
+        flippedCards = [];
+        lockBoard = false;
+      }, 880);
+    }
+
+    function handleCardClick(card) {
+      if (lockBoard) return;
+      if (card.classList.contains('flipped') || card.classList.contains('collecting')) return;
+
+      sfxFlip();
+      card.classList.add('flipped');
+      flippedCards.push(card);
+      flips++;
+      updateHUD();
+
+      const targetRequired = Number(flippedCards[0].dataset.required);
+
+      if (flippedCards.length === 2) {
+        const [c1, c2] = flippedCards;
+        // ถ้าใบที่ 2 ไม่ตรงกับใบแรก -> ผิดทันที
+        if (c1.dataset.vocabId !== c2.dataset.vocabId) {
+          resetWrongCards([c1, c2]);
+          return;
+        }
+        // ถ้าคำนี้มีแค่ 2 ใบ (เช่น ハンサム) และเปิดตรงกันแล้ว -> เก็บเข้ากองทันที!
+        if (targetRequired === 2) {
+          collectMatchedCards([c1, c2]);
+        }
+        return;
+      }
+
+      if (flippedCards.length === 3) {
+        const [c1, c2, c3] = flippedCards;
+        const isMatch = (c1.dataset.vocabId === c2.dataset.vocabId) &&
+                        (c2.dataset.vocabId === c3.dataset.vocabId);
+
+        if (isMatch) {
+          collectMatchedCards([c1, c2, c3]);
+        } else {
+          resetWrongCards([c1, c2, c3]);
+        }
+      }
+    }
+
+    function updateHUD() {
+      const totalInStage = STAGES[currentStageIndex].length;
+      document.getElementById('hud-world').textContent = `1-${currentStageIndex + 1}`;
+      document.getElementById('hud-matched').textContent = `${matchedCount}/${totalInStage}`;
+      document.getElementById('deck-count').textContent = `${matchedCount}/${totalInStage}`;
+      document.getElementById('hud-score').textContent = String(baseScore).padStart(5, '0');
+    }
+
+    function getStorageKey() {
+      return gameMode === 'all' ? 'nihongo_lb_all' : `nihongo_lb_stage_${currentStageIndex}`;
+    }
+
+    function saveScoreToLeaderboard(name, timeMs, finalScore) {
+      const key = getStorageKey();
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      list.push({ name, timeMs, score: finalScore, date: Date.now() });
+      list.sort((a, b) => a.timeMs - b.timeMs);
+      const top10 = list.slice(0, 10);
+      localStorage.setItem(key, JSON.stringify(top10));
+      return top10;
+    }
+
+    function renderLeaderboard(list) {
+      const container = document.getElementById('lb-list');
+      if (!list || list.length === 0) {
+        container.innerHTML = `<div style="text-align:center; color:#94a3b8; padding:12px;">NO RECORDS YET</div>`;
+        return;
+      }
+
+      container.innerHTML = list.map((item, idx) => {
+        const rankClass = idx === 0 ? 'r1' : idx === 1 ? 'r2' : idx === 2 ? 'r3' : '';
+        const medal = idx === 0 ? '👑' : idx === 1 ? '🥈' : idx === 2 ? '🥉' : `#${idx + 1}`;
+        return `
+          <div class="lb-row">
+            <span class="lb-rank ${rankClass}">${medal}</span>
+            <span class="lb-name">${escapeHtml(item.name)}</span>
+            <span class="lb-time">${formatTime(item.timeMs)}</span>
+            <span class="lb-pts">${item.score}p</span>
+          </div>
+        `;
+      }).join('');
+    }
+
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, m => ({ '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;' }[m]));
+    }
+
+    function handleStageClear() {
+      if (gameMode === 'all' && currentStageIndex < STAGES.length - 1) {
+        sfxCoin();
+        setTimeout(() => loadStage(currentStageIndex + 1, false), 600);
+        return;
+      }
+
+      stopTimer();
+      sfxClear();
+
+      const seconds = Math.max(1, Math.floor(elapsedMs / 1000));
+      const speedBonus = Math.max(100, (gameMode === 'all' ? 5000 : 1200) - (seconds * 15));
+      const finalScore = baseScore + speedBonus;
+
+      const topList = saveScoreToLeaderboard(playerName, elapsedMs, finalScore);
+
+      document.getElementById('result-stats').style.display = 'grid';
+      document.getElementById('res-name').textContent = playerName;
+      document.getElementById('res-time').textContent = formatTime(elapsedMs);
+      document.getElementById('res-score').textContent = finalScore;
+
+      const title = document.getElementById('modal-title');
+      const lbHeader = document.getElementById('lb-header');
+      const nextBtn = document.getElementById('next-stage-btn');
+
+      if (gameMode === 'all') {
+        title.textContent = `ALL 41 WORDS CLEAR! 🏆`;
+        lbHeader.textContent = `🏆 ALL WORLDS FASTEST RANKING`;
+        nextBtn.textContent = `PLAY AGAIN ↻`;
+      } else {
+        title.textContent = `WORLD 1-${currentStageIndex + 1} CLEAR!`;
+        lbHeader.textContent = `🏆 WORLD 1-${currentStageIndex + 1} FASTEST RANKING`;
+        nextBtn.textContent = currentStageIndex < STAGES.length - 1 ? `NEXT 1-${currentStageIndex + 2} ▶` : `PLAY AGAIN ↻`;
+      }
+
+      renderLeaderboard(topList);
+      document.getElementById('clear-modal').classList.add('show');
+    }
+
+    function openLeaderboardOnly() {
+      const key = getStorageKey();
+      const list = JSON.parse(localStorage.getItem(key) || '[]');
+      document.getElementById('result-stats').style.display = 'none';
+      document.getElementById('modal-title').textContent = `HALL OF FAME 🏆`;
+      document.getElementById('lb-header').textContent = gameMode === 'all'
+        ? `ALL 41 WORDS LEADERBOARD`
+        : `WORLD 1-${currentStageIndex + 1} LEADERBOARD`;
+      document.getElementById('next-stage-btn').textContent = `RESUME GAME ▶`;
+      renderLeaderboard(list);
+      document.getElementById('clear-modal').classList.add('show');
+    }
+
+    function nextStage() {
+      const modalTitle = document.getElementById('modal-title').textContent;
+      if (modalTitle.includes('HALL OF FAME')) {
+        document.getElementById('clear-modal').classList.remove('show');
+        return;
+      }
+      if (gameMode === 'all') {
+        clearedStages.clear();
+        baseScore = 0;
+        loadStage(0, true);
+        return;
+      }
+      if (currentStageIndex < STAGES.length - 1) {
+        loadStage(currentStageIndex + 1, true);
+      } else {
+        loadStage(0, true);
+      }
+    }
+
+    function resetCurrentStage() {
+      if (gameMode === 'all') {
+        clearedStages.clear();
+        baseScore = 0;
+        loadStage(0, true);
+      } else {
+        loadStage(currentStageIndex, true);
+      }
+    }
+
+    document.getElementById('player-name-input').addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') startGame();
+    });
+  </script>
+</body>
+</html>
