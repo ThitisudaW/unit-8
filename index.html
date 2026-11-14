@@ -1,26 +1,32 @@
 <!DOCTYPE html>
-<html lang="th">
+<html lang="ja">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>SUPER NIHONGO FLIP - Mario Dark World</title>
+  <title>SUPER NIHONGO FLIP - Mario Night World</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@700;900&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@700;900&family=Press+Start+2P&family=Prompt:wght@600;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-dark: #070913;
+      --sky-top: #040714;
+      --sky-mid: #0c1738;
+      --sky-bottom: #182b5c;
+      --hill-dark: #072916;
+      --hill-main: #0c4a27;
+      --hill-highlight: #166e3b;
+      --ground-top: #26a641;
+      --ground-dirt: #7c3814;
+      --ground-dark: #451c06;
       --brick-dark: #10243e;
-      --brick-border: #1e487a;
+      --brick-border: #2b5c99;
       --q-gold: #f8b800;
       --q-gold-light: #ffe066;
       --q-gold-dark: #b86f00;
       --pipe-green: #00a800;
-      --pipe-dark: #005800;
+      --pipe-light: #5cff5c;
+      --pipe-dark: #004d00;
       --mario-red: #e52521;
-      --card-hira: #16213e;
-      --card-kanji: #24163e;
-      --card-thai: #143628;
     }
 
     * {
@@ -31,751 +37,86 @@
     body {
       margin: 0;
       min-height: 100vh;
-      background-color: var(--bg-dark);
-      background-image:
-        radial-gradient(circle at 50% 0%, #131b3a 0%, #070913 75%),
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-      background-size: 100% 100%, 32px 32px, 32px 32px;
+      background: linear-gradient(180deg, var(--sky-top) 0%, var(--sky-mid) 55%, var(--sky-bottom) 100%);
       color: #fff;
-      font-family: 'Prompt', 'Noto Sans JP', sans-serif;
+      font-family: 'DotGothic16', 'Noto Sans JP', sans-serif;
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding-bottom: 40px;
-    }
-
-    /* HUD ด้านบนสไตล์เกมมาริโอ้ */
-    .hud {
-      width: 100%;
-      max-width: 960px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      padding: 16px 20px;
-      font-family: 'Press Start 2P', monospace;
-      font-size: 12px;
-      letter-spacing: 1px;
-      border-bottom: 4px solid var(--brick-border);
-      background: rgba(10, 14, 30, 0.9);
-      position: sticky;
-      top: 0;
-      z-index: 20;
-      box-shadow: 0 6px 20px rgba(0,0,0,0.7);
-    }
-
-    .hud-item {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: center;
-    }
-
-    .hud-label {
-      color: #8fa8d6;
-      font-size: 10px;
-    }
-
-    .hud-value {
-      color: #fff;
-      text-shadow: 2px 2px 0 #000;
-    }
-
-    .coin-icon {
-      display: inline-block;
-      width: 10px;
-      height: 14px;
-      background: var(--q-gold);
-      border: 2px solid #fff;
-      border-radius: 50%;
-      margin-right: 4px;
-      animation: coinSpin 1.2s infinite ease-in-out;
-    }
-
-    @keyframes coinSpin {
-      0%, 100% { transform: scaleX(1); }
-      50% { transform: scaleX(0.3); }
-    }
-
-    /* ส่วนหัวและตัวเลือกด่าน */
-    .header {
-      text-align: center;
-      margin: 22px 16px 12px;
-    }
-
-    .title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: clamp(16px, 3vw, 24px);
-      color: var(--q-gold);
-      text-shadow: 3px 3px 0 #8f1d1d, -1px -1px 0 #000;
-      margin: 0 0 10px;
-      line-height: 1.4;
-    }
-
-    .subtitle {
-      font-size: 14px;
-      color: #b8c7e8;
-      margin: 0 0 14px;
-    }
-
-    .legend {
-      display: flex;
-      justify-content: center;
-      gap: 10px;
-      flex-wrap: wrap;
-      margin-bottom: 16px;
-    }
-
-    .badge {
-      font-size: 12px;
-      padding: 4px 12px;
-      border-radius: 4px;
-      border: 2px solid rgba(255,255,255,0.25);
-      font-weight: 700;
-    }
-    .badge.hira { background: #1d4ed8; color: #dbeafe; }
-    .badge.kanji { background: #7e22ce; color: #f3e8ff; }
-    .badge.thai { background: #047857; color: #d1fae5; }
-
-    /* แถบเลือก World */
-    .stage-bar {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      justify-content: center;
-      margin-bottom: 18px;
-      padding: 0 12px;
-    }
-
-    .stage-btn {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 11px;
-      padding: 10px 14px;
-      background: var(--brick-dark);
-      color: #cbd5e1;
-      border: 3px solid var(--brick-border);
-      cursor: pointer;
-      box-shadow: 0 4px 0 #071120;
-      transition: transform 0.1s, background 0.2s;
-    }
-
-    .stage-btn:hover {
-      background: #18365c;
-      color: #fff;
-    }
-
-    .stage-btn.active {
-      background: var(--mario-red);
-      border-color: #ff8a80;
-      color: #fff;
-      box-shadow: 0 4px 0 #7f0000;
-    }
-
-    .stage-btn.cleared {
-      border-color: var(--pipe-green);
-      color: #6ee7b7;
-    }
-
-    /* กระดานการ์ด */
-    .board {
-      width: 100%;
-      max-width: 960px;
-      padding: 12px 16px;
-      display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(145px, 1fr));
-      gap: 14px;
-    }
-
-    @media (min-width: 768px) {
-      .board {
-        grid-template-columns: repeat(6, 1fr);
-      }
-    }
-
-    /* การ์ด 3D Flip */
-    .card {
-      aspect-ratio: 3 / 4;
-      perspective: 1000px;
-      cursor: pointer;
-    }
-
-    .card-inner {
+      padding-bottom: 130px;
       position: relative;
-      width: 100%;
-      height: 100%;
-      transition: transform 0.45s cubic-bezier(0.2, 0.85, 0.4, 1.2);
-      transform-style: preserve-3d;
+      overflow-x: hidden;
     }
 
-    .card.flipped .card-inner,
-    .card.matched .card-inner {
-      transform: rotateY(180deg);
-    }
-
-    .card-face {
-      position: absolute;
-      inset: 0;
-      backface-visibility: hidden;
-      border-radius: 6px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      text-align: center;
-    }
-
-    /* ด้านหลังการ์ด: กล่อง ? Block ของมาริโอ้ */
-    .card-front {
-      background: linear-gradient(135deg, var(--q-gold-light) 0%, var(--q-gold) 50%, var(--q-gold-dark) 100%);
-      border: 4px solid #3a2000;
-      box-shadow:
-        inset 3px 3px 0 rgba(255,255,255,0.6),
-        inset -3px -3px 0 rgba(0,0,0,0.4),
-        0 6px 0 #261400;
-      position: relative;
-    }
-
-    .card-front:hover {
-      filter: brightness(1.08);
-      transform: translateY(-3px);
-    }
-
-    /* หมุด 4 มุมของกล่องคำถาม */
-    .card-front::before {
-      content: "•   •";
-      position: absolute;
-      top: 6px;
-      left: 8px;
-      right: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #5c3300;
-    }
-    .card-front::after {
-      content: "•   •";
-      position: absolute;
-      bottom: 6px;
-      left: 8px;
-      right: 8px;
-      display: flex;
-      justify-content: space-between;
-      font-size: 12px;
-      color: #5c3300;
-    }
-
-    .q-mark {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 30px;
-      color: #fff6d6;
-      text-shadow: 3px 3px 0 #6e3b00;
-      animation: floatQ 1.8s infinite ease-in-out;
-    }
-
-    @keyframes floatQ {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    /* ด้านหน้าการ์ดเมื่อเปิด */
-    .card-back {
-      transform: rotateY(180deg);
-      border: 4px solid #fff;
-      box-shadow: 0 6px 14px rgba(0,0,0,0.6);
-    }
-
-    .card-back.type-hira {
-      background: radial-gradient(circle, #1e3a8a, #0f172a);
-      border-color: #60a5fa;
-    }
-
-    .card-back.type-kanji {
-      background: radial-gradient(circle, #581c87, #170d29);
-      border-color: #c084fc;
-    }
-
-    .card-back.type-thai {
-      background: radial-gradient(circle, #065f46, #06211a);
-      border-color: #34d399;
-    }
-
-    .type-tag {
-      position: absolute;
-      top: 6px;
-      font-size: 10px;
-      padding: 2px 7px;
-      border-radius: 3px;
-      background: rgba(0,0,0,0.45);
-      color: #e2e8f0;
-      letter-spacing: 0.5px;
-    }
-
-    .card-text {
-      font-weight: 900;
-      line-height: 1.3;
-      word-break: keep-all;
-    }
-
-    .type-hira .card-text {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(16px, 2.2vw, 21px);
-      color: #93c5fd;
-    }
-
-    .type-kanji .card-text {
-      font-family: 'Noto Sans JP', sans-serif;
-      font-size: clamp(20px, 2.8vw, 28px);
-      color: #f3e8ff;
-    }
-
-    .type-thai .card-text {
-      font-family: 'Prompt', sans-serif;
-      font-size: clamp(14px, 1.8vw, 17px);
-      color: #a7f3d0;
-    }
-
-    /* สถานะจับคู่สำเร็จ (3 ใบครบ) */
-    .card.matched .card-back {
-      background: linear-gradient(180deg, #064e3b 0%, #022c22 100%);
-      border-color: var(--q-gold);
-      box-shadow: 0 0 18px rgba(248, 184, 0, 0.55);
-    }
-
-    .card.matched {
-      animation: popSuccess 0.45s ease;
-    }
-
-    @keyframes popSuccess {
-      0% { transform: scale(1); }
-      45% { transform: scale(1.08); }
-      100% { transform: scale(1); }
-    }
-
-    /* สถานะเปิดผิด / เปิดไม่ครบ */
-    .card.wrong {
-      animation: shakeWrong 0.4s ease;
-    }
-
-    @keyframes shakeWrong {
-      0%, 100% { transform: translateX(0); }
-      25% { transform: translateX(-6px); }
-      75% { transform: translateX(6px); }
-    }
-
-    /* ปุ่มควบคุมด้านล่าง */
-    .controls {
-      margin-top: 20px;
-      display: flex;
-      gap: 14px;
-      flex-wrap: wrap;
-      justify-content: center;
-    }
-
-    .mario-btn {
-      font-family: 'Press Start 2P', 'Prompt', sans-serif;
-      font-size: 12px;
-      padding: 12px 20px;
-      background: var(--pipe-green);
-      color: #fff;
-      border: 4px solid #003800;
-      box-shadow: inset 3px 3px 0 #5cff5c, 0 5px 0 #002b00;
-      cursor: pointer;
-      text-shadow: 2px 2px 0 #003800;
-    }
-
-    .mario-btn:hover {
-      filter: brightness(1.1);
-    }
-
-    .mario-btn:active {
-      transform: translateY(3px);
-      box-shadow: inset 3px 3px 0 #5cff5c, 0 2px 0 #002b00;
-    }
-
-    /* Modal ผ่านด่าน */
-    .modal-backdrop {
+    /* ฉากหลังมาริโอ้กลางคืน (ดาว + ภูเขา + ท่อ + พื้นอิฐ) */
+    .mario-scenery {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, 0.82);
-      display: none;
-      align-items: center;
-      justify-content: center;
-      z-index: 50;
-      padding: 20px;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
     }
 
-    .modal-backdrop.show {
-      display: flex;
+    /* ดวงดาวพิกเซล */
+    .stars {
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(2px 2px at 10% 15%, #ffffff, transparent),
+        radial-gradient(2px 2px at 25% 8%, #ffe066, transparent),
+        radial-gradient(2px 2px at 42% 22%, #ffffff, transparent),
+        radial-gradient(3px 3px at 60% 12%, #93c5fd, transparent),
+        radial-gradient(2px 2px at 78% 18%, #ffffff, transparent),
+        radial-gradient(2px 2px at 90% 9%, #ffe066, transparent),
+        radial-gradient(2px 2px at 15% 35%, #ffffff, transparent),
+        radial-gradient(2px 2px at 52% 32%, #ffffff, transparent),
+        radial-gradient(2px 2px at 84% 38%, #93c5fd, transparent);
+      opacity: 0.85;
+      animation: twinkle 3s infinite alternate ease-in-out;
     }
 
-    .modal-box {
-      background: #0d152a;
-      border: 5px solid var(--q-gold);
-      box-shadow: 0 0 40px rgba(248, 184, 0, 0.4);
-      padding: 28px 24px;
-      max-width: 440px;
-      width: 100%;
-      text-align: center;
+    @keyframes twinkle {
+      0% { opacity: 0.55; }
+      100% { opacity: 1; }
+    }
+
+    /* ภูเขามาริโอ้ */
+    .hill {
+      position: absolute;
+      bottom: 64px;
+      background: linear-gradient(180deg, var(--hill-highlight) 0%, var(--hill-main) 25%, var(--hill-dark) 100%);
+      border: 4px solid #03140b;
+      border-bottom: none;
+      border-radius: 50% 50% 0 0 / 85% 85% 0 0;
+      box-shadow: inset 8px 8px 0 rgba(255,255,255,0.12);
+    }
+
+    /* ลายจุดบนภูเขาสไตล์ Super Mario World */
+    .hill::before,
+    .hill::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 26px;
+      background: #041c0f;
       border-radius: 8px;
+      opacity: 0.65;
     }
+    .hill::before { top: 28%; left: 34%; }
+    .hill::after { top: 42%; right: 32%; }
 
-    .modal-title {
-      font-family: 'Press Start 2P', monospace;
-      font-size: 18px;
-      color: var(--q-gold);
-      margin-bottom: 14px;
-      line-height: 1.5;
-    }
+    .hill-1 { left: -40px; width: 280px; height: 210px; }
+    .hill-2 { left: 22%; width: 170px; height: 125px; opacity: 0.85; }
+    .hill-3 { right: 14%; width: 320px; height: 240px; }
+    .hill-4 { right: -50px; width: 190px; height: 140px; opacity: 0.9; }
 
-    .modal-desc {
-      font-size: 15px;
-      color: #dbeafe;
-      margin-bottom: 22px;
-      line-height: 1.6;
-    }
-  </style>
-</head>
-<body>
-
-  <!-- HUD ด้านบน -->
-  <div class="hud">
-    <div class="hud-item">
-      <span class="hud-label">WORLD</span>
-      <span class="hud-value" id="hud-world">1-1</span>
-    </div>
-    <div class="hud-item">
-      <span class="hud-label">MATCHED</span>
-      <span class="hud-value"><span class="coin-icon"></span><span id="hud-matched">0/6</span></span>
-    </div>
-    <div class="hud-item">
-      <span class="hud-label">SCORE</span>
-      <span class="hud-value" id="hud-score">00000</span>
-    </div>
-    <div class="hud-item">
-      <span class="hud-label">FLIPS</span>
-      <span class="hud-value" id="hud-flips">0</span>
-    </div>
-  </div>
-
-  <!-- ส่วนหัว -->
-  <div class="header">
-    <h1 class="title">SUPER NIHONGO FLIP</h1>
-    <p class="subtitle">เปิดการ์ดให้ครบทั้ง <strong>3 ใบ</strong> (คำอ่าน + คันจิ + ความหมาย) เพื่อเก็บเหรียญ!</p>
-    <div class="legend">
-      <span class="badge hira">🔵 คำอ่าน (ฮิรางานะ)</span>
-      <span class="badge kanji">🟣 คันจิ / ตัวเขียน</span>
-      <span class="badge thai">🟢 ความหมายภาษาไทย</span>
-    </div>
-  </div>
-
-  <!-- ตัวเลือกด่าน -->
-  <div class="stage-bar" id="stage-bar"></div>
-
-  <!-- กระดานการ์ด -->
-  <div class="board" id="board"></div>
-
-  <!-- ปุ่มควบคุม -->
-  <div class="controls">
-    <button class="mario-btn" onclick="resetCurrentStage()">🔄 สลับการ์ดด่านนี้ใหม่</button>
-  </div>
-
-  <!-- หน้าต่างผ่านด่าน -->
-  <div class="modal-backdrop" id="clear-modal">
-    <div class="modal-box">
-      <div class="modal-title" id="modal-title">COURSE CLEAR!</div>
-      <div class="modal-desc" id="modal-desc">ยอดเยี่ยม! จับคู่ครบทั้ง 3 รูปแบบทุกคำแล้ว</div>
-      <button class="mario-btn" id="next-stage-btn" onclick="nextStage()">ลุยด่านถัดไป ▶</button>
-    </div>
-  </div>
-
-  <script>
-    // รายการคำศัพท์ทั้งหมด 41 คำจากทั้ง 4 รูปภาพ
-    const ALL_VOCAB = [
-      // ภาพที่ 1 (10 คำ)
-      { id: 1,  hira: "ハンサム", kanji: "ハンサム (な)", thai: "หล่อ" },
-      { id: 2,  hira: "きれい",   kanji: "綺麗",         thai: "สวย / สะอาด" },
-      { id: 3,  hira: "しずか",   kanji: "静か",         thai: "เงียบ" },
-      { id: 4,  hira: "にぎやか", kanji: "賑やか",       thai: "คึกคัก" },
-      { id: 5,  hira: "ゆうめい", kanji: "有名",         thai: "มีชื่อเสียง" },
-      { id: 6,  hira: "しんせつ", kanji: "親切",         thai: "ใจดี / มีน้ำใจ" },
-      { id: 7,  hira: "げんき",   kanji: "元気",         thai: "แข็งแรง / สบายดี" },
-      { id: 8,  hira: "ひま",     kanji: "暇",           thai: "ว่าง" },
-      { id: 9,  hira: "べんり",   kanji: "便利",         thai: "สะดวก" },
-      { id: 10, hira: "すてき",   kanji: "素敵",         thai: "วิเศษ / ดูดี" },
-
-      // ภาพที่ 2 (12 คำ)
-      { id: 11, hira: "おおきい",   kanji: "大きい",   thai: "ใหญ่" },
-      { id: 12, hira: "ちいさい",   kanji: "小さい",   thai: "เล็ก" },
-      { id: 13, hira: "あたらしい", kanji: "新しい",   thai: "ใหม่" },
-      { id: 14, hira: "ふるい",     kanji: "古い",     thai: "เก่า" },
-      { id: 15, hira: "いい",       kanji: "良い",     thai: "ดี" },
-      { id: 16, hira: "わるい",     kanji: "悪い",     thai: "ไม่ดี / เลว" },
-      { id: 17, hira: "あつい",     kanji: "暑い / 熱い", thai: "ร้อน" },
-      { id: 18, hira: "さむい",     kanji: "寒い",     thai: "หนาว (อากาศ)" },
-      { id: 19, hira: "つめたい",   kanji: "冷たい",   thai: "เย็น (สิ่งของ)" },
-      { id: 20, hira: "むずかしい", kanji: "難しい",   thai: "ยาก" },
-      { id: 21, hira: "やさしい",   kanji: "易しい / 優しい", thai: "ง่าย / ใจดี" },
-      { id: 22, hira: "たかい",     kanji: "高い",     thai: "สูง / แพง" },
-
-      // ภาพที่ 3 (12 คำ)
-      { id: 23, hira: "やすい",     kanji: "安い",     thai: "ถูก (ราคา)" },
-      { id: 24, hira: "ひくい",     kanji: "低い",     thai: "ต่ำ / เตี้ย" },
-      { id: 25, hira: "おもしろい", kanji: "面白い",   thai: "น่าสนใจ / สนุก" },
-      { id: 26, hira: "おいしい",   kanji: "美味しい", thai: "อร่อย" },
-      { id: 27, hira: "いそがしい", kanji: "忙しい",   thai: "ยุ่ง" },
-      { id: 28, hira: "たのしい",   kanji: "楽しい",   thai: "สนุกสนาน" },
-      { id: 29, hira: "しろい",     kanji: "白い",     thai: "สีขาว" },
-      { id: 30, hira: "くろい",     kanji: "黒い",     thai: "สีดำ" },
-      { id: 31, hira: "あかい",     kanji: "赤い",     thai: "สีแดง" },
-      { id: 32, hira: "あおい",     kanji: "青い",     thai: "สีน้ำเงิน / ฟ้า" },
-      { id: 33, hira: "きいろい",   kanji: "黄色い",   thai: "สีเหลือง" },
-      { id: 34, hira: "ちゃいろい", kanji: "茶色い",   thai: "สีน้ำตาล" },
-
-      // ภาพที่ 4 (7 คำ)
-      { id: 35, hira: "あまい",     kanji: "甘い",     thai: "หวาน" },
-      { id: 36, hira: "からい",     kanji: "辛い",     thai: "เผ็ด" },
-      { id: 37, hira: "にがい",     kanji: "苦い",     thai: "ขม" },
-      { id: 38, hira: "しおからい", kanji: "塩辛い",   thai: "เค็ม" },
-      { id: 39, hira: "すっぱい",   kanji: "酸っぱい", thai: "เปรี้ยว" },
-      { id: 40, hira: "こい",       kanji: "濃い",     thai: "เข้มข้น" },
-      { id: 41, hira: "うすい",     kanji: "薄い",     thai: "จืด / จาง / บาง" }
-    ];
-
-    // แบ่งคำศัพท์เป็นด่านละ 6 คำ (ด่านสุดท้าย 5 คำ) รวม 7 ด่าน
-    const STAGE_SIZE = 6;
-    const STAGES = [];
-    for (let i = 0; i < ALL_VOCAB.length; i += STAGE_SIZE) {
-      STAGES.push(ALL_VOCAB.slice(i, i + STAGE_SIZE));
-    }
-
-    let currentStageIndex = 0;
-    let clearedStages = new Set();
-    let flippedCards = [];
-    let matchedCount = 0;
-    let totalScore = 0;
-    let flips = 0;
-    let lockBoard = false;
-
-    // ระบบเสียง 8-bit ด้วย Web Audio API (ไม่ต้องใช้ไฟล์เสียงภายนอก)
-    const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-    function playTone(freq, type, duration, delay = 0) {
-      if (audioCtx.state === 'suspended') audioCtx.resume();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
-      osc.type = type;
-      osc.frequency.setValueAtTime(freq, audioCtx.currentTime + delay);
-      gain.gain.setValueAtTime(0.12, audioCtx.currentTime + delay);
-      gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + delay + duration);
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
-      osc.start(audioCtx.currentTime + delay);
-      osc.stop(audioCtx.currentTime + delay + duration);
-    }
-
-    function sfxFlip() { playTone(520, 'square', 0.08); }
-    function sfxCoin() {
-      playTone(987.77, 'square', 0.09, 0);
-      playTone(1318.51, 'square', 0.25, 0.08);
-    }
-    function sfxWrong() {
-      playTone(190, 'sawtooth', 0.14, 0);
-      playTone(145, 'sawtooth', 0.2, 0.12);
-    }
-    function sfxClear() {
-      const notes = [523.25, 659.25, 783.99, 1046.50, 783.99, 1046.50];
-      notes.forEach((n, idx) => playTone(n, 'square', 0.14, idx * 0.11));
-    }
-
-    // สุ่มลำดับการ์ด
-    function shuffle(array) {
-      const arr = [...array];
-      for (let i = arr.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [arr[i], arr[j]] = [arr[j], arr[i]];
-      }
-      return arr;
-    }
-
-    // สร้างปุ่มเลือกด่าน
-    function renderStageButtons() {
-      const bar = document.getElementById('stage-bar');
-      bar.innerHTML = '';
-      STAGES.forEach((_, idx) => {
-        const btn = document.createElement('button');
-        btn.className = 'stage-btn' +
-          (idx === currentStageIndex ? ' active' : '') +
-          (clearedStages.has(idx) ? ' cleared' : '');
-        btn.textContent = `1-${idx + 1}` + (clearedStages.has(idx) ? ' ★' : '');
-        btn.onclick = () => loadStage(idx);
-        bar.appendChild(btn);
-      });
-    }
-
-    // โหลดด่านที่เลือก
-    function loadStage(index) {
-      currentStageIndex = index;
-      flippedCards = [];
-      matchedCount = 0;
-      flips = 0;
-      lockBoard = false;
-
-      document.getElementById('clear-modal').classList.remove('show');
-      renderStageButtons();
-      updateHUD();
-
-      const vocabList = STAGES[index];
-      let cardsData = [];
-
-      vocabList.forEach(item => {
-        cardsData.push({ vocabId: item.id, type: 'hira', label: 'คำอ่าน', text: item.hira });
-        cardsData.push({ vocabId: item.id, type: 'kanji', label: 'คันจิ', text: item.kanji });
-        cardsData.push({ vocabId: item.id, type: 'thai', label: 'ความหมาย', text: item.thai });
-      });
-
-      cardsData = shuffle(cardsData);
-
-      const board = document.getElementById('board');
-      board.innerHTML = '';
-
-      cardsData.forEach(data => {
-        const card = document.createElement('div');
-        card.className = 'card';
-        card.dataset.vocabId = data.vocabId;
-        card.dataset.type = data.type;
-
-        card.innerHTML = `
-          <div class="card-inner">
-            <div class="card-face card-front">
-              <span class="q-mark">?</span>
-            </div>
-            <div class="card-face card-back type-${data.type}">
-              <span class="type-tag">${data.label}</span>
-              <div class="card-text">${data.text}</div>
-            </div>
-          </div>
-        `;
-
-        card.addEventListener('click', () => handleCardClick(card));
-        board.appendChild(card);
-      });
-    }
-
-    // จัดการเมื่อคลิกการ์ด (ต้องเปิดให้ครบ 3 ใบที่เป็นคำเดียวกัน)
-    function handleCardClick(card) {
-      if (lockBoard) return;
-      if (card.classList.contains('flipped') || card.classList.contains('matched')) return;
-
-      sfxFlip();
-      card.classList.add('flipped');
-      flippedCards.push(card);
-      flips++;
-      updateHUD();
-
-      // เช็กทันทีเมื่อเปิดใบที่ 2 ว่าตรงกับใบแรกไหม (ถ้าไม่ตรงจะได้พลิกกลับเลย ไม่เสียเวลาเปิดใบที่ 3)
-      if (flippedCards.length === 2) {
-        const [c1, c2] = flippedCards;
-        if (c1.dataset.vocabId !== c2.dataset.vocabId) {
-          lockBoard = true;
-          sfxWrong();
-          setTimeout(() => {
-            c1.classList.add('wrong');
-            c2.classList.add('wrong');
-          }, 250);
-          setTimeout(() => {
-            c1.classList.remove('flipped', 'wrong');
-            c2.classList.remove('flipped', 'wrong');
-            flippedCards = [];
-            lockBoard = false;
-          }, 950);
-        }
-        return;
-      }
-
-      // เมื่อเปิดครบ 3 ใบ
-      if (flippedCards.length === 3) {
-        const [c1, c2, c3] = flippedCards;
-        const isMatch = (c1.dataset.vocabId === c2.dataset.vocabId) &&
-                        (c2.dataset.vocabId === c3.dataset.vocabId);
-
-        if (isMatch) {
-          sfxCoin();
-          c1.classList.add('matched');
-          c2.classList.add('matched');
-          c3.classList.add('matched');
-          flippedCards = [];
-          matchedCount++;
-          totalScore += 300;
-          updateHUD();
-
-          // เช็กว่าเคลียร์ครบทุกคำในด่านหรือยัง
-          if (matchedCount === STAGES[currentStageIndex].length) {
-            clearedStages.add(currentStageIndex);
-            renderStageButtons();
-            setTimeout(() => {
-              sfxClear();
-              showClearModal();
-            }, 500);
-          }
-        } else {
-          // ใบที่ 1 กับ 2 ตรงกัน แต่ใบที่ 3 ผิด (เลือกไม่ครบชุด!) -> พลิกกลับทั้งหมด
-          lockBoard = true;
-          sfxWrong();
-          setTimeout(() => {
-            c1.classList.add('wrong');
-            c2.classList.add('wrong');
-            c3.classList.add('wrong');
-          }, 250);
-          setTimeout(() => {
-            c1.classList.remove('flipped', 'wrong');
-            c2.classList.remove('flipped', 'wrong');
-            c3.classList.remove('flipped', 'wrong');
-            flippedCards = [];
-            lockBoard = false;
-          }, 1050);
-        }
-      }
-    }
-
-    function updateHUD() {
-      document.getElementById('hud-world').textContent = `1-${currentStageIndex + 1}`;
-      document.getElementById('hud-matched').textContent = `${matchedCount}/${STAGES[currentStageIndex].length}`;
-      document.getElementById('hud-score').textContent = String(totalScore).padStart(5, '0');
-      document.getElementById('hud-flips').textContent = flips;
-    }
-
-    function showClearModal() {
-      const modal = document.getElementById('clear-modal');
-      const title = document.getElementById('modal-title');
-      const desc = document.getElementById('modal-desc');
-      const btn = document.getElementById('next-stage-btn');
-
-      if (currentStageIndex < STAGES.length - 1) {
-        title.textContent = `WORLD 1-${currentStageIndex + 1} CLEAR!`;
-        desc.textContent = `เก่งมาก! คุณจับคู่ครบทั้ง 3 ใบทุกคำศัพท์แล้ว คะแนนสะสมตอนนี้ ${totalScore} แต้ม`;
-        btn.textContent = `ลุยด่าน 1-${currentStageIndex + 2} ▶`;
-      } else {
-        title.textContent = `ALL WORLDS CLEAR! 🏆`;
-        desc.textContent = `สุดยอด! คุณพิชิตคำศัพท์ภาษาญี่ปุ่นครบทั้ง 41 คำ (123 ใบ) แล้ว คะแนนรวม ${totalScore} แต้ม`;
-        btn.textContent = `เล่นใหม่ตั้งแต่ 1-1 ↻`;
-      }
-      modal.classList.add('show');
-    }
-
-    function nextStage() {
-      if (currentStageIndex < STAGES.length - 1) {
-        loadStage(currentStageIndex + 1);
-      } else {
-        loadStage(0);
-      }
-    }
-
-    function resetCurrentStage() {
-      loadStage(currentStageIndex);
-    }
-
-    // เริ่มเกมที่ด่าน 1-1
-    loadStage(0);
-  </script>
-</body>
-</html>
+    /* พุ่มไม้พิกเซล */
+    .bush {
+      position: absolute;
+      bottom: 64px;
+      height: 36px;
+      background: #15803d;
+      border: 4px solid #052e16;
+      border-bottom: none;
+      border-radius: 20px 20px 0 0;
+      box
