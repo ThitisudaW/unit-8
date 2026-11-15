@@ -568,13 +568,13 @@
       animation: pulseText 1.6s infinite alternate ease-in-out;
     }
     .lobby-status-banner.live-now {
-      color: #4ade80;
+      color: #fb923c;
     }
     @keyframes pulseText { from { opacity: 0.78; } to { opacity: 1; } }
 
     .blooket-players-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(175px, 1fr));
+      grid-template-columns: repeat(auto-fill, minmax(195px, 1fr));
       gap: 12px;
       align-content: start;
     }
@@ -585,17 +585,30 @@
       border-radius: 14px;
       padding: 10px 12px;
       display: flex;
-      align-items: center;
-      gap: 10px;
+      flex-direction: column;
+      gap: 8px;
       text-align: left;
       box-shadow: 0 6px 0 #0f172a;
       animation: popBlook 0.35s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+    }
+
+    .blook-card-main {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
     }
 
     .blook-card.is-host {
       background: linear-gradient(180deg, rgba(153, 27, 27, 0.96) 0%, rgba(69, 10, 10, 0.96) 100%);
       border-color: var(--q-gold);
       box-shadow: 0 6px 0 #260505, 0 0 20px rgba(255, 202, 40, 0.45);
+    }
+
+    .blook-card.is-pending {
+      background: linear-gradient(180deg, rgba(146, 64, 14, 0.96) 0%, rgba(69, 26, 3, 0.96) 100%);
+      border-color: #fb923c;
+      box-shadow: 0 6px 0 #271000, 0 0 18px rgba(251, 146, 60, 0.5);
     }
 
     .blook-card.is-me {
@@ -625,6 +638,9 @@
       border-color: var(--q-gold);
       background: rgba(69, 10, 10, 0.85);
     }
+    .blook-card.is-pending .blook-avatar-wrap {
+      border-color: #fdba74;
+    }
     .blook-avatar-svg {
       width: 42px;
       height: 42px;
@@ -648,6 +664,7 @@
       display: flex;
       align-items: center;
       gap: 5px;
+      flex-wrap: wrap;
     }
 
     .blook-badge-num {
@@ -688,6 +705,39 @@
     .blook-card.is-host .blook-role-tag {
       background: var(--q-gold);
       color: #3b1d00;
+    }
+    .blook-card.is-pending .blook-role-tag {
+      background: #f97316;
+      color: #fff;
+    }
+
+    .host-approve-actions {
+      display: flex;
+      gap: 6px;
+      width: 100%;
+    }
+    .mini-approve-btn {
+      flex: 1;
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 7px 4px;
+      border-radius: 7px;
+      border: 2px solid #052e16;
+      background: #22c55e;
+      color: #fff;
+      text-shadow: 1px 1px 0 #052e16;
+      cursor: pointer;
+    }
+    .mini-reject-btn {
+      font-family: 'Press Start 2P', monospace;
+      font-size: 8px;
+      padding: 7px 8px;
+      border-radius: 7px;
+      border: 2px solid #450a0a;
+      background: #ef4444;
+      color: #fff;
+      text-shadow: 1px 1px 0 #450a0a;
+      cursor: pointer;
     }
 
     .host-control-dock {
@@ -1107,6 +1157,22 @@
     .progress-bar-bg { width: 100%; height: 5px; background: #070d1f; border-radius: 4px; overflow: hidden; }
     .progress-bar-fill { height: 100%; background: linear-gradient(90deg, #38bdf8, #4ade80); transition: width 0.3s ease; }
 
+    /* แถบแจ้งเตือนคนขอเข้าเกมระหว่างเล่น */
+    .late-join-banner {
+      background: linear-gradient(135deg, #9a3412, #7c2d12);
+      border: 2px solid #fb923c;
+      border-radius: 10px;
+      padding: 8px 10px;
+      margin-bottom: 8px;
+      display: none;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-size: 11px;
+      color: #ffedd5;
+    }
+    .late-join-banner.show { display: flex; }
+
     .collected-list { display: flex; flex-direction: column; gap: 8px; max-height: 360px; overflow-y: auto; }
     .empty-deck-hint { text-align: center; padding: 20px 8px; color: #94a3b8; font-size: 12px; border: 2px dashed rgba(148, 163, 184, 0.3); border-radius: 10px; }
     .matched-stack { background: linear-gradient(135deg, #102a43 0%, #09192f 100%); border: 2px solid #38bdf8; border-radius: 10px; padding: 8px; position: relative; }
@@ -1127,6 +1193,7 @@
       cursor: pointer; text-shadow: 2px 2px 0 #003800;
     }
     .mario-btn.secondary { background: #2563eb; border-color: #1e3a8a; box-shadow: inset 2px 2px 0 #93c5fd, 0 4px 0 #172554; text-shadow: 2px 2px 0 #172554; }
+    .mario-btn.warning { background: #ea580c; border-color: #7c2d12; box-shadow: inset 2px 2px 0 #fdba74, 0 4px 0 #431407; text-shadow: 2px 2px 0 #431407; }
     .mario-btn.danger { background: #dc2626; border-color: #7f1d1d; box-shadow: inset 2px 2px 0 #fca5a5, 0 4px 0 #450a0a; text-shadow: 2px 2px 0 #450a0a; }
     .mario-btn:active { transform: translateY(3px); }
 
@@ -1700,8 +1767,11 @@
           ALL 41 WORDS
         </button>
       </div>
-      <button class="mario-btn" style="font-size:13px; padding:14px 22px;" onclick="hostStartAllPlayers()">
+      <button class="mario-btn" style="font-size:12px; padding:14px 20px;" onclick="hostStartAllPlayers()">
         START GAME FOR EVERYONE
+      </button>
+      <button class="mario-btn warning" id="host-approve-all-btn" style="display:none; font-size:11px; padding:14px 14px;" onclick="hostApproveAllPending()">
+        ALLOW ALL (<span id="pending-count-badge">0</span>)
       </button>
       <button class="mario-btn danger" style="font-size:10px; padding:14px 12px;" onclick="resetRoomLobby()">
         CLEAR ROOM
@@ -1757,6 +1827,12 @@
       </div>
 
       <div class="tab-pane active" id="pane-live">
+        <!-- แถบแจ้งเตือนสำหรับ マイ先生 เวลามีคนเข้ามาทีหลัง -->
+        <div class="late-join-banner" id="late-join-banner">
+          <span>NEW PLAYER WAITING (<b id="late-join-count">0</b>)</span>
+          <button class="mini-approve-btn" style="flex:none; padding:6px 10px;" onclick="hostApproveAllPending()">ALLOW</button>
+        </div>
+
         <div class="live-list" id="live-list">
           <div style="text-align:center; color:#94a3b8; padding:20px;">กำลังรอข้อมูลผู้เล่น...</div>
         </div>
@@ -2054,11 +2130,15 @@
       return ANIMAL_AVATARS_15[hash % ANIMAL_AVATARS_15.length];
     }
 
-    const SESSION_KEY = "nihongo_flip_player_session_v1";
-    let savedSession = null;
-    try {
-      savedSession = JSON.parse(sessionStorage.getItem(SESSION_KEY) || "null");
-    } catch (e) { savedSession = null; }
+    // ================= เก็บ Session ลง localStorage เพื่อกู้คืนอัตโนมัติเวลาเน็ตหลุด =================
+    const STORAGE_KEY = "nihongo_flip_persistent_session_v2";
+    function loadSavedSession() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "null");
+      } catch (e) { return null; }
+    }
+
+    let savedSession = loadSavedSession();
 
     let myPlayerId = (savedSession && savedSession.playerId)
       ? savedSession.playerId
@@ -2067,6 +2147,7 @@
     let playerName = (savedSession && savedSession.playerName) ? savedSession.playerName : "";
     let isHostSensei = (playerName === HOST_SECRET_NAME);
     let hasJoined = Boolean(savedSession && savedSession.hasJoined && playerName);
+    let isApproved = Boolean(savedSession && savedSession.isApproved) || isHostSensei;
     let gameMode = "stage";
     let currentStageIndex = 0;
     let clearedStages = new Set();
@@ -2085,10 +2166,11 @@
 
     function saveMySession() {
       try {
-        sessionStorage.setItem(SESSION_KEY, JSON.stringify({
+        localStorage.setItem(STORAGE_KEY, JSON.stringify({
           playerId: myPlayerId,
           playerName: playerName,
           hasJoined: hasJoined,
+          isApproved: isApproved,
           roomStartTime: roomStartTime,
           currentStageIndex: currentStageIndex,
           clearedStages: Array.from(clearedStages),
@@ -2118,6 +2200,7 @@
         statusBadge.textContent = "SERVER ONLINE";
         statusBadge.className = "conn-badge online";
 
+        // เมื่อเน็ตกลับมาเชื่อมต่อใหม่ ให้ซิงก์สถานะล่าสุดขึ้น Firebase อัตโนมัติ
         if (hasJoined && playerName) {
           reRegisterPlayerToFirebase();
         }
@@ -2132,23 +2215,33 @@
       checkHostPrivilege(playerName);
       document.getElementById('player-name-input').value = playerName;
       document.getElementById('hud-player').textContent = playerName;
-      document.getElementById('join-btn').textContent = "IN LOBBY";
-      document.getElementById('join-btn').style.background = "#059669";
+      document.getElementById('join-btn').textContent = (isHostSensei || isApproved) ? "IN LOBBY" : "WAITING APPROVAL";
+      document.getElementById('join-btn').style.background = (isHostSensei || isApproved) ? "#059669" : "#d97706";
       document.getElementById('leave-lobby-btn').style.display = "inline-block";
+
+      // เช็กข้อมูลเดิมบน Firebase (ถ้ามี) เพื่อป้องกันการทับสิทธิ์ approved
+      const existingData = livePlayersData[myPlayerId];
+      if (existingData && existingData.approved === true) {
+        isApproved = true;
+      }
 
       const currentMatched = gameMode === 'all' ? totalMatchedAllStages : matchedCount;
       const isDone = myFinishTimeMs !== null;
       const playerRef = db.ref(`room/players/${myPlayerId}`);
 
-      playerRef.set({
+      // ยกเลิก onDisconnect().remove() เพื่อไม่ให้ผู้เล่นหลุดออกจากห้องเวลาเน็ตสะดุด
+      playerRef.onDisconnect().cancel();
+
+      playerRef.update({
         name: playerName,
         isHost: isHostSensei,
+        approved: isHostSensei ? true : isApproved,
         matched: currentMatched,
         score: baseScore,
         finished: isDone,
-        finishTimeMs: isDone ? myFinishTimeMs : null
+        finishTimeMs: isDone ? myFinishTimeMs : null,
+        lastSeen: Date.now()
       });
-      playerRef.onDisconnect().remove();
     }
 
     const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
@@ -2242,41 +2335,83 @@
         alert("なまえをいれてください / กรุณากรอกชื่อก่อนเข้าห้องครับ");
         return;
       }
+
+      const isGameCurrentlyRunning = (currentRoomState && currentRoomState.status === 'playing' && currentRoomState.startedAt);
+      const savedSameMatch = (
+        savedSession &&
+        savedSession.playerName === input &&
+        savedSession.roomStartTime === currentRoomState.startedAt &&
+        savedSession.isApproved
+      );
+
+      // เช็กใน Firebase ว่ามีชื่อผู้เล่นเดิมที่ได้รับอนุมัติในรอบนี้แล้วหรือยัง (สำหรับกู้คืนเมื่อเน็ตหลุด/รีเฟรช)
+      let matchedExistingId = null;
+      let matchedExistingPlayer = null;
+      if (isGameCurrentlyRunning) {
+        for (const [pid, pData] of Object.entries(livePlayersData)) {
+          if (pData && pData.name === input && pData.approved === true) {
+            matchedExistingId = pid;
+            matchedExistingPlayer = pData;
+            break;
+          }
+        }
+      }
+
       playerName = input;
       hasJoined = true;
       checkHostPrivilege(playerName);
+
+      if (matchedExistingId && matchedExistingPlayer) {
+        // เป็นผู้เล่นเดิมที่เคยเข้าเกมรอบนี้ไว้แล้ว -> กู้คืน ID เดิมและเข้าเล่นต่อทันที
+        myPlayerId = matchedExistingId;
+        isApproved = true;
+        saveMySession();
+
+        document.getElementById('hud-player').textContent = playerName;
+        document.getElementById('join-btn').textContent = "IN LOBBY";
+        document.getElementById('join-btn').style.background = "#059669";
+        document.getElementById('leave-lobby-btn').style.display = "inline-block";
+
+        beginMatchForMe(currentRoomState.startedAt, currentRoomState.mode, matchedExistingPlayer);
+        return;
+      }
+
+      if (savedSameMatch) {
+        isApproved = true;
+        saveMySession();
+        beginMatchForMe(currentRoomState.startedAt, currentRoomState.mode);
+        return;
+      }
+
+      // ถ้าเป็นคนใหม่ที่เข้ามาทีหลังตอนเกมเริ่มไปแล้ว -> ต้องรอ マイ先生 อนุญาต (approved: false)
+      // ถ้าเกมยังไม่เริ่ม -> อนุมัติเตรียมพร้อมไว้สำหรับกด Start พร้อมกัน
+      const canAutoApprove = isHostSensei || !isGameCurrentlyRunning;
+      isApproved = canAutoApprove;
       saveMySession();
 
       document.getElementById('hud-player').textContent = playerName;
       document.getElementById('join-btn').textContent = "JOINING...";
 
-      if (isHostSensei) {
-        document.getElementById('lobby-status-text').textContent =
-          "ようこそ マイ先生！みんながそろったら START を押してください！";
-      }
-
       const playerRef = db.ref(`room/players/${myPlayerId}`);
+      playerRef.onDisconnect().cancel();
+
       playerRef.set({
         name: playerName,
         isHost: isHostSensei,
+        approved: canAutoApprove,
         matched: 0,
         score: 0,
         finished: false,
-        finishTimeMs: null
+        finishTimeMs: null,
+        lastSeen: Date.now()
       }).then(() => {
-        document.getElementById('join-btn').textContent = "IN LOBBY";
-        document.getElementById('join-btn').style.background = "#059669";
+        document.getElementById('join-btn').textContent = canAutoApprove ? "IN LOBBY" : "WAITING APPROVAL";
+        document.getElementById('join-btn').style.background = canAutoApprove ? "#059669" : "#d97706";
         document.getElementById('leave-lobby-btn').style.display = "inline-block";
+        updateLobbyStatusText();
 
-        if (currentRoomState && currentRoomState.status === 'playing' && currentRoomState.startedAt) {
+        if (isHostSensei && isGameCurrentlyRunning) {
           beginMatchForMe(currentRoomState.startedAt, currentRoomState.mode);
-        } else {
-          db.ref('room/state').once('value').then((snap) => {
-            const st = snap.val();
-            if (st && st.status === 'playing' && st.startedAt && roomStartTime !== st.startedAt) {
-              beginMatchForMe(st.startedAt, st.mode);
-            }
-          });
         }
       }).catch((err) => {
         statusBadge.textContent = "RULES BLOCKED";
@@ -2284,8 +2419,32 @@
         document.getElementById('join-btn').textContent = "JOIN LOBBY";
         alert("ไม่สามารถบันทึกชื่อลง Firebase ได้ กรุณาเช็ก Rules ใน Firebase (" + err.message + ")");
       });
+    }
 
-      playerRef.onDisconnect().remove();
+    // ฟังก์ชันสำหรับ マイ先生 กดอนุญาตผู้เล่นที่เข้ามาทีหลัง
+    function hostApprovePlayer(targetPid) {
+      if (!isHostSensei || playerName !== HOST_SECRET_NAME) return;
+      db.ref(`room/players/${targetPid}`).update({
+        approved: true
+      });
+    }
+
+    function hostApproveAllPending() {
+      if (!isHostSensei || playerName !== HOST_SECRET_NAME) return;
+      const updates = {};
+      Object.entries(livePlayersData).forEach(([pid, p]) => {
+        if (p && p.approved === false) {
+          updates[`room/players/${pid}/approved`] = true;
+        }
+      });
+      if (Object.keys(updates).length > 0) {
+        db.ref().update(updates);
+      }
+    }
+
+    function hostKickPlayer(targetPid) {
+      if (!isHostSensei || playerName !== HOST_SECRET_NAME) return;
+      db.ref(`room/players/${targetPid}`).remove();
     }
 
     function leaveGameCompletely() {
@@ -2301,11 +2460,12 @@
       playerRef.remove();
 
       if (uiTimerInterval) clearInterval(uiTimerInterval);
-      try { sessionStorage.removeItem(SESSION_KEY); } catch (e) {}
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
       savedSession = null;
 
       myPlayerId = "p_" + Math.random().toString(36).substring(2, 9);
       hasJoined = false;
+      isApproved = false;
       playerName = "";
       isHostSensei = false;
       roomStartTime = 0;
@@ -2327,8 +2487,13 @@
     function updateLobbyStatusText() {
       const statusEl = document.getElementById('lobby-status-text');
       if (currentRoomState && currentRoomState.status === 'playing') {
-        statusEl.textContent = "GAME IN PROGRESS! ใส่ชื่อแล้วกด JOIN LOBBY เพื่อเข้าเกมทันที!";
-        statusEl.classList.add('live-now');
+        if (hasJoined && !isApproved) {
+          statusEl.textContent = "GAME ALREADY STARTED! รอ マイ先生 กดอนุญาตเข้าเกม... (マイ先生 の許可をまっています)";
+          statusEl.classList.add('live-now');
+        } else {
+          statusEl.textContent = "GAME IN PROGRESS! กรอกชื่อแล้วกด JOIN LOBBY เพื่อขออนุญาต マイ先生 เข้าร่วม";
+          statusEl.classList.add('live-now');
+        }
       } else {
         statusEl.textContent = isHostSensei
           ? "ようこそ マイ先生！みんながそろったら START を押してください！"
@@ -2342,21 +2507,40 @@
       if (!hasJoined) {
         joinWaitingRoom();
       }
-      const startTimestamp = Date.now();
-      db.ref('room/state').set({
-        status: 'playing',
-        startedAt: startTimestamp,
-        mode: gameMode
+      // อนุมัติทุกคนที่อยู่ในห้องรอตอนกดเริ่มเกมพร้อมกัน
+      const updates = {};
+      Object.keys(livePlayersData).forEach((pid) => {
+        updates[`room/players/${pid}/approved`] = true;
+        updates[`room/players/${pid}/matched`] = 0;
+        updates[`room/players/${pid}/score`] = 0;
+        updates[`room/players/${pid}/finished`] = false;
+        updates[`room/players/${pid}/finishTimeMs`] = null;
       });
+      updates['room/state'] = {
+        status: 'playing',
+        startedAt: Date.now(),
+        mode: gameMode
+      };
+      db.ref().update(updates);
     }
 
     function hostReturnEveryoneToLobby() {
       if (!isHostSensei || playerName !== HOST_SECRET_NAME) return;
-      db.ref('room/state').set({
-        status: 'waiting',
-        startedAt: 0,
-        mode: gameMode
+      const updates = {
+        'room/state': {
+          status: 'waiting',
+          startedAt: 0,
+          mode: gameMode
+        }
+      };
+      Object.keys(livePlayersData).forEach((pid) => {
+        updates[`room/players/${pid}/approved`] = true;
+        updates[`room/players/${pid}/matched`] = 0;
+        updates[`room/players/${pid}/score`] = 0;
+        updates[`room/players/${pid}/finished`] = false;
+        updates[`room/players/${pid}/finishTimeMs`] = null;
       });
+      db.ref().update(updates);
     }
 
     function resetRoomLobby() {
@@ -2366,8 +2550,9 @@
         players: null
       });
       hasJoined = false;
+      isApproved = false;
       clearSavedProgressOnly();
-      sessionStorage.removeItem(SESSION_KEY);
+      try { localStorage.removeItem(STORAGE_KEY); } catch (e) {}
       document.getElementById('join-btn').textContent = "JOIN LOBBY";
       document.getElementById('join-btn').style.background = "";
       document.getElementById('leave-lobby-btn').style.display = "none";
@@ -2376,6 +2561,7 @@
     function showLobbyScreen() {
       if (uiTimerInterval) clearInterval(uiTimerInterval);
       clearSavedProgressOnly();
+      roomStartTime = 0;
       document.getElementById('clear-modal').classList.remove('show');
       document.getElementById('stage-cheer-overlay').classList.remove('show');
       document.getElementById('lobby-screen').classList.remove('hidden');
@@ -2383,10 +2569,11 @@
       updateLobbyStatusText();
     }
 
-    function beginMatchForMe(startedAt, modeFromRoom) {
+    function beginMatchForMe(startedAt, modeFromRoom, fallbackFirebasePlayer = null) {
       gameMode = modeFromRoom || gameMode;
+      savedSession = loadSavedSession();
 
-      const isResumingSameMatch = (
+      const isResumingSameMatch = Boolean(
         savedSession &&
         savedSession.roomStartTime === startedAt &&
         savedSession.playerName === playerName
@@ -2402,11 +2589,21 @@
         totalMatchedAllStages = savedSession.totalMatchedAllStages || 0;
         baseScore = savedSession.baseScore || 0;
         myFinishTimeMs = savedSession.myFinishTimeMs !== undefined ? savedSession.myFinishTimeMs : null;
-        savedSession = null;
+      } else if (fallbackFirebasePlayer) {
+        clearSavedProgressOnly();
+        baseScore = fallbackFirebasePlayer.score || 0;
+        totalMatchedAllStages = fallbackFirebasePlayer.matched || 0;
+        if (gameMode === 'all') {
+          currentStageIndex = Math.min(STAGES.length - 1, Math.floor(totalMatchedAllStages / STAGE_SIZE));
+        }
+        if (fallbackFirebasePlayer.finished && fallbackFirebasePlayer.finishTimeMs) {
+          myFinishTimeMs = fallbackFirebasePlayer.finishTimeMs;
+        }
       } else {
         clearSavedProgressOnly();
       }
 
+      isApproved = true;
       saveMySession();
       checkHostPrivilege(playerName);
       document.getElementById('lobby-screen').classList.add('hidden');
@@ -2445,8 +2642,33 @@
 
     db.ref('room/players').on('value', (snap) => {
       livePlayersData = snap.val() || {};
+
+      // เช็กสถานะของตัวเองจาก Firebase (เช่น เซนเซย์เพิ่งกดอนุญาต หรือถูกเตะออกจากห้อง)
+      const meData = livePlayersData[myPlayerId];
+      if (hasJoined) {
+        if (!meData && currentRoomState.status === 'playing' && !isHostSensei) {
+          hasJoined = false;
+          isApproved = false;
+          saveMySession();
+          document.getElementById('join-btn').textContent = "JOIN LOBBY";
+          document.getElementById('join-btn').style.background = "";
+          document.getElementById('leave-lobby-btn').style.display = "none";
+          updateLobbyStatusText();
+        } else if (meData) {
+          const nowApproved = Boolean(meData.approved || isHostSensei);
+          if (nowApproved && !isApproved) {
+            isApproved = true;
+            saveMySession();
+            if (currentRoomState.status === 'playing' && currentRoomState.startedAt && roomStartTime !== currentRoomState.startedAt) {
+              beginMatchForMe(currentRoomState.startedAt, currentRoomState.mode, meData);
+            }
+          }
+        }
+      }
+
       renderLobbyPlayers(livePlayersData);
       renderLiveStandings(Date.now());
+      updatePendingAlerts(livePlayersData);
     });
 
     db.ref('room/state').on('value', (snap) => {
@@ -2455,12 +2677,39 @@
       currentRoomState = state;
       updateLobbyStatusText();
 
-      if (state.status === 'playing' && state.startedAt !== roomStartTime && hasJoined) {
-        beginMatchForMe(state.startedAt, state.mode);
+      if (state.status === 'playing' && state.startedAt && state.startedAt !== roomStartTime && hasJoined) {
+        const meData = livePlayersData[myPlayerId];
+        const amIAllowed = Boolean(isHostSensei || isApproved || (meData && meData.approved === true));
+        if (amIAllowed) {
+          beginMatchForMe(state.startedAt, state.mode, meData);
+        }
       } else if (state.status === 'waiting') {
         showLobbyScreen();
       }
     });
+
+    function updatePendingAlerts(playersObj) {
+      const pendingList = Object.entries(playersObj).filter(([, p]) => p && p.approved === false);
+      const count = pendingList.length;
+
+      const dockApproveBtn = document.getElementById('host-approve-all-btn');
+      const dockBadge = document.getElementById('pending-count-badge');
+      if (isHostSensei && count > 0) {
+        dockApproveBtn.style.display = 'inline-block';
+        dockBadge.textContent = count;
+      } else {
+        dockApproveBtn.style.display = 'none';
+      }
+
+      const lateBanner = document.getElementById('late-join-banner');
+      const lateCount = document.getElementById('late-join-count');
+      if (isHostSensei && count > 0) {
+        lateBanner.classList.add('show');
+        lateCount.textContent = count;
+      } else {
+        lateBanner.classList.remove('show');
+      }
+    }
 
     function renderLobbyPlayers(playersObj) {
       const grid = document.getElementById('blooket-players-grid');
@@ -2476,23 +2725,34 @@
       grid.innerHTML = entries.map(([pid, p], idx) => {
         const isMe = pid === myPlayerId ? ' is-me' : '';
         const isHost = p.isHost || p.name === HOST_SECRET_NAME;
-        const hostClass = isHost ? ' is-host' : '';
+        const isPending = (!isHost && p.approved === false);
+        const cardClass = isHost ? ' is-host' : (isPending ? ' is-pending' : '');
         const badgeText = isHost ? 'HOST' : `${idx + 1}P`;
-        const roleText = isHost ? 'SENSEI' : 'PLAYER';
+        const roleText = isHost ? 'SENSEI' : (isPending ? 'WAITING' : 'READY');
         const avatarSvg = getCharacterHeadSvg(p.name, isHost);
 
+        const hostApproveHtml = (isHostSensei && isPending) ? `
+          <div class="host-approve-actions">
+            <button class="mini-approve-btn" onclick="hostApprovePlayer('${pid}')">ALLOW</button>
+            <button class="mini-reject-btn" onclick="hostKickPlayer('${pid}')">X</button>
+          </div>
+        ` : '';
+
         return `
-          <div class="blook-card${hostClass}${isMe}">
-            <div class="blook-avatar-wrap">
-              ${avatarSvg}
-            </div>
-            <div class="blook-info">
-              <div class="blook-top-tags">
-                <span class="blook-badge-num">${badgeText}</span>
-                <span class="blook-role-tag">${roleText}</span>
+          <div class="blook-card${cardClass}${isMe}">
+            <div class="blook-card-main">
+              <div class="blook-avatar-wrap">
+                ${avatarSvg}
               </div>
-              <div class="blook-name">${escapeHtml(p.name)}</div>
+              <div class="blook-info">
+                <div class="blook-top-tags">
+                  <span class="blook-badge-num">${badgeText}</span>
+                  <span class="blook-role-tag">${roleText}</span>
+                </div>
+                <div class="blook-name">${escapeHtml(p.name)}</div>
+              </div>
             </div>
+            ${hostApproveHtml}
           </div>
         `;
       }).join('');
@@ -2500,7 +2760,7 @@
 
     function renderLiveStandings(now) {
       const listEl = document.getElementById('live-list');
-      const entries = Object.entries(livePlayersData);
+      const entries = Object.entries(livePlayersData).filter(([, p]) => p && p.approved !== false);
       if (entries.length === 0) return;
 
       const totalTarget = gameMode === 'all' ? ALL_VOCAB.length : STAGES[currentStageIndex].length;
@@ -2548,7 +2808,8 @@
       const updateData = {
         matched: currentMatched,
         score: baseScore,
-        finished: isDone
+        finished: isDone,
+        lastSeen: Date.now()
       };
       if (isDone) {
         updateData.finishTimeMs = myFinishTimeMs;
@@ -2778,7 +3039,7 @@
     }
 
     function openLeaderboardOnly(isCelebration = false) {
-      const entries = Object.entries(livePlayersData);
+      const entries = Object.entries(livePlayersData).filter(([, p]) => p && p.approved !== false);
       entries.sort(([, a], [, b]) => {
         if (a.finished && b.finished) return a.finishTimeMs - b.finishTimeMs;
         if (a.finished) return -1;
